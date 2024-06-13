@@ -1,0 +1,6 @@
+[submodule "submodules/tutorial-hxs-common"]
+	path = submodules/tutorial-hxs-common
+	url = https://github.com/eccelerators/tutorial-hxs-common.git
+[submodule "submodules/simstm"]
+	path = submodules/simstm
+	url = https://github.com/eccelerators/simstm.git
