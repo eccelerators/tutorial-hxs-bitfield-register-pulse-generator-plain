@@ -1,9 +1,10 @@
 namespace eccelerators.tutorial
 {
-	interface TutBitfieldRegisterIfc00
+	interface TutBitfieldRegisterIfc
 	{
 		AddressBusWidth = 8;
 		DataBusWidth = 32;
+		Blocks = [TutBlk];
 		block TutBlk
 		{
 			Registers = [TutReg];
@@ -17,9 +18,15 @@ namespace eccelerators.tutorial
 				{
 					Width = 16;
 				}
+				
 				enum CounterOperation
 				{
 					Width = 2;
+					Values = [
+						Halted,
+						SteppingUp,
+						SteppingDown
+					];
 					value Halted
 					{
 						Value = 0b00;
@@ -33,6 +40,7 @@ namespace eccelerators.tutorial
 						Value = 0b10;
 					}
 				}
+				
 			}
 		}
 	}
