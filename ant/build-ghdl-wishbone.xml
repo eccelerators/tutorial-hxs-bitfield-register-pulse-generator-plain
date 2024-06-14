@@ -1,0 +1,343 @@
+<?xml version="1.0" ?>
+<project name="ghdl-wishbone">
+   <property name="ghdl-executable" value="ghdl"/>
+   <property name="gtkwave-executable" value="gtkwave"/>
+
+   <target name="ghdl-wishbone-prepare" description="make work folder">
+      <mkdir dir="simulation/ghdl-wishbone/work"/>
+   </target>
+
+   <target name="ghdl-wishbone-clean" description="delete work folder">
+      <delete dir="simulation/ghdl-wishbone/work"/>
+   </target>
+
+   <target name="ghdl-wishbone-all"
+         description="all from scratch until interactive simulation" depends="
+     ghdl-wishbone-clean,
+     ghdl-wishbone-prepare,
+     ghdl-wishbone-compile,
+     ghdl-wishbone-elaborate,
+     ghdl-wishbone-simulate"/>
+
+   <target name="ghdl-wishbone-compile" depends="
+     -do_compile_ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_wishbone_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_avalon_pkg.vhd,
+     -do_compile_ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_base_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_base_pkg_body.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_instructions_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg_body.vhd,
+     -do_compile_ghdl-wishbone-submodules_simstm_src_tb_simstm.vhd,
+     -do_compile_ghdl-wishbone-src-gen_vhdl_wishbone_TutBitfieldRegisterIfc_TutBitfieldRegisterIfcPackage.vhd,
+     -do_compile_ghdl-wishbone-src_vhdl_TutBitfieldRegisterUserLogic.vhd,
+     -do_compile_ghdl-wishbone-src-gen_vhdl_wishbone_TutBitfieldRegisterIfcWishbone.vhd,
+     -do_compile_ghdl-wishbone-tb_hdl_tb_top_wishbone.vhd"
+         description="compile all"/>
+
+   <target name="ghdl-wishbone-elaborate" description="elaborate">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work">
+         <arg value="-m"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="tb_top_wishbone"/>
+      </exec>
+   </target>
+
+   <target name="ghdl-wishbone-simulate" description="run simulation">
+      <delete dir="simulation/ghdl-wishbone/../SimulationResults"/>
+      <mkdir dir="simulation/ghdl-wishbone/../SimulationResults"/>
+      <echo file="simulation/ghdl-wishbone/work/simulation.started" append="false">STARTED</echo>
+      <exec executable="${basedir}/simulation/ghdl-wishbone/work/tb_top_wishbone" dir="simulation/ghdl-wishbone/work">
+         <arg value="--stop-time=100ms"/>
+         <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+      </exec>
+      <echo file="simulation/ghdl-wishbone/work/simulation.ended" append="false">ENDED</echo>
+   </target>
+
+   <target name="ghdl-wishbone-simulate-gui" description="simulate and write trace.vcd">
+      <delete dir="simulation/ghdl-wishbone/../SimulationResults"/>
+      <mkdir dir="simulation/ghdl-wishbone/../SimulationResults"/>
+      <echo file="simulation/ghdl-wishbone/work/simulation.started" append="false">STARTED</echo>
+      <exec executable="${basedir}/simulation/ghdl-wishbone/work/tb_top_wishbone" dir="simulation/ghdl-wishbone/work">
+         <arg value="--stop-time=100ms"/>
+         <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="--vcd=trace.vcd"/>
+      </exec>
+      <exec executable="${gtkwave-executable}" dir="simulation/ghdl-wishbone/work">
+         <arg value="trace.vcd"/>
+         <arg value="gtk-waves.gtkw"/>
+      </exec>
+      <echo file="simulation/ghdl-wishbone/work/simulation.ended" append="false">ENDED</echo>
+   </target>
+
+   <target name="ghdl-wishbone-init-skip-properties">
+      <mkdir dir="simulation/ghdl-wishbone/work/TimeStamps"/>
+      <uptodate srcfile="${basedir}/tb/hdl/simstm_src_to_customize/tb_signals_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd" property="ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_wishbone_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_wishbone_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_bus_wishbone_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_axi4lite_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_axi4lite_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_avalon_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_avalon_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_bus_avalon_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/tb/hdl/simstm_src_to_customize/tb_bus_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd" property="ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_base_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_base_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_base_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_base_pkg_body.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_base_pkg_body.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_base_pkg_body.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_instructions_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_instructions_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_instructions_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_interpreter_pkg.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_interpreter_pkg_body.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg_body.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg_body.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_simstm.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_simstm.vhd" property="ghdl-wishbone-submodules_simstm_src_tb_simstm.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/src-gen/vhdl/wishbone/InterruptCollectorIfcPackage.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src-gen_vhdl_InterruptCollectorIfcPackage.vhd" property="ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcPackage.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/src/vhdl/InterruptCollector.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src_vhdl_InterruptCollector.vhd" property="ghdl-wishbone-src_vhdl_InterruptCollector.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/src-gen/vhdl/InterruptCollectorIfcWishbone.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src-gen_vhdl_InterruptCollectorIfcWishbone.vhd" property="ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcWishbone.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/tb/hdl/tb_top_wishbone.vhd" targetfile="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_tb_top_wishbone.vhd" property="ghdl-wishbone-tb_hdl_tb_top_wishbone.vhd.skip" value="true"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/tb/hdl/simstm_src_to_customize/tb_signals_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_simstm_src_to_customize_tb_signals_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_wishbone_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_bus_wishbone_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_bus_wishbone_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_wishbone_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_bus_axi4lite_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_axi4lite_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_bus_avalon_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_bus_avalon_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_bus_avalon_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_bus_avalon_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/tb/hdl/simstm_src_to_customize/tb_bus_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_simstm_src_to_customize_tb_bus_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="${basedir}/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_base_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_base_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_base_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_base_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_base_pkg_body.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_base_pkg_body.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_base_pkg_body.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_base_pkg_body.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_instructions_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_instructions_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_instructions_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_instructions_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_interpreter_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg_body.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_interpreter_pkg_body.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_interpreter_pkg_body.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg_body.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_simstm_src_tb_simstm.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_simstm_src_tb_simstm.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/simstm/src/tb_simstm.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_simstm_src_tb_simstm.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcPackage.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcPackage.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/interrupt-generator/src-gen/vhdl/wishbone/InterruptGeneratorIfcPackage.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcPackage.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_interrupt-generator_src_vhdl_InterruptGenerator.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_interrupt-generator_src_vhdl_InterruptGenerator.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/interrupt-generator/src/vhdl/InterruptGenerator.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_interrupt-generator_src_vhdl_InterruptGenerator.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcWishbone.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcWishbone.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/interrupt-generator/src-gen/vhdl/wishbone/InterruptGeneratorIfcWishbone.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_interrupt-generator_src-gen_vhdl_wishbone_InterruptGeneratorIfcWishbone.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_interrupt-dispatcher_src_vhdl_InterruptDispatcher.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_interrupt-dispatcher_src_vhdl_InterruptDispatcher.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/interrupt-dispatcher/src/vhdl/InterruptDispatcher.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_interrupt-dispatcher_src_vhdl_InterruptDispatcher.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_bus-join_src_vhdl_BusJoinWishbone.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_bus-join_src_vhdl_BusJoinWishbone.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/bus-join/src/vhdl/BusJoinWishbone.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_bus-join_src_vhdl_BusJoinWishbone.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcPackage.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcPackage.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/bus-divider/src-gen/vhdl/wishbone/BusDividerIfcPackage.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcPackage.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcWishbone.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcWishbone.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/submodules/bus-divider/src-gen/vhdl/wishbone/BusDividerIfcWishbone.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/submodules_bus-divider_src-gen_vhdl_wishbone_BusDividerIfcWishbone.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcPackage.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcPackage.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="${basedir}/src-gen/vhdl/InterruptCollectorIfcPackage.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src-gen_vhdl_InterruptCollectorIfcPackage.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-src_vhdl_InterruptCollector.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-src_vhdl_InterruptCollector.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="${basedir}/src/vhdl/InterruptCollector.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src_vhdl_InterruptCollector.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcWishbone.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-src-gen_vhdl_InterruptCollectorIfcWishbone.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="${basedir}/src-gen/vhdl/InterruptCollectorIfcWishbone.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/src-gen_vhdl_InterruptCollectorIfcWishbone.vhd"/>
+   </target>
+
+   <target name="-do_compile_ghdl-wishbone-tb_hdl_tb_top_wishbone.vhd" depends="ghdl-wishbone-init-skip-properties" unless="ghdl-wishbone-tb_hdl_tb_top_wishbone.vhd.skip">
+      <exec executable="${ghdl-executable}" dir="simulation/ghdl-wishbone/work" failonerror="true">
+         <arg value="-a"/>
+         <arg value="-v"/>
+         <arg value="--std=08"/>
+         <arg value="-frelaxed"/>
+         <arg value="${basedir}/tb/hdl/tb_top_wishbone.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/ghdl-wishbone/work/TimeStamps/tb_hdl_tb_top_wishbone.vhd"/>
+   </target>
+</project>
