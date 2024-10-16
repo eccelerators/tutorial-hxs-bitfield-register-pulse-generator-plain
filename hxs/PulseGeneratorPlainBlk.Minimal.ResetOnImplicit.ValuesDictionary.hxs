@@ -1,0 +1,29 @@
+namespace eccelerators.tutorial
+{
+	block PulseGeneratorPlainBlk
+	{
+		Registers = [ControlReg];
+		register ControlReg
+		{
+			Bits = [
+				PulseWidthNs,
+				Operation
+			];
+			data PulseWidthNs
+			{
+				Width = 24;
+				Resets = [
+					BusReset.Async( Value = 5000000)
+				];
+			}				
+			enum Operation
+			{
+				Width = 1;
+				Values = {
+					0b1 : value On {},
+					0b0 : value Off {}					
+				};
+			}			
+		}
+	}
+}

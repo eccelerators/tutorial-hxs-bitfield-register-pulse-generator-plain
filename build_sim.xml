@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TutBitfieldRegisterIfc">
+	
+
+	<!-- Properties -->
+	<property environment="env" />
+	
+	<!-- properties for local purposes, should be overriden by ci ant call e.g, with -Dpython-executable argument for ci purposes
+	
+	defaults :
+	
+	<property name="ghdl-executable" value="ghdl"/>
+    <property name="gtkwave-executable" value="gtkwave"/>
+    
+    <property name="vlib-executable" value="vlib"/>
+    <property name="vmap-executable" value="vmap"/>
+    <property name="vcom-executable" value="vcom"/>
+    <property name="vsim-executable" value="vsim"/>	
+    
+    override respectively by uncommenting e.g, for python the following line:
+	-->
+	<!-- <property name="python-executable" value="C:\Users\E212566412\AppData\Local\Programs\Python\Python38\python.exe"/> -->
+	
+	
+	<property name="ghdl-executable" value="ghdl"/>
+    <property name="gtkwave-executable" value="gtkwave"/>
+    
+    <property name="vlib-executable" value="vlib"/>
+    <property name="vmap-executable" value="vmap"/>
+    <property name="vcom-executable" value="vcom"/>
+    <property name="vsim-executable" value="vsim"/>
+	
+	
+	<property name="python-executable" value="/bin/python3"/>
+	
+	<property name="HXS_BUS_TYPE" value="wishbone"/>
+		
+	<property name="HXS_FILES"
+		value="
+		hxs/TutBitfieldRegisterIfc_00.hxs
+		"
+	/>
+	
+	<import file="helper/build-helper.xml" optional="true"/>
+	<import file="submodules/tutorial-hxs-common/build-hxs.xml" optional="true"/>   
+	<!-- <import file="submodules/basic-ant-builds/build-ip-vivado.xml" optional="true"/> -->
+	<import file="simulation/modelsim-wishbone/build-modelsim-wishbone.xml" optional="true"/>
+	<import file="simulation/ghdl-wishbone/build-ghdl-wishbone.xml" optional="true"/>
+
+	
+</project>
