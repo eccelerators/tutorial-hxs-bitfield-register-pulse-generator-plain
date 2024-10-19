@@ -20,22 +20,33 @@ var PulseGeneratorPlainIfcAddress 0
 bus PulseGeneratorPlainIfcBus 0
 
 var PulseGeneratorPlainBlkAddress 0x0000
-const PulseGeneratorPlainBlkSize 0x0004
+const PulseGeneratorPlainBlkSize 0x0008
 
 var ControlRegAddress 0x0000
-const ControlRegWidth 25
+const ControlRegWidth 26
 
-const OperationMask 0x1000000
+const OperationMask 0x3000000
 const OperationPosition 24
-const OperationWidth 1
-const OffMVal 0x0000000
-const OnMVal 0x1000000
+const OperationWidth 2
+const ClearedMVal 0x0000000
+const StoppedMVal 0x1000000
+const RunningMValAMask 0x2000000
+const RunningMValListSize 2
+array RunningMValList 2
 const OperationBusResetMRstVal 0x0000000
 
 const PulseWidthNsMask 0x0FFFFFF
 const PulseWidthNsPosition 0
 const PulseWidthNsWidth 24
 const PulseWidthNsBusResetMRstVal 0x0000000
+
+var ParameterRegAddress 0x0000
+const ParameterRegWidth 24
+
+const PulsePeriodNsMask 0xFFFFFF
+const PulsePeriodNsPosition 0
+const PulsePeriodNsWidth 24
+const PulsePeriodNsBusResetMRstVal 0x000000
 
 
 PulseGeneratorPlainIfcInit:
@@ -49,14 +60,19 @@ PulseGeneratorPlainBlkInit:
 proc
     equ ControlRegAddress 0x0000
     add ControlRegAddress $PulseGeneratorPlainBlkAddress
+    equ ParameterRegAddress 0x0004
+    add ParameterRegAddress $PulseGeneratorPlainBlkAddress
+    array set RunningMValList 0 0x2000000
+    array set RunningMValList 1 0x3000000
 end proc
 
 var RvalPulseGeneratorPlainBlk_BusReset 0
 
 ResetTestPulseGeneratorPlainBlkByBusReset:
 proc
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $OperationMask
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulseWidthNsMask
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $OperationMask
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulseWidthNsMask
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulsePeriodNsMask
 end proc
 
 
@@ -64,104 +80,204 @@ var RbvlPulseGeneratorPlainBlk 0
 
 ReadBackTestPulseGeneratorPlainBlk:
 proc
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000000 $OperationMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x1000000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x1000000 $OperationMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x07FFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x07FFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0BFFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0BFFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0DFFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0DFFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0EFFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0EFFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0F7FFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0F7FFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FBFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FBFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FDFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FDFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FEFFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FEFFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FF7FFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FF7FFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFBFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFBFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFDFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFDFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFEFFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFEFFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFF7FF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFF7FF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFBFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFBFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFDFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFDFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFEFF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFEFF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFF7F
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFF7F $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFBF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFBF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFDF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFDF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFEF
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFEF $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFF7
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFF7 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFFB
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFB $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFFD
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFD $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0FFFFFE
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFE $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0800000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0800000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0400000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0400000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0200000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0200000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0100000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0100000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0080000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0080000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0040000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0040000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0020000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0020000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0010000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0010000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0008000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0008000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0004000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0004000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0002000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0002000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0001000
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0001000 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000800
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000800 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000400
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000400 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000200
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000200 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000100
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000100 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000080
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000080 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000040
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000040 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000020
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000020 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000010
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000010 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000008
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000008 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000004
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000004 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000002
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000002 $PulseWidthNsMask
-    bus write PulseGeneratorPlainIfcBus 25 $ControlRegAddress 0x0000001
-    bus verify PulseGeneratorPlainIfcBus 25 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000001 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x1000000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x1000000 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x2000000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x2000000 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x2000000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x2000000 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x1000000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x1000000 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x07FFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x07FFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0BFFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0BFFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0DFFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0DFFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0EFFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0EFFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0F7FFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0F7FFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FBFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FBFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FDFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FDFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FEFFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FEFFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FF7FFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FF7FFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFBFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFBFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFDFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFDFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFEFFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFEFFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFF7FF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFF7FF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFBFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFBFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFDFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFDFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFEFF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFEFF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFF7F
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFF7F $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFBF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFBF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFDF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFDF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFEF
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFEF $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFF7
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFF7 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFFB
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFB $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFFD
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFD $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0FFFFFE
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0FFFFFE $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0800000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0800000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0400000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0400000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0200000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0200000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0100000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0100000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0080000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0080000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0040000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0040000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0020000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0020000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0010000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0010000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0008000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0008000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0004000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0004000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0002000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0002000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0001000
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0001000 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000800
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000800 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000400
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000400 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000200
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000200 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000100
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000100 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000080
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000080 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000040
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000040 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000020
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000020 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000010
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000010 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000008
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000008 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000004
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000004 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000002
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000002 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 26 $ControlRegAddress 0x0000001
+    bus verify PulseGeneratorPlainIfcBus 26 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x0000001 $PulseWidthNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x7FFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x7FFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xBFFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xBFFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xDFFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xDFFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xEFFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xEFFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xF7FFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xF7FFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFBFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFBFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFDFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFDFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFEFFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFEFFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFF7FFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFF7FFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFBFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFBFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFDFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFDFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFEFFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFEFFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFF7FF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFF7FF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFBFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFBFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFDFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFDFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFEFF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFEFF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFF7F
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFF7F $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFBF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFBF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFDF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFDF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFEF
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFEF $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFF7
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFF7 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFFB
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFFB $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFFD
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFFD $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0xFFFFFE
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0xFFFFFE $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x800000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x800000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x400000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x400000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x200000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x200000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x100000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x100000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x080000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x080000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x040000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x040000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x020000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x020000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x010000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x010000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x008000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x008000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x004000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x004000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x002000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x002000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x001000
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x001000 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000800
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000800 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000400
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000400 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000200
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000200 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000100
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000100 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000080
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000080 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000040
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000040 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000020
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000020 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000010
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000010 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000008
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000008 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000004
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000004 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000002
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000002 $PulsePeriodNsMask
+    bus write PulseGeneratorPlainIfcBus 24 $ParameterRegAddress 0x000001
+    bus verify PulseGeneratorPlainIfcBus 24 $ParameterRegAddress RbvlPulseGeneratorPlainBlk 0x000001 $PulsePeriodNsMask
 end proc

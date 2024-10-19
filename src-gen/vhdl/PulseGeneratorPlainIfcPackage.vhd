@@ -15,72 +15,66 @@ library ieee;
 
 package PulseGeneratorPlainIfcPackage is
 
-	type T_PulseGeneratorPlainIfcAxi4LiteDown is
+	type T_PulseGeneratorPlainIfcWishboneDown is
 	record
-		AWVALID : std_logic;
-		AWADDR : std_logic_vector(15 downto 0);
-		AWPROT : std_logic_vector(2 downto 0);
-		WVALID : std_logic;
-		WDATA : std_logic_vector(31 downto 0);
-		WSTRB : std_logic_vector(3 downto 0);
-		BREADY : std_logic;
-		ARVALID : std_logic;
-		ARADDR : std_logic_vector(15 downto 0);
-		ARPROT : std_logic_vector(2 downto 0);
-		RREADY : std_logic;
+		Adr : std_logic_vector(15 downto 0);
+		Sel : std_logic_vector(3 downto 0);
+		DatIn : std_logic_vector(31 downto 0);
+		We : std_logic;
+		Stb : std_logic;
+		Cyc : std_logic;
 	end record;
 	
-	type T_PulseGeneratorPlainIfcAxi4LiteUp is
+	type T_PulseGeneratorPlainIfcWishboneUp is
 	record
-		AWREADY : std_logic;
-		WREADY : std_logic;
-		BVALID : std_logic;
-		BRESP : std_logic_vector(1 downto 0);
-		ARREADY : std_logic;
-		RVALID : std_logic;
-		RDATA : std_logic_vector(31 downto 0);
-		RRESP : std_logic_vector(1 downto 0);
-	end record;
-	
-	type T_PulseGeneratorPlainIfcAxi4LiteAccess is
-	record
-		WritePrivileged : std_logic;
-		WriteSecure : std_logic;
-		WriteInstruction : std_logic;
-		ReadPrivileged : std_logic;
-		ReadSecure : std_logic;
-		ReadInstruction : std_logic;
+		DatOut : std_logic_vector(31 downto 0);
+		Ack : std_logic;
 	end record;
 	
 	type T_PulseGeneratorPlainIfcTrace is
 	record
-		Axi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
-		Axi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
-		Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
+		WishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
+		WishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
 		UnoccupiedAck : std_logic;
 		TimeoutAck : std_logic;
 	end record;
 	
 	type T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown is
 	record
-		Operation : std_logic;
+		Operation : std_logic_vector(1 downto 0);
 		PulseWidthNs : std_logic_vector(23 downto 0);
+		PulsePeriodNs : std_logic_vector(23 downto 0);
 	end record;
 	
 	constant PULSEGENERATORPLAINBLK_BASE_ADDRESS : std_logic_vector(15 downto 0) := x"0000";
-	constant PULSEGENERATORPLAINBLK_SIZE : std_logic_vector(15 downto 0) := x"0004";
+	constant PULSEGENERATORPLAINBLK_SIZE : std_logic_vector(15 downto 0) := x"0008";
 	
-	constant CONTROLREG_WIDTH : integer := 25;
+	constant CONTROLREG_WIDTH : integer := 26;
 	constant CONTROLREG_ADDRESS : std_logic_vector(15 downto 0) := std_logic_vector(x"0000" + unsigned(PULSEGENERATORPLAINBLK_BASE_ADDRESS));
 	
 	constant OPERATION_POSITION : integer := 24;
-	constant OPERATION_WIDTH : integer := 1;
-	constant OPERATION_MASK : std_logic_vector(31 downto 0) := x"01000000";
-	constant OFF : std_logic := '0';
-	constant ON : std_logic := '1';
+	constant OPERATION_WIDTH : integer := 2;
+	constant OPERATION_MASK : std_logic_vector(31 downto 0) := x"03000000";
+	constant CLEARED : std_logic_vector(1 downto 0) := "00";
+	
+	constant STOPPED : std_logic_vector(1 downto 0) := "01";
+	
+	constant RUNNING_ASTERISK_MASK : std_logic_vector(1 downto 0) := "10";
+	
+	type T_RUNNING_LIST is array(0 to 1) of std_logic_vector(1 downto 0);
+	
+	constant RUNNING_LIST : T_RUNNING_LIST := (
+	   "10", "11");
 	
 	constant PULSEWIDTHNS_POSITION : integer := 0;
 	constant PULSEWIDTHNS_WIDTH : integer := 24;
 	constant PULSEWIDTHNS_MASK : std_logic_vector(31 downto 0) := x"00FFFFFF";
+	
+	constant PARAMETERREG_WIDTH : integer := 24;
+	constant PARAMETERREG_ADDRESS : std_logic_vector(15 downto 0) := std_logic_vector(x"0004" + unsigned(PULSEGENERATORPLAINBLK_BASE_ADDRESS));
+	
+	constant PULSEPERIODNS_POSITION : integer := 0;
+	constant PULSEPERIODNS_WIDTH : integer := 24;
+	constant PULSEPERIODNS_MASK : std_logic_vector(31 downto 0) := x"00FFFFFF";
 	
 end;

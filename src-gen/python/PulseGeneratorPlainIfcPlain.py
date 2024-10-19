@@ -19,22 +19,37 @@ PulseGeneratorPlainIfcDataBusWidth = 32
 
 class PulseGeneratorPlainBlk:
     PulseGeneratorPlainBlkAddress = 0x0000 
-    PulseGeneratorPlainBlkSize = 0x0004 
+    PulseGeneratorPlainBlkSize = 0x0008 
 
     @property
     def ControlRegAddress(self):
         return (0x0000 + self.PulseGeneratorPlainBlkAddress)
 
-    ControlRegWidth = 25
+    ControlRegWidth = 26
 
-    OperationMask = 0x1000000
+    OperationMask = 0x3000000
     OperationPosition = 24
-    OperationWidth = 1
-    OffMVal = 0x0000000
-    OnMVal = 0x1000000
+    OperationWidth = 2
+    ClearedMVal = 0x0000000
+    StoppedMVal = 0x1000000
+    RunningMValAMask = 0x2000000
+    RunningMValList = [
+        0x2000000, 0x3000000]
     OperationBusResetMRstVal = 0x0000000
 
     PulseWidthNsMask = 0x0FFFFFF
     PulseWidthNsPosition = 0
     PulseWidthNsWidth = 24
     PulseWidthNsBusResetMRstVal = 0x0000000
+
+
+    @property
+    def ParameterRegAddress(self):
+        return (0x0004 + self.PulseGeneratorPlainBlkAddress)
+
+    ParameterRegWidth = 24
+
+    PulsePeriodNsMask = 0xFFFFFF
+    PulsePeriodNsPosition = 0
+    PulsePeriodNsWidth = 24
+    PulsePeriodNsBusResetMRstVal = 0x000000

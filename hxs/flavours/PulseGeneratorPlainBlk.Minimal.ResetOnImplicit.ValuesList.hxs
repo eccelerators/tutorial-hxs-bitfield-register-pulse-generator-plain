@@ -6,9 +6,16 @@ namespace eccelerators.tutorial
 		register ControlReg
 		{
 			Bits = [
+				PulsePeriodNs,
 				PulseWidthNs,
 				Operation
 			];
+			
+			data PulsePeriodNs
+			{
+				Width = 24;
+			}
+			
 			data PulseWidthNs
 			{
 				Width = 24;
@@ -21,18 +28,19 @@ namespace eccelerators.tutorial
 			{
 				Width = 1;
 				Values = [
-					On,
-					Off
+					Running,
+					Stopped
 				];
-				value Off
+				value Stopped
 				{
 					Value = 0b0;
 				}
-				value On
+				value Running
 				{
 					Value = 0b1;
 				}
-			}			
+			}
+						
 		}
 	}
 }

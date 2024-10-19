@@ -31,22 +31,21 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.TutBitfieldRegisterIfcPackage.all;
+use work.PulseGeneratorPlainIfcPackage.all;
 
 entity PulseGeneratorPlainUserLogic is
     port (
         UserClk : in std_logic;
         UserRst : in std_logic;
-        PulseGeneratorBlkDown : out T_PulseGeneratorIfcPulseGeneratorBlkDown;
-        PulseWidthNs: in std_logic_vector(PULSEWIDTHNS_WIDTH - 1 downto 0);
+        PulseGeneratorBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
         Pulse : out std_logic;
         Failure : out std_logic
     );
 end entity;
 
-architecture RTL of TutBitfieldRegisterUserLogic is
+architecture RTL of PulseGeneratorPlainUserLogic is
     
-    signal CountNs : unsigned(23 downto 0);
+    signal CountNs : unsigned(PULSEPERIODNS_WIDTH'high downto 0);
     
 begin
      
@@ -60,25 +59,31 @@ begin
                     
         elsif rising_edge(UserClk) then
         
-            if PulseGeneratorBlkDown.
+            Pulse <= '0'; -- default assignment
+ 
+            if CountNs < PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulseWidthNs then
+                Pulse <= '1';
+            end if;
         
-            case TutBlkDown.CounterOperation is
-                when HALTED =>
+            case PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.Operation is
+                when STOPPED =>
                     null;               
-                when STEPPINGUP =>
-                    Count <= Count + 1;
-                when STEPPINGDOWN => 
-                    Count <= Count - 1;
-                when others =>
-                    null;
+                when CLEARED => 
+                    CountNs <= to_unsigned(0, CountNs'length);
+                when RUNNING_LIST(0) | RUNNING_LIST(1) =>
+                    if unsigned(PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs) = 0 then
+                        CountNs <= to_unsigned(0, CountNs'length); 
+                    elsif CountNs = unsigned(PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs) - 1 then
+                        CountNs <= to_unsigned(0, CountNs'length);                  
+                    else
+                        CountNs <= Count + 1;
+                    end if;
             end case;
             
-            if Count > TutBlkDown.CounterThreshold then
-                CountAboveThreshold <= '1';
-            else 
-                CountAboveThreshold <= '0';
+            if CountNs >= PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs then
+                Failure <= '1';
             end if;
-            
+                       
         end if;  
     end process; 
           

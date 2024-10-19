@@ -1,0 +1,62 @@
+namespace eccelerators.tutorial
+{
+	block PulseGeneratorPlainBlk
+	{
+		Registers = [
+			ControlReg, 
+			ParameterReg
+		];
+			
+		register ControlReg
+		{
+			Bits = [
+				PulseWidthNs,
+				Operation
+			];
+			
+			data PulsePeriodNs
+			{
+				Width = 24;
+			}
+			
+			data PulseWidthNs
+			{
+				Width = 24;
+			}
+				
+			enum Operation
+			{
+				Width = 2;
+				Values = [
+					Cleared,
+					Stopped,
+					Running
+				];
+				value Cleared
+				{
+					Value = 0b00;
+				}
+				value Stopped
+				{
+					Value = 0b01;
+				}
+				value Running
+				{
+					Value = 0b1*;
+				}
+			}
+		}
+			
+		register ParameterReg {
+			Bits = [
+				PulsePeriodNs
+			];
+			
+			data PulsePeriodNs
+			{
+				Width = 24;
+			}
+		}
+								
+	}
+}

@@ -28,8 +28,9 @@ entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 		DatOut : out std_logic_vector(31 downto 0);
 		Ack : out std_logic;
 		Match : out std_logic;
-		Operation : out std_logic;
-		PulseWidthNs : out std_logic_vector(23 downto 0)
+		Operation : out std_logic_vector(1 downto 0);
+		PulseWidthNs : out std_logic_vector(23 downto 0);
+		PulsePeriodNs : out std_logic_vector(23 downto 0)
 	);
 end;
 
@@ -38,16 +39,26 @@ architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 	signal ByteAddress : std_logic_vector(15 downto 0);
 	signal PreReadData : std_logic_vector(31 downto 0);
 	
-	signal PreReadDataControlReg : std_logic_vector(24 downto 0);
+	signal PreReadDataControlReg : std_logic_vector(25 downto 0);
 	signal PreOrReadDataControlReg : std_logic_vector(31 downto 0);
 	signal PreReadAckControlReg : std_logic;
 	signal ReadDiffControlReg : std_logic;
 	signal PreWriteAckControlReg : std_logic;
 	signal WriteDiffControlReg : std_logic;
-	signal WRegOperation : std_logic;
+	signal WRegOperation : std_logic_vector(1 downto 0);
 	signal WRegPulseWidthNs : std_logic_vector(23 downto 0);
 	signal PreMatchReadControlReg : std_logic;
 	signal PreMatchWriteControlReg : std_logic;
+	
+	signal PreReadDataParameterReg : std_logic_vector(23 downto 0);
+	signal PreOrReadDataParameterReg : std_logic_vector(31 downto 0);
+	signal PreReadAckParameterReg : std_logic;
+	signal ReadDiffParameterReg : std_logic;
+	signal PreWriteAckParameterReg : std_logic;
+	signal WriteDiffParameterReg : std_logic;
+	signal WRegPulsePeriodNs : std_logic_vector(23 downto 0);
+	signal PreMatchReadParameterReg : std_logic;
+	signal PreMatchWriteParameterReg : std_logic;
 
 begin
 
@@ -59,15 +70,22 @@ begin
 	
 	DatOut <= PreReadData;
 	
-	Match <= PreMatchReadControlReg or PreMatchWriteControlReg;
+	Match <= PreMatchReadControlReg or PreMatchWriteControlReg
+		  or PreMatchReadParameterReg or PreMatchWriteParameterReg;
 	
-	Ack <= PreReadAckControlReg or PreWriteAckControlReg;
+	Ack <= PreReadAckControlReg or PreWriteAckControlReg
+		or PreReadAckParameterReg or PreWriteAckParameterReg;
 	
-	PreOrReadDataControlReg <= "0000000" & PreReadDataControlReg
+	PreOrReadDataControlReg <= "000000" & PreReadDataControlReg
 		when (PreMatchReadControlReg = '1' and PreReadAckControlReg = '1')
 		else (others => '0');
 	
-	PreReadData <= PreOrReadDataControlReg;
+	PreOrReadDataParameterReg <= x"00" & PreReadDataParameterReg
+		when (PreMatchReadParameterReg = '1' and PreReadAckParameterReg = '1')
+		else (others => '0');
+	
+	PreReadData <= PreOrReadDataControlReg
+		or PreOrReadDataParameterReg;
 	
 	PreMatchReadControlRegProcess : process (ByteAddress, We, Stb, Cyc)
 	begin
@@ -114,7 +132,7 @@ begin
 		if (Rst = '1') then
 			PreReadAckControlReg <= '0';
 			PreWriteAckControlReg <= '0';
-			WRegOperation <= OFF;
+			WRegOperation <= CLEARED;
 			WRegPulseWidthNs <= (others => '0');
 		elsif rising_edge(Clk) then
 			PreWriteAckControlReg <= WriteDiffControlReg;
@@ -123,7 +141,7 @@ begin
 				if (Sel(2) = '1') then WRegPulseWidthNs(23 downto 16) <= DatIn(23 downto 16); end if;
 				if (Sel(1) = '1') then WRegPulseWidthNs(15 downto 8) <= DatIn(15 downto 8); end if;
 				if (Sel(0) = '1') then WRegPulseWidthNs(7 downto 0) <= DatIn(7 downto 0); end if;
-				if (Sel(3) = '1') then WRegOperation <= DatIn(24); end if;
+				if (Sel(3) = '1') then WRegOperation(1 downto 0) <= DatIn(25 downto 24); end if;
 			end if;
 		end if;
 	end process;
@@ -133,12 +151,78 @@ begin
 		WRegPulseWidthNs
 	) begin
 		PreReadDataControlReg <= (others => '0');
-		PreReadDataControlReg(24) <= WRegOperation;
+		PreReadDataControlReg(25 downto 24) <= WRegOperation;
 		PreReadDataControlReg(23 downto 0) <= WRegPulseWidthNs;
 	end process;
 	
 	Operation <= WRegOperation;
 	PulseWidthNs <= WRegPulseWidthNs;
+	
+	PreMatchReadParameterRegProcess : process (ByteAddress, We, Stb, Cyc)
+	begin
+		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
+			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
+			PreMatchReadParameterReg <= not We and Stb and Cyc;
+		else
+			PreMatchReadParameterReg <= '0';
+		end if;
+	end process;
+	
+	PreMatchWriteParameterRegProcess : process (ByteAddress, We, Stb, Cyc)
+	begin
+		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
+			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
+			PreMatchWriteParameterReg <= We and Stb and Cyc;
+		else
+			PreMatchWriteParameterReg <= '0';
+		end if;
+	end process;
+	
+	WriteDiffParameterRegProcess : process (ByteAddress, We, Stb, Cyc, PreWriteAckParameterReg)
+	begin
+		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
+			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
+			WriteDiffParameterReg <= We and Stb and Cyc and not PreWriteAckParameterReg;
+		else
+			WriteDiffParameterReg <= '0';
+		end if;
+	end process;
+	
+	ReadDiffParameterRegProcess : process (ByteAddress, We, Stb, Cyc, PreReadAckParameterReg)
+	begin
+		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
+			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
+			ReadDiffParameterReg <= not We and Stb and Cyc and not PreReadAckParameterReg;
+		else
+			ReadDiffParameterReg <= '0';
+		end if;
+	end process;
+	
+	SyncDomainParameterReg : process (Clk, Rst)
+	begin
+		if (Rst = '1') then
+			PreReadAckParameterReg <= '0';
+			PreWriteAckParameterReg <= '0';
+			WRegPulsePeriodNs <= (others => '0');
+		elsif rising_edge(Clk) then
+			PreWriteAckParameterReg <= WriteDiffParameterReg;
+			PreReadAckParameterReg <= ReadDiffParameterReg;
+			if (WriteDiffParameterReg = '1') then
+				if (Sel(2) = '1') then WRegPulsePeriodNs(23 downto 16) <= DatIn(23 downto 16); end if;
+				if (Sel(1) = '1') then WRegPulsePeriodNs(15 downto 8) <= DatIn(15 downto 8); end if;
+				if (Sel(0) = '1') then WRegPulsePeriodNs(7 downto 0) <= DatIn(7 downto 0); end if;
+			end if;
+		end if;
+	end process;
+	
+	DataOutPreMuxParameterReg : process (
+		WRegPulsePeriodNs
+	) begin
+		PreReadDataParameterReg <= (others => '0');
+		PreReadDataParameterReg(23 downto 0) <= WRegPulsePeriodNs;
+	end process;
+	
+	PulsePeriodNs <= WRegPulsePeriodNs;
 	
 end;
 
@@ -292,7 +376,8 @@ begin
 			Ack => PulseGeneratorPlainBlkAck,
 			Match => PulseGeneratorPlainBlkMatch,
 			Operation => PulseGeneratorPlainBlkDown.Operation,
-			PulseWidthNs => PulseGeneratorPlainBlkDown.PulseWidthNs
+			PulseWidthNs => PulseGeneratorPlainBlkDown.PulseWidthNs,
+			PulsePeriodNs => PulseGeneratorPlainBlkDown.PulsePeriodNs
 		);
 	
 	Trace.WishboneDown <= WishboneDown;

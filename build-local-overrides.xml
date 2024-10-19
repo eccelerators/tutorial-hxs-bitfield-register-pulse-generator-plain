@@ -6,6 +6,8 @@
 	<!-- overide python executable -->
 	<property name="python-executable" value="/usr/bin/python"/>
 	<property name="hxsc-executable-linux" value="/home/vagrant/.hxs/hxsc"/>
+	<!-- <property name="flavour.number" value="0" /> -->
+	<!-- <property name="bustype.number" value="0" /> -->
 		
 </project>
 	

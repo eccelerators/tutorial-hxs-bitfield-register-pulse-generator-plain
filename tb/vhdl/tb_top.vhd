@@ -31,20 +31,22 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.TutBitfieldRegisterIfcPackage.all;
+use work.PulseGeneratorPlainIfcPackage.all;
 use work.tb_bus_pkg.all;
 use work.tb_signals_pkg.all;
+use work.tb_bus_maps_pkg.all;
 
-entity tb_top_wishbone is
+entity tb_top is
     generic (
         stimulus_path : string := "tb/simstm/";
         stimulus_file : string := "testMain.stm";
-        stimulus_main_entry_label : in string := "$testMain";
-        stimulus_test_suite_index : integer := 255
+        stimulus_main_entry_label : string := "$testMain";
+        stimulus_test_suite_index : integer := 255;
+        bustype : string := "Axi4Lite"
     );
 end;
 
-architecture behavioural of tb_top_wishbone is
+architecture behavioural of tb_top is
 
     signal Clk : std_logic := '0';
     signal Rst : std_logic := '1';
@@ -61,12 +63,10 @@ architecture behavioural of tb_top_wishbone is
     signal bus_down : t_bus_down;
     signal bus_up : t_bus_up;
     
+    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;          
+    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
     
-    signal TutIfcWishboneDown : T_TutBitfieldRegisterIfcWishboneDown;
-    signal TutIfcWishboneUp : T_TutBitfieldRegisterIfcWishboneUp;    
-    
-    signal TutBlkDown : T_TutBitfieldRegisterIfcTutBlkDown;
-    signal UserCount : std_logic_vector(COUNTERTHRESHOLD_WIDTH - 1 downto 0);
+    signal UserCount : std_logic_vector(PULSEPERIODNS_WIDTH - 1 downto 0);
     signal UserCountAboveThreshold : std_logic;
     
     signal InitUserCounter : std_logic;
@@ -79,8 +79,9 @@ begin
     Rst <= transport '0' after 100 ns;
     Clk <= transport (not Clk) and (not SimDone)  after 10 ns / 2; -- 100MHz
   
-    signals_in.in_signal_2000 <= UserCount;
-    signals_in.in_signal_2001 <= UserCountAboveThreshold; 
+    signals_in.in_signal_2000 <= UserCountNs;
+    signals_in.in_signal_2001 <= UserPulse;
+    signals_in.in_signal_2001 <= UserFailure; 
     
     InitUserCounter <= signals.out_signal_3000;
     
@@ -104,34 +105,25 @@ begin
             bus_down => bus_down,
             bus_up => bus_up
         );
-        
-    TutIfcWishboneDown.Adr <= bus_down.wishbone.adr;
-    TutIfcWishboneDown.Sel <= bus_down.wishbone.sel;
-    TutIfcWishboneDown.DatIn <= bus_down.wishbone.data;
-    TutIfcWishboneDown.We <= bus_down.wishbone.we;
-    TutIfcWishboneDown.Stb <= bus_down.wishbone.stb;
-    TutIfcWishboneDown.Cyc <= bus_down.wishbone.cyc;   
-    
-    bus_up.wishbone.data <= TutIfcWishboneUp.DatOut;
-    bus_up.wishbone.ack <= TutIfcWishboneUp.Ack;
-
-    i_TutBitfieldRegisterIfcWishbone : entity work.TutBitfieldRegisterIfcWishbone
+            
+    i_PulseGeneratorPlainIfc : entity work.PulseGeneratorPlainIfc
         port map(
             Clk => Clk,
             Rst => Rst,
-            WishboneDown => TutIfcWishboneDown,
-            WishboneUp => TutIfcWishboneUp,
-            Trace => TutIfcTrace,
-            TutBlkDown => TutBlkDown
+            BusDown => bus_down,
+            BusUp => bus_up,
+            Trace => PulseGeneratorPlainIfcTrace,
+            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+        ); 
+                        
+    i_PulseGeneratorPlainUserLogic is
+        port map (
+            UserClk => Clk,
+            UserRst => Rst,
+            PulseGeneratorBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+            Pulse : out std_logic;
+            Failure : out std_logic
         );
-        
-    i_TutBitfieldRegisterUserLogic : entity work.TutBitfieldRegisterUserLogic
-        port map(
-            UserClk => UserClk,
-            UserRst => UserRst,
-            TutBlkDown => TutBlkDown,
-            Count => UserCount,
-            CountAboveThreshold => UserCountAboveThreshold
-        );
+end entity;
                         
 end architecture;

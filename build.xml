@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PulseGeneratorPlain">
+<project name="PulseGeneratorPlain" xmlns:if="ant:if" xmlns:unless="ant:unless" >
+	
     <property environment="env" />
     
     <condition property="is_windows">
@@ -39,16 +40,47 @@
 	<!-- <property name="PulseGeneratorPlainBlk.Flavour" value="ResetImplicitOff" /> -->
     <import file="build-local-overrides.xml" optional="true"/>
 	
-	<property name="PulseGeneratorPlainBlk.Flavour" value="Minimal.ResetOffImplicit.ValuesList" />
+	<property name="flavour.name.0" value="PulseGeneratorPlainBlk.hxs"/>
+	<property name="flavour.name.1" value="PulseGeneratorPlainBlk.Minimal.ResetOffImplicit.ValuesList.hxs"/>
+	<property name="flavour.name.2" value="PulseGeneratorPlainBlk.Minimal.ResetOffImplicit.ValuesDictionary.hxs"/>
+	<property name="flavour.name.3" value="PulseGeneratorPlainBlk.Minimal.ResetOnImplicit.ValuesList.hxs"/>
+	<property name="flavour.name.4" value="PulseGeneratorPlainBlk.Minimal.ResetOnImplicit.ValuesDictionary.hxs"/>
+	
+	<input unless:set="flavour.number" message="Choose flavour: ${line.separator}
+		0 No flavour, use ${flavour.name.0} ${line.separator}
+		1 ${flavour.name.1} ${line.separator}
+		2 ${flavour.name.2} ${line.separator}
+		3 ${flavour.name.3} ${line.separator}
+		4 ${flavour.name.4} ${line.separator}
+		" validargs="0,1,2,3,4" addproperty="flavour.number" defaultvalue="0" />
+	
+	<input unless:set="bustype.number" message="Choose bustype: ${line.separator}
+		0 wishbone ${line.separator}
+		1 avalon ${line.separator}
+		2 axi4lite ${line.separator}		
+		" validargs="0,1,2" addproperty="bustype.number" defaultvalue="0" />
+
+	<condition property="flavour" value="${flavour.name.0}"> <equals arg1="${flavour.number}" arg2="0" /> </condition>
+	<condition property="flavour" value="flavours/${flavour.name.1}"> <equals arg1="${flavour.number}" arg2="1" /> </condition>
+	<condition property="flavour" value="flavours/${flavour.name.2}"> <equals arg1="${flavour.number}" arg2="2" /> </condition>
+	<condition property="flavour" value="flavours/${flavour.name.3}"> <equals arg1="${flavour.number}" arg2="3" /> </condition>
+	<condition property="flavour" value="flavours/${flavour.name.4}"> <equals arg1="${flavour.number}" arg2="4" /> </condition>	
+	<echo> Flavour: ${flavour} </echo>
+	
+	<condition property="bustype" value="wishbone"> <equals arg1="${bustype.number}" arg2="0" /> </condition>
+	<condition property="bustype" value="avalon"> <equals arg1="${bustype.number}" arg2="1" /> </condition>
+	<condition property="bustype" value="axi4lite"> <equals arg1="${bustype.number}" arg2="2" /> </condition>	
+	<echo> Bustype: ${bustype} </echo>
+	
     <property name="hxs-filesets-indexes" value="0"/>
 
     <property name="hxs.fileset.0"
     	   value="
-        hxs/PulseGeneratorPlainBlk.${PulseGeneratorPlainBlk.Flavour}.hxs
+        hxs/${flavour}
         hxs/PulseGeneratorPlainIfc.hxs 
         "
     />
-    <property name="hxs.bustype.0" value="axi4lite"/>
+    <property name="hxs.bustype.0" value="${bustype}"/>
     <property name="hxs.top-name-stem.0" value="eccelerators.tutorial.PulseGeneratorPlainIfc"/>
 
 	<import file="helper/build-helper.xml" optional="true"/>   
