@@ -1,0 +1,38 @@
+
+    -- intern
+    var GetPulseVal 0  
+
+testPeriodChangeToTooSmall:
+proc   
+    call $startStandardTestShell
+    
+    signal write out_InitPulseGeneratorPlain 1
+    wait 100
+    signal write out_InitPulseGeneratorPlain 1
+    wait 100
+    
+    equ SetPulsePeriodNsVal 400000000    
+    call $setPulsePeriodNs
+    equ SetPulseWidthNsVal 200000000    
+    call $setPulseWidthNs    
+    
+    array get RunningMValList 0 SetOperationVal
+    call $setOperation
+    
+    wait 20    
+    signal verify in_Pulse GetPulseVal 1 1
+    
+    wait 199999970    
+    signal verify in_Pulse GetPulseVal 1 1
+    
+    wait 30    
+    signal verify in_Pulse GetPulseVal 0 1 
+    
+    equ SetPulsePeriodNsVal 1000
+    equ SetPulseWidthNsVal 200000000     
+    call $setPulsePeriodNs
+     
+    signal verify in_Failure GetPulseVal 1 1 
+    
+    call $endStandardTestShell 
+end proc

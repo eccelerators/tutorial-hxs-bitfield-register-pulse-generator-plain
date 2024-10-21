@@ -1,0 +1,37 @@
+
+	-- intern
+	file TestCasePeriod400msWidth200msStartFile "../../SimulationResults/{@c3}_{@c2}.start"
+	file TestCasePeriod400msWidth200msFile "../../SimulationResults/{@c3}_{@c2}.xml"
+
+	
+testSuiteRegular:
+proc
+	call $testPeriod400msWidth200ms
+end proc
+
+
+testCasePeriod400msWidth200ms:
+proc
+    file pointer copy TestCaseStartFile TestCasePeriod400msWidth200msStartFile
+    file pointer copy TestCaseFile TestCasePeriod400msWidth200msFile
+    equ TestCaseNumberOfAssertions 1
+    call $beginTestCase
+    
+    if $SKIP = $NOT_SKIPPED
+	    lines append message TestCaseLines "TestCase not implemented yet"
+	    call $skipTestCase
+	    call $endTestCase
+	    return   
+    end if
+    
+    call $testPeriod400msWidth200ms
+
+    signal read StandardTestErrorCount StandardTestErrorCountResult
+    if $StandardTestErrorCountResult != 0
+        lines append message TestCaseLines "Period400ms Width200ms test failed"
+        call $failureTestCase
+    end if
+    
+    call $endTestCase
+    
+end proc

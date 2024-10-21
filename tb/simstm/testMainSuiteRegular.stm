@@ -1,0 +1,37 @@
+include "Common/Common.stm"
+
+testMainSuiteRegular:
+proc
+    
+    signal read in_BusType UsedBusTypeNumber
+    if $UsedBusTypeNumber = 0
+		bus pointer copy ReadModifyWriteBus32 wishbone
+		bus pointer copy ReadModifyWriteBus16 wishbone
+		bus pointer copy ReadModifyWriteBus8 wishbone
+		bus pointer copy PulseGeneratorPlainIfcBus wishbone
+    elsif $UsedBusTypeNumber = 1
+		bus pointer copy ReadModifyWriteBus32 avalon
+		bus pointer copy ReadModifyWriteBus16 avalon
+		bus pointer copy ReadModifyWriteBus8 avalon
+		bus pointer copy PulseGeneratorPlainIfcBus avalon    
+	else
+		bus pointer copy ReadModifyWriteBus32 axi4lite
+		bus pointer copy ReadModifyWriteBus16 axi4lite
+		bus pointer copy ReadModifyWriteBus8 axi4lite
+		bus pointer copy PulseGeneratorPlainIfcBus axi4lite  
+	end if
+	
+	call $PulseGeneratorPlainIfcInit
+	
+	verbosity $INFO_2
+    equ ArrayDumpVerbosity $INFO_2
+	trace 0
+	wait 1000
+	log message $INFO "Main test suite Regular behaviours started"
+	
+	call $testSuiteRegular	
+	
+	log message $INFO "Main test suite Regular behaviours ended"
+	wait 1000
+	finish
+end proc

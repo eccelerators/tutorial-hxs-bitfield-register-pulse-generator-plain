@@ -1,0 +1,31 @@
+include "../../src-gen/simstm/PacuScIoCellBufferIfc.stm"
+include "../../src-gen/simstm/PacuScIoControllerIfc.stm"
+
+include "Base/Base.stm"
+include "Base/Array.stm"
+include "Base/ReadModifyWrite.stm"
+
+include "SetGet/PulseGeneratorPlainSetGet.stm"
+
+include "Abnormal/DynamicConfigMistakes.stm"
+include "Regular/StaticConfig.stm"
+include "IO/InputPlain.stm"
+include "IO/OutputPlain.stm"
+include "Filter/InputFilter.stm"
+
+include "TestCase/TestCase.stm"
+
+include "TestSuites/TestSuiteAbnormal.stm"
+include "TestSuites/TestSuiteRegular.stm"
+
+bus wishbone 0
+bus avalon 1
+bus axi4lite 2
+var WaitTimeOut 100000 -- ms
+
+signal in_Flavour 2000
+signal in_BusType 2001
+signal in_Pulse 2002
+signal in_Failure 2003
+
+signal out_InitPulseGeneratorPlain 3000

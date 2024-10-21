@@ -35,8 +35,8 @@ use work.PulseGeneratorPlainIfcPackage.all;
 
 entity PulseGeneratorPlainUserLogic is
     port (
-        UserClk : in std_logic;
-        UserRst : in std_logic;
+        Clk : in std_logic;
+        Rst : in std_logic;
         PulseGeneratorBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
         Pulse : out std_logic;
         Failure : out std_logic
@@ -44,47 +44,62 @@ entity PulseGeneratorPlainUserLogic is
 end entity;
 
 architecture RTL of PulseGeneratorPlainUserLogic is
-    
+
     signal CountNs : unsigned(PULSEPERIODNS_WIDTH'high downto 0);
-    
-begin
-     
-    prcCountNs : process (UserClk, UserRst) is
+    signal PulsePeriodNs : unsigned(PULSEPERIODNS_WIDTH'high downto 0);
+    signal PulseWidthNs : unsigned(PULSEWIDTHNS_WIDTH'high downto 0);
+
+    procedure zeroCountNs is
     begin
-        if UserRst then
+        CountNs <= to_unsigned(0, CountNs'length);
+    end procedure;
+    
+    procedure incCountNs is
+    begin
+        CountNs <= CountNs + 1;
+    end procedure;
+            
+begin
+
+    PulsePeriodNs <= unsigned(PulseGeneratorBlkDown.PulsePeriodNs);
+    PulseWidthNs <= unsigned(PulseGeneratorBlkDown.PulseWidthNs);
+        
+    prcCountNs : process (Clk, Rst) is
+    begin
+        if Rst then
         
             CountNs <= (others => '0');
             Pulse <= '0';
             Failure <= '0';    
                     
-        elsif rising_edge(UserClk) then
+        elsif rising_edge(Clk) then
         
-            Pulse <= '0'; -- default assignment
+            Pulse <= '1'; -- default assignment
  
-            if CountNs < PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulseWidthNs then
-                Pulse <= '1';
+            if CountNs = PulseWidthNs then
+                Pulse <= '0';
             end if;
         
-            case PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.Operation is
+            case PulseGeneratorBlkDown.Operation is
                 when STOPPED =>
                     null;               
                 when CLEARED => 
-                    CountNs <= to_unsigned(0, CountNs'length);
+                    zeroCountNs;
                 when RUNNING_LIST(0) | RUNNING_LIST(1) =>
-                    if unsigned(PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs) = 0 then
-                        CountNs <= to_unsigned(0, CountNs'length); 
-                    elsif CountNs = unsigned(PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs) - 1 then
-                        CountNs <= to_unsigned(0, CountNs'length);                  
+                    if PulsePeriodNs = 0 then
+                        zeroCountNs;
+                    elsif CountNs = PulsePeriodNs - 1 then
+                        zeroCountNs;                  
                     else
-                        CountNs <= Count + 1;
+                        incCountNs;
                     end if;
             end case;
             
-            if CountNs >= PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown.PulsePeriodNs then
+            if CountNs >= PulsePeriodNs then
                 Failure <= '1';
             end if;
                        
         end if;  
     end process; 
-          
+    
 end architecture;

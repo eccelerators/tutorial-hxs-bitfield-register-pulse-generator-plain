@@ -1,0 +1,89 @@
+
+-- global
+	-- var PulseGeneratorPlainIfcBus from generated PulseGeneratorPlainIfc.stm initialised in testMain.stm or a testMainSuite.stm
+	-- var ReadModifyWriteBus32 from testMain.stm or a testMainSuite.stm
+	-- var ReadModifyWriteBus16 from testMain.stm or a testMainSuite.stm
+	-- var ReadModifyWriteBus8 from testMain.stm or a testMainSuite.stm
+
+    
+    -- parameter/result
+    var SetPulseWidthNsVal 0
+    -- intern
+    var SetPulseWidthNsMVal 0   
+setPulseWidthNs:
+proc
+	equ SetPulseWidthNsMVal $SetPulseWidthNsVal
+	shl SetPulseWidthNsMVal $PulseWidthNsPosition
+    equ ReadModifyWriteData32 $SetPulseWidthNsMVal	
+    equ ReadModifyWriteAdr32 $ControlRegAddress
+    equ ReadModifyWriteMask32 $PulseWidthNsMask
+	call $readModifyWrite32
+end proc
+
+    -- parameter/result
+    var GetPulseWidthVal 0
+    -- intern
+    var GetPulseWidthMVal 0
+getPulseWidthNs:
+proc
+	bus read PulseGeneratorPlainIfcBus 32 $ControlRegAddress GetPulseWidthMVal
+	and GetPulseWidthMVal $PulseWidthNsMask
+	equ GetPulseWidthVal $GetPulseWidthMVal
+	shr GetPulseWidthVal $PulseWidthNsPosition
+end proc
+
+
+    -- parameter/result
+    var SetOperationVal 0
+    -- intern
+    var SetOperationMVal 0   
+setOperation:
+proc
+	equ SetOperationMVal $SetOperationVal
+	shl SetOperationMVal $OperationPosition
+    equ ReadModifyWriteData32 $SetOperationMVal	
+    equ ReadModifyWriteAdr32 $ControlRegAddress
+    equ ReadModifyWriteMask32 $OperationMask
+	call $readModifyWrite32
+end proc
+
+    -- parameter/result
+    var GetOperationVal 0
+    -- intern
+    var GetOperationMVal 0
+getOperation:
+proc
+	bus read PulseGeneratorPlainIfcBus 32 $ControlRegAddress GetOperationMVal
+	and GetOperationMVal $OperationMask
+	equ GetOperationVal $GetOperationMVal
+	shr GetOperationVal $OperationPosition
+end proc
+
+
+    -- parameter/result
+    var SetPulsePeriodNsVal 0
+    -- intern
+    var SetPulsePeriodNsMVal 0   
+setPulsePeriodNs:
+proc
+	equ SetPulsePeriodNsMVal $SetPulsePeriodNsVal
+	shl SetPulsePeriodNsMVal $PulsePeriodNsPosition
+    equ ReadModifyWriteData32 $SetPulsePeriodNsMVal	
+    equ ReadModifyWriteAdr32 $ControlRegAddress
+    equ ReadModifyWriteMask32 $PulsePeriodNsMask
+	call $readModifyWrite32
+end proc
+
+    -- parameter/result
+    var GetPulsePeriodVal 0
+    -- intern
+    var GetPulsePeriodMVal 0
+getPulsePeriodNs:
+proc
+	bus read PulseGeneratorPlainIfcBus 32 $ControlRegAddress GetPulsePeriodMVal
+	and GetPulsePeriodMVal $PulsePeriodNsMask
+	equ GetPulsePeriodVal $GetPulsePeriodMVal
+	shr GetPulsePeriodVal $PulsePeriodNsPosition
+end proc
+
+

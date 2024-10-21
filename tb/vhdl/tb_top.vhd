@@ -42,7 +42,8 @@ entity tb_top is
         stimulus_file : string := "testMain.stm";
         stimulus_main_entry_label : string := "$testMain";
         stimulus_test_suite_index : integer := 255;
-        bustype : string := "Axi4Lite"
+        tutorial_flavour : integer := 255;
+        tutorial_bustype : integer := 255
     );
 end;
 
@@ -59,34 +60,32 @@ architecture behavioural of tb_top is
     
     signal signals_in : t_signals_in;
     signal signals_out : t_signals_out;
-
     signal bus_down : t_bus_down;
     signal bus_up : t_bus_up;
     
-    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;          
-    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;                 
+    signal InitPulseGeneratorPlainLogic : std_logic;
     
-    signal UserCount : std_logic_vector(PULSEPERIODNS_WIDTH - 1 downto 0);
-    signal UserCountAboveThreshold : std_logic;
-    
-    signal InitUserCounter : std_logic;
-    
-    signal UserClk : std_logic;
-    signal UserRst : std_logic;
+    signal Clk : std_logic;
+    signal Rst : std_logic;
+    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;    
+    signal Pulse : std_logic;
+    signal Failure : std_logic;
     
 begin
 
     Rst <= transport '0' after 100 ns;
-    Clk <= transport (not Clk) and (not SimDone)  after 10 ns / 2; -- 100MHz
+    Clk <= transport (not Clk) after 10 ns / 2; -- 100MHz
   
-    signals_in.in_signal_2000 <= UserCountNs;
-    signals_in.in_signal_2001 <= UserPulse;
-    signals_in.in_signal_2001 <= UserFailure; 
+    signals_in.in_signal_2000 <= to_unsigned(tutorial_flavour, 32);
+    signals_in.in_signal_2001 <= to_unsigned(tutorial_bustype, 32);
+    signals_in.in_signal_2002 <= Pulse;
+    signals_in.in_signal_2003 <= Failure; 
+        
+    InitPulseGeneratorPlainLogic <= signals.out_signal_3000;
     
-    InitUserCounter <= signals.out_signal_3000;
-    
-    UserClk <= Clk;
-    UserRst <= Rst or InitUserCounter;
+    Clk <= Clk;
+    Rst <= Rst or InitPulseGeneratorPlainLogic;
 
     i_tb_simstm : entity work.tb_simstm
         generic map (
@@ -116,14 +115,13 @@ begin
             PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
         ); 
                         
-    i_PulseGeneratorPlainUserLogic is
+    i_PulseGeneratorPlainLogic : entity work.PulseGeneratorPlainLogic
         port map (
-            UserClk => Clk,
-            UserRst => Rst,
-            PulseGeneratorBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
-            Pulse : out std_logic;
-            Failure : out std_logic
+            Clk => Clk,
+            Rst => Rst,
+            PulseGeneratorBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
+            Pulse => Pulse,
+            Failure => Failure
         );
-end entity;
-                        
+                               
 end architecture;

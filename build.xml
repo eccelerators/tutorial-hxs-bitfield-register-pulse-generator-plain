@@ -83,7 +83,7 @@
     <property name="hxs.bustype.0" value="${bustype}"/>
     <property name="hxs.top-name-stem.0" value="eccelerators.tutorial.PulseGeneratorPlainIfc"/>
 
-	<import file="helper/build-helper.xml" optional="true"/>   
+	<import file="submodules/tutorial-hxs-common/build-helper.xml" optional="true"/>   
 	<import file="submodules/tutorial-hxs-common/build-hxs.xml" optional="true"/>   
 	<import file="submodules/tutorial-hxs-common/build-ip-vivado.xml" optional="true"/>
 	<import file="simulation/modelsim-axi4lite/build-modelsim-axi4lite.xml" optional="true"/>
