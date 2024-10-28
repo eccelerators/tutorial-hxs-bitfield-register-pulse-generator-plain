@@ -31,20 +31,20 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcCommonPackage.all;
+use work.PulseGeneratorPlainIfcWishboneBusPackage.all;
 use work.tb_bus_pkg.all;
 
-entity PulseGeneratorPlainIfc is
+entity tb_PulseGeneratorPlain is
     generic (
-        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023;
-        bustype : string := "wishbone"
+        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
     );
     port (
         Clk : in std_logic;
         Rst : in std_logic;
-        BusDown : in t_bus_down;
-        BusUp : out t_bus_up;
-        Trace : out T_PulseGeneratorPlainIfcTrace;
+        bus_down : in t_bus_down;
+        bus_up : out t_bus_up;
+        bus_trace : out t_wishbone_trace;
         PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
     );
 end;
@@ -53,7 +53,7 @@ architecture behavioural of tb_top is
 
     signal PulseGeneratorPlainIfcWishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
     signal PulseGeneratorPlainIfcWishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
-    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;
+    signal PulseGeneratorPlainIfcWishboneTrace : T_PulseGeneratorPlainIfcWishboneTrace;
     
     signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
        
@@ -65,7 +65,7 @@ begin
             Rst => Rst,
             WishboneDown => PulseGeneratorPlainIfcWishboneDown,
             WishboneUp => PulseGeneratorPlainIfcWishboneUp,
-            Trace => PulseGeneratorPlainIfcTrace,
+            Trace => PulseGeneratorPlainIfcWishboneTrace,
             PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
         );
                
@@ -78,6 +78,15 @@ begin
         
         bus_up.wishbone.data <= PulseGeneratorPlainIfcWishboneUp.DatOut;
         bus_up.wishbone.ack <= PulseGeneratorPlainIfcWishboneUp.Ack;  
+        
+        bus_trace.wishbone_down.adr <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Adr;
+        bus_trace.wishbone_down.sel <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Sel;
+        bus_trace.wishbone_down.data <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.DatIn;
+        bus_trace.wishbone_down.we <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.We;
+        bus_trace.wishbone_down.stb <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Stb;
+        bus_trace.wishbone_down.cyc <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Cyc;           
+        bus_trace.wishbone_up.data <= PulseGeneratorPlainIfcWishboneTrace.WishboneUp.DatOut;
+        bus_trace.wishbone_up.ack <= PulseGeneratorPlainIfcWishboneTrace.WishboneUp.Ack;
         
         bus_up.avalon.readdata <= (others => '0');
         bus_up.avalon.waitrequest <= '1';

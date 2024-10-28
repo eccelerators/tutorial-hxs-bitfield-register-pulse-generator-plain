@@ -4,3 +4,6 @@
 [submodule "submodules/simstm"]
 	path = submodules/simstm
 	url = https://github.com/eccelerators/simstm.git
+[submodule "submodules/vhdl-eccelerators-basic-package"]
+	path = submodules/vhdl-eccelerators-basic-package
+	url = https://github.com/eccelerators/vhdl-eccelerators-basic-package.git

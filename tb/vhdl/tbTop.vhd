@@ -31,12 +31,11 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.PulseGeneratorPlainIfcPackage.all;
 use work.tb_bus_pkg.all;
 use work.tb_signals_pkg.all;
-use work.tb_bus_maps_pkg.all;
+use work.PulseGeneratorPlainIfcCommonPackage.vhd.all;
 
-entity tb_top is
+entity tbTop is
     generic (
         stimulus_path : string := "tb/simstm/";
         stimulus_file : string := "testMain.stm";
@@ -47,7 +46,7 @@ entity tb_top is
     );
 end;
 
-architecture behavioural of tb_top is
+architecture behavioural of tbTop is
 
     signal Clk : std_logic := '0';
     signal Rst : std_logic := '1';
@@ -62,8 +61,7 @@ architecture behavioural of tb_top is
     signal signals_out : t_signals_out;
     signal bus_down : t_bus_down;
     signal bus_up : t_bus_up;
-    
-    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;                 
+                  
     signal InitPulseGeneratorPlainLogic : std_logic;
     
     signal Clk : std_logic;
@@ -103,25 +101,48 @@ begin
             signals_out => signals_out,
             bus_down => bus_down,
             bus_up => bus_up
-        );
-            
-    i_PulseGeneratorPlainIfc : entity work.PulseGeneratorPlainIfc
+        ); 
+ 
+    g_tb_DutWishbone : if tutorial_bustype = 0 generate 
+        i_tb_DutWishbone : entity work.tb_DutWishbone
         port map(
             Clk => Clk,
             Rst => Rst,
-            BusDown => bus_down,
-            BusUp => bus_up,
-            Trace => PulseGeneratorPlainIfcTrace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
-        ); 
-                        
-    i_PulseGeneratorPlainLogic : entity work.PulseGeneratorPlainLogic
-        port map (
-            Clk => Clk,
-            Rst => Rst,
-            PulseGeneratorBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
+            bus_down => bus_down,
+            bus_up => bus_up,
+            bus_trace => bus_trace,
+            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
-        );
-                               
+        );    
+    end generate; 
+    
+    g_tb_DutAvalon : if tutorial_bustype = 0 generate 
+        i_tb_DutAvalon : entity work.tb_DutAvalon
+        port map(
+            Clk => Clk,
+            Rst => Rst,
+            bus_down => bus_down,
+            bus_up => bus_up,
+            bus_trace => bus_trace,
+            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
+            Pulse => Pulse,
+            Failure => Failure
+        );    
+    end generate;
+    
+    g_tb_DutAxi4Lite : if tutorial_bustype = 0 generate 
+        i_tb_DutAxi4Lite : entity work.tb_DutAxi4Lite
+        port map(
+            Clk => Clk,
+            Rst => Rst,
+            bus_down => bus_down,
+            bus_up => bus_up,
+            bus_trace => bus_trace,
+            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
+            Pulse => Pulse,
+            Failure => Failure
+        );    
+    end generate;         
+                                                                  
 end architecture;

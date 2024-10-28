@@ -36,59 +36,59 @@ use work.tb_bus_pkg.all;
 
 entity PulseGeneratorPlainIfc is
     generic (
-        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023;
-        bustype : string := "wishbone"
+        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
     );
     port (
         Clk : in std_logic;
         Rst : in std_logic;
-        BusDown : in t_bus_down;
-        BusUp : out t_bus_up;
-        Trace : out T_PulseGeneratorPlainIfcTrace;
+        bus_down : in t_bus_down;
+        bus_up : out t_bus_up;
+        bus_trace : out t_avalon_trace;
         PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
     );
 end;
 
 architecture behavioural of tb_top is
 
-    signal PulseGeneratorPlainIfcWishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
-    signal PulseGeneratorPlainIfcWishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
+    signal PulseGeneratorPlainIfcAvalonDown : T_PulseGeneratorPlainIfcAvalonDown;
+    signal PulseGeneratorPlainIfcAvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
     signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;
     
     signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
        
 begin
 
-    i_PulseGeneratorPlainIfcIfcWishbone : entity work.PulseGeneratorPlainIfcIfcWishbone
+    i_PulseGeneratorPlainIfcIfcAvalon : entity work.PulseGeneratorPlainIfcIfcAvalon
         port map(
             Clk => Clk,
             Rst => Rst,
-            WishboneDown => PulseGeneratorPlainIfcWishboneDown,
-            WishboneUp => PulseGeneratorPlainIfcWishboneUp,
-            Trace => PulseGeneratorPlainIfcTrace,
+            AvalonDown => PulseGeneratorPlainIfcAvalonDown,
+            AvalonUp => PulseGeneratorPlainIfcAvalonUp,
+            Trace => PulseGeneratorPlainIfcAvalonTrace,
             PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
         );
                
-        PulseGeneratorPlainIfcWishboneDown.Adr <= bus_down.wishbone.adr;
-        PulseGeneratorPlainIfcWishboneDown.Sel <= bus_down.wishbone.sel;
-        PulseGeneratorPlainIfcWishboneDown.DatIn <= bus_down.wishbone.data;
-        PulseGeneratorPlainIfcWishboneDown.We <= bus_down.wishbone.we;
-        PulseGeneratorPlainIfcWishboneDown.Stb <= bus_down.wishbone.stb;
-        PulseGeneratorPlainIfcWishboneDown.Cyc <= bus_down.wishbone.cyc;   
+        bus_up.wishbone.data <= (others => '0');
+        bus_up.wishbone.ack <= '0';
         
-        bus_up.wishbone.data <= PulseGeneratorPlainIfcWishboneUp.DatOut;
-        bus_up.wishbone.ack <= PulseGeneratorPlainIfcWishboneUp.Ack;  
+        bus_trace.wishbone_down.adr <= (others => '0');
+        bus_trace.wishbone_down.sel <= (others => '0');
+        bus_trace.wishbone_down.data <= (others => '0');
+        bus_trace.wishbone_down.we <= '0';
+        bus_trace.wishbone_down.stb <= '0';
+        bus_trace.wishbone_down.cyc <= '0';          
+        bus_trace.wishbone_up.data <= (others => '0');
+        bus_trace.wishbone_up.ack <= '0';
         
-        bus_up.avalon.readdata <= (others => '0');
-        bus_up.avalon.waitrequest <= '1';
+        bus_up.avalonmm.readdata <= PulseGeneratorPlainIfcAvalonUp.ReadData;
+        bus_up.avalonmm.waitrequest <= PulseGeneratorPlainIfcAvalonUp.WaitRequest;
         
-        bus_up.axi4lite.awready <= '0';
-        bus_up.axi4lite.wready <= '0';
-        bus_up.axi4lite.bvalid <= '0';
-        bus_up.axi4lite.bresp <= (others => '0');
-        bus_up.axi4lite.arready <= '0';
-        bus_up.axi4lite.rvalid <= '0';
-        bus_up.axi4lite.rdata <= (others => '0');
-        bus_up.axi4lite.rresp <= (others => '0');
-                                   
+        PulseGeneratorPlainIfcAvalonDown.Address <= bus_down.avalonmm_down.address;
+        PulseGeneratorPlainIfcAvalonDown.ByteEnable <= bus_down.avalonmm_down.byteenable;
+        PulseGeneratorPlainIfcAvalonDown.WriteData <= bus_down.avalonmm_down.writedata;
+        PulseGeneratorPlainIfcAvalonDown.Read <= bus_down.avalonmm_down.read;
+        PulseGeneratorPlainIfcAvalonDown.Write <= bus_down.avalonmm_down.write;
+        
+               
+                  
 end architecture;

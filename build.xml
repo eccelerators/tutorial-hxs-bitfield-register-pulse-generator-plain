@@ -54,24 +54,13 @@
 		4 ${flavour.name.4} ${line.separator}
 		" validargs="0,1,2,3,4" addproperty="flavour.number" defaultvalue="0" />
 	
-	<input unless:set="bustype.number" message="Choose bustype: ${line.separator}
-		0 wishbone ${line.separator}
-		1 avalon ${line.separator}
-		2 axi4lite ${line.separator}		
-		" validargs="0,1,2" addproperty="bustype.number" defaultvalue="0" />
-
 	<condition property="flavour" value="${flavour.name.0}"> <equals arg1="${flavour.number}" arg2="0" /> </condition>
 	<condition property="flavour" value="flavours/${flavour.name.1}"> <equals arg1="${flavour.number}" arg2="1" /> </condition>
 	<condition property="flavour" value="flavours/${flavour.name.2}"> <equals arg1="${flavour.number}" arg2="2" /> </condition>
 	<condition property="flavour" value="flavours/${flavour.name.3}"> <equals arg1="${flavour.number}" arg2="3" /> </condition>
 	<condition property="flavour" value="flavours/${flavour.name.4}"> <equals arg1="${flavour.number}" arg2="4" /> </condition>	
 	<echo> Flavour: ${flavour} </echo>
-	
-	<condition property="bustype" value="wishbone"> <equals arg1="${bustype.number}" arg2="0" /> </condition>
-	<condition property="bustype" value="avalon"> <equals arg1="${bustype.number}" arg2="1" /> </condition>
-	<condition property="bustype" value="axi4lite"> <equals arg1="${bustype.number}" arg2="2" /> </condition>	
-	<echo> Bustype: ${bustype} </echo>
-	
+    	
     <property name="hxs-filesets-indexes" value="0"/>
 
     <property name="hxs.fileset.0"
@@ -79,8 +68,8 @@
         hxs/${flavour}
         hxs/PulseGeneratorPlainIfc.hxs 
         "
-    />
-    <property name="hxs.bustype.0" value="${bustype}"/>
+    />    
+	<property name="hxs.package-name-stem.0" value="PulseGeneratorPlainIfcPackage"/>
     <property name="hxs.top-name-stem.0" value="eccelerators.tutorial.PulseGeneratorPlainIfc"/>
 
 	<import file="submodules/tutorial-hxs-common/build-helper.xml" optional="true"/>   

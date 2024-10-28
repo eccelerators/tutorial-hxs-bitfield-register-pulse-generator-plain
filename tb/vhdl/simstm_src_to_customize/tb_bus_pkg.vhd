@@ -19,6 +19,12 @@ package tb_bus_pkg is
         avalonmm : t_avalonmm_up;
         axi4lite : t_axi4lite_up;
     end record;
+    
+    type t_bus_trace is record
+        wishbone_trace : t_wishbone_trace;
+        avalonmm_trace : t_avalonmm_trace;
+        axi4lite_trace : t_axi4lite_trace;
+    end record;
 
     function bus_down_init return t_bus_down;
     function bus_up_init return t_bus_up;

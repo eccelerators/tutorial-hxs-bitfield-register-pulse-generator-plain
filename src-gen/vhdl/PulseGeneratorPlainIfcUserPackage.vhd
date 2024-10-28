@@ -13,28 +13,13 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-package PulseGeneratorPlainIfcPackage is
+package PulseGeneratorPlainIfcCommonPackage is
 
-	type T_PulseGeneratorPlainIfcWishboneDown is
+	type T_PulseGeneratorPlainIfcAxi4LiteTrace is
 	record
-		Adr : std_logic_vector(15 downto 0);
-		Sel : std_logic_vector(3 downto 0);
-		DatIn : std_logic_vector(31 downto 0);
-		We : std_logic;
-		Stb : std_logic;
-		Cyc : std_logic;
-	end record;
-	
-	type T_PulseGeneratorPlainIfcWishboneUp is
-	record
-		DatOut : std_logic_vector(31 downto 0);
-		Ack : std_logic;
-	end record;
-	
-	type T_PulseGeneratorPlainIfcTrace is
-	record
-		WishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
-		WishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
+		Axi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
+		Axi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
+		Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
 		UnoccupiedAck : std_logic;
 		TimeoutAck : std_logic;
 	end record;

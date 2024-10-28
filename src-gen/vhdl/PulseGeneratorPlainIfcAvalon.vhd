@@ -19,14 +19,13 @@ entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 	port (
 		Clk : in std_logic;
 		Rst : in std_logic;
-		Adr : in std_logic_vector(15 downto 0);
-		Sel : in std_logic_vector(3 downto 0);
-		DatIn : in std_logic_vector(31 downto 0);
-		We : in std_logic;
-		Stb : in std_logic;
-		Cyc : in  std_logic;
-		DatOut : out std_logic_vector(31 downto 0);
-		Ack : out std_logic;
+		Address : in std_logic_vector(15 downto 0);
+		ByteEnable : in std_logic_vector(3 downto 0);
+		Read : in std_logic;
+		ReadData : out std_logic_vector(31 downto 0);
+		Write : in std_logic;
+		WriteData : in std_logic_vector(31 downto 0);
+		WaitRequest : out std_logic;
 		Match : out std_logic;
 		Operation : out std_logic_vector(1 downto 0);
 		PulseWidthNs : out std_logic_vector(23 downto 0);
@@ -62,19 +61,19 @@ architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 
 begin
 
-	ByteAddress <= Adr(15 downto 2) & "00" when Sel(0) = '1' else
-		Adr(15 downto 2) & "01" when Sel(1) = '1' else
-		Adr(15 downto 2) & "10" when Sel(2) = '1' else
-		Adr(15 downto 2) & "11" when Sel(3) = '1' else
+	ByteAddress <= Address(15 downto 2) & "00" when ByteEnable(0) = '1' else
+		Address(15 downto 2) & "01" when ByteEnable(1) = '1' else
+		Address(15 downto 2) & "10" when ByteEnable(2) = '1' else
+		Address(15 downto 2) & "11" when ByteEnable(3) = '1' else
 		(others => '0');
 	
-	DatOut <= PreReadData;
+	ReadData <= PreReadData;
 	
 	Match <= PreMatchReadControlReg or PreMatchWriteControlReg
 		  or PreMatchReadParameterReg or PreMatchWriteParameterReg;
 	
-	Ack <= PreReadAckControlReg or PreWriteAckControlReg
-		or PreReadAckParameterReg or PreWriteAckParameterReg;
+	WaitRequest <= not (PreReadAckControlReg or PreWriteAckControlReg
+		or PreReadAckParameterReg or PreWriteAckParameterReg);
 	
 	PreOrReadDataControlReg <= "000000" & PreReadDataControlReg
 		when (PreMatchReadControlReg = '1' and PreReadAckControlReg = '1')
@@ -87,41 +86,40 @@ begin
 	PreReadData <= PreOrReadDataControlReg
 		or PreOrReadDataParameterReg;
 	
-	PreMatchReadControlRegProcess : process (ByteAddress, We, Stb, Cyc)
+	PreMatchReadControlRegProcess : process (ByteAddress, Read)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(CONTROLREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
-			PreMatchReadControlReg <= not We and Stb and Cyc;
+			PreMatchReadControlReg <= Read;
 		else
 			PreMatchReadControlReg <= '0';
 		end if;
 	end process;
 	
-	PreMatchWriteControlRegProcess : process (ByteAddress, We, Stb, Cyc)
+	PreMatchWriteControlRegProcess : process (ByteAddress, Write)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(CONTROLREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
-			PreMatchWriteControlReg <= We and Stb and Cyc;
+			PreMatchWriteControlReg <= Write;
 		else
 			PreMatchWriteControlReg <= '0';
 		end if;
 	end process;
-	
-	WriteDiffControlRegProcess : process (ByteAddress, We, Stb, Cyc, PreWriteAckControlReg)
+	WriteDiffControlRegProcess : process (ByteAddress, Write, PreWriteAckControlReg)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(CONTROLREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
-			WriteDiffControlReg <= We and Stb and Cyc and not PreWriteAckControlReg;
+			WriteDiffControlReg <= Write and not PreWriteAckControlReg;
 		else
 			WriteDiffControlReg <= '0';
 		end if;
 	end process;
 	
-	ReadDiffControlRegProcess : process (ByteAddress, We, Stb, Cyc, PreReadAckControlReg)
+	ReadDiffControlRegProcess : process (ByteAddress, Read, PreReadAckControlReg)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(CONTROLREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
-			ReadDiffControlReg <= not We and Stb and Cyc and not PreReadAckControlReg;
+			ReadDiffControlReg <= Read and not PreReadAckControlReg;
 		else
 			ReadDiffControlReg <= '0';
 		end if;
@@ -138,10 +136,10 @@ begin
 			PreWriteAckControlReg <= WriteDiffControlReg;
 			PreReadAckControlReg <= ReadDiffControlReg;
 			if (WriteDiffControlReg = '1') then
-				if (Sel(2) = '1') then WRegPulseWidthNs(23 downto 16) <= DatIn(23 downto 16); end if;
-				if (Sel(1) = '1') then WRegPulseWidthNs(15 downto 8) <= DatIn(15 downto 8); end if;
-				if (Sel(0) = '1') then WRegPulseWidthNs(7 downto 0) <= DatIn(7 downto 0); end if;
-				if (Sel(3) = '1') then WRegOperation(1 downto 0) <= DatIn(25 downto 24); end if;
+				if (ByteEnable(2) = '1') then WRegPulseWidthNs(23 downto 16) <= WriteData(23 downto 16); end if;
+				if (ByteEnable(1) = '1') then WRegPulseWidthNs(15 downto 8) <= WriteData(15 downto 8); end if;
+				if (ByteEnable(0) = '1') then WRegPulseWidthNs(7 downto 0) <= WriteData(7 downto 0); end if;
+				if (ByteEnable(3) = '1') then WRegOperation(1 downto 0) <= WriteData(25 downto 24); end if;
 			end if;
 		end if;
 	end process;
@@ -158,41 +156,40 @@ begin
 	Operation <= WRegOperation;
 	PulseWidthNs <= WRegPulseWidthNs;
 	
-	PreMatchReadParameterRegProcess : process (ByteAddress, We, Stb, Cyc)
+	PreMatchReadParameterRegProcess : process (ByteAddress, Read)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
-			PreMatchReadParameterReg <= not We and Stb and Cyc;
+			PreMatchReadParameterReg <= Read;
 		else
 			PreMatchReadParameterReg <= '0';
 		end if;
 	end process;
 	
-	PreMatchWriteParameterRegProcess : process (ByteAddress, We, Stb, Cyc)
+	PreMatchWriteParameterRegProcess : process (ByteAddress, Write)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
-			PreMatchWriteParameterReg <= We and Stb and Cyc;
+			PreMatchWriteParameterReg <= Write;
 		else
 			PreMatchWriteParameterReg <= '0';
 		end if;
 	end process;
-	
-	WriteDiffParameterRegProcess : process (ByteAddress, We, Stb, Cyc, PreWriteAckParameterReg)
+	WriteDiffParameterRegProcess : process (ByteAddress, Write, PreWriteAckParameterReg)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
-			WriteDiffParameterReg <= We and Stb and Cyc and not PreWriteAckParameterReg;
+			WriteDiffParameterReg <= Write and not PreWriteAckParameterReg;
 		else
 			WriteDiffParameterReg <= '0';
 		end if;
 	end process;
 	
-	ReadDiffParameterRegProcess : process (ByteAddress, We, Stb, Cyc, PreReadAckParameterReg)
+	ReadDiffParameterRegProcess : process (ByteAddress, Read, PreReadAckParameterReg)
 	begin
 		if (unsigned(ByteAddress) >= unsigned(PARAMETERREG_ADDRESS) and
 			unsigned(ByteAddress) <= unsigned(PARAMETERREG_ADDRESS) + 2) then
-			ReadDiffParameterReg <= not We and Stb and Cyc and not PreReadAckParameterReg;
+			ReadDiffParameterReg <= Read and not PreReadAckParameterReg;
 		else
 			ReadDiffParameterReg <= '0';
 		end if;
@@ -208,9 +205,9 @@ begin
 			PreWriteAckParameterReg <= WriteDiffParameterReg;
 			PreReadAckParameterReg <= ReadDiffParameterReg;
 			if (WriteDiffParameterReg = '1') then
-				if (Sel(2) = '1') then WRegPulsePeriodNs(23 downto 16) <= DatIn(23 downto 16); end if;
-				if (Sel(1) = '1') then WRegPulsePeriodNs(15 downto 8) <= DatIn(15 downto 8); end if;
-				if (Sel(0) = '1') then WRegPulsePeriodNs(7 downto 0) <= DatIn(7 downto 0); end if;
+				if (ByteEnable(2) = '1') then WRegPulsePeriodNs(23 downto 16) <= WriteData(23 downto 16); end if;
+				if (ByteEnable(1) = '1') then WRegPulsePeriodNs(15 downto 8) <= WriteData(15 downto 8); end if;
+				if (ByteEnable(0) = '1') then WRegPulsePeriodNs(7 downto 0) <= WriteData(7 downto 0); end if;
 			end if;
 		end if;
 	end process;
@@ -237,7 +234,8 @@ entity PulseGeneratorPlainIfcBusMonitor is
 	port (
 		Clk : in std_logic;
 		Rst : in std_logic;
-		Cyc : in  std_logic;
+		Read : in  std_logic;
+		Write : in  std_logic;
 		Match : in std_logic;
 		UnoccupiedAck : out std_logic;
 		TimeoutAck : out std_logic
@@ -258,23 +256,26 @@ architecture Behavioural of PulseGeneratorPlainIfcBusMonitor is
 		end loop;
 		return nbits;
 	end function;
-	
+
 	constant TimeoutCounterWidth : integer := get_num_bits(CLOCKS_UNTIL_CYCLE_TIMEOUT);
 	constant TimeoutCounterLeft : integer := TimeoutCounterWidth - 1;
 
-	signal CycDelay : std_logic;
+	signal BusAccessDelay : std_logic;
+	signal BusAccess : std_logic;
 	signal PreUnoccupiedAck : std_logic;
 	signal PreTimeoutAck : std_logic;
 	signal TimeoutCounter : unsigned(TimeoutCounterLeft downto 0) := to_unsigned(CLOCKS_UNTIL_CYCLE_TIMEOUT, TimeoutCounterWidth);
 
 begin
 
-	CycDetection : process (Clk, Rst)
+	BusAccess <= Read or Write;
+
+	BusAccessDetection : process (Clk, Rst)
 	begin
 		if (Rst = '1') then
-			CycDelay <= '0';
+			BusAccessDelay <= '0';
 		elsif rising_edge(Clk) then
-			CycDelay <= Cyc;
+			BusAccessDelay <= BusAccess;
 		end if;
 	end process;
 
@@ -284,7 +285,7 @@ begin
 			PreUnoccupiedAck <= '0';
 		elsif rising_edge(Clk) then
 			PreUnoccupiedAck <= '0';
-			if ((Cyc = '1') and (CycDelay = '1') and (Match = '0')) then
+			if ((BusAccess = '1') and (BusAccessDelay = '1') and (Match = '0')) then
 				PreUnoccupiedAck <= not PreUnoccupiedAck;
 			end if;
 		end if;
@@ -298,7 +299,7 @@ begin
 		elsif rising_edge(Clk) then
 			PreTimeoutAck <= '0';
 			TimeoutCounter <= to_unsigned(CLOCKS_UNTIL_CYCLE_TIMEOUT, TimeoutCounterWidth);
-			if ((Cyc = '1') and (CycDelay = '1') and (Match = '1')) then
+			if ((BusAccess = '1') and (BusAccessDelay = '1') and (Match = '1')) then
 				if (TimeoutCounter = 0) then
 					PreTimeoutAck <= not PreTimeoutAck;
 				else
@@ -321,30 +322,30 @@ library ieee;
 
 use work.PulseGeneratorPlainIfcPackage.all;
 
-entity PulseGeneratorPlainIfcWishbone is
+entity PulseGeneratorPlainIfcAvalon is
 	generic (
 		CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
 	);
 	port (
 		Clk : in std_logic;
 		Rst : in std_logic;
-		WishboneDown : in T_PulseGeneratorPlainIfcWishboneDown;
-		WishboneUp : out T_PulseGeneratorPlainIfcWishboneUp;
-		Trace : out T_PulseGeneratorPlainIfcWishboneTrace;
+		AvalonDown : in T_PulseGeneratorPlainIfcAvalonDown;
+		AvalonUp : out T_PulseGeneratorPlainIfcAvalonUp;
+		Trace : out T_PulseGeneratorPlainIfcAvalonTrace;
 		PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
 	);
 end;
 
-architecture Behavioural of PulseGeneratorPlainIfcWishbone is
+architecture Behavioural of PulseGeneratorPlainIfcAvalon is
 
 	signal BlockMatch : std_logic;
 	signal UnoccupiedAck : std_logic;
 	signal TimeoutAck : std_logic;
 	
-	signal PreWishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
+	signal PreAvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
 	
-	signal PulseGeneratorPlainBlkDatOut : std_logic_vector(31 downto 0);
-	signal PulseGeneratorPlainBlkAck : std_logic;
+	signal PulseGeneratorPlainBlkReadData : std_logic_vector(31 downto 0);
+	signal PulseGeneratorPlainBlkWaitRequest : std_logic;
 	signal PulseGeneratorPlainBlkMatch : std_logic;
 
 begin
@@ -356,7 +357,8 @@ begin
 		port map (
 			Clk => Clk,
 			Rst => Rst,
-			Cyc => WishboneDown.Cyc,
+			Read => AvalonDown.Read,
+			Write => AvalonDown.Write,
 			Match => BlockMatch,
 			UnoccupiedAck => UnoccupiedAck,
 			TimeoutAck => TimeoutAck
@@ -366,32 +368,31 @@ begin
 		port map (
 			Clk => Clk,
 			Rst => Rst,
-			Adr => WishboneDown.Adr,
-			Sel => WishboneDown.Sel,
-			DatIn => WishboneDown.DatIn,
-			We =>  WishboneDown.We,
-			Stb => WishboneDown.Stb,
-			Cyc => WishboneDown.Cyc,
-			DatOut => PulseGeneratorPlainBlkDatOut,
-			Ack => PulseGeneratorPlainBlkAck,
+			Address => AvalonDown.Address,
+			ByteEnable => AvalonDown.ByteEnable,
+			Read => AvalonDown.Read,
+			ReadData =>  PulseGeneratorPlainBlkReadData,
+			Write => AvalonDown.Write,
+			WriteData => AvalonDown.WriteData,
+			WaitRequest => PulseGeneratorPlainBlkWaitRequest,
 			Match => PulseGeneratorPlainBlkMatch,
 			Operation => PulseGeneratorPlainBlkDown.Operation,
 			PulseWidthNs => PulseGeneratorPlainBlkDown.PulseWidthNs,
 			PulsePeriodNs => PulseGeneratorPlainBlkDown.PulsePeriodNs
 		);
 	
-	Trace.WishboneDown <= WishboneDown;
-	Trace.WishboneUp <= PreWishboneUp;
+	Trace.AvalonDown <= AvalonDown;
+	Trace.AvalonUp <= PreAvalonUp;
 	Trace.UnoccupiedAck <= UnoccupiedAck;
 	Trace.TimeoutAck <= TimeoutAck;
 	
-	WishboneUp <= PreWishboneUp;
+	AvalonUp <= PreAvalonUp;
 	
-	PreWishboneUp.DatOut <= PulseGeneratorPlainBlkDatOut;
+	PreAvalonUp.ReadData <= PulseGeneratorPlainBlkReadData;
 	
-	PreWishboneUp.Ack <= PulseGeneratorPlainBlkAck
-		or UnoccupiedAck 
-		or TimeoutAck;
+	PreAvalonUp.WaitRequest <= PulseGeneratorPlainBlkWaitRequest
+		and not UnoccupiedAck
+		and not TimeoutAck;
 	
 	BlockMatch <= PulseGeneratorPlainBlkMatch;
 

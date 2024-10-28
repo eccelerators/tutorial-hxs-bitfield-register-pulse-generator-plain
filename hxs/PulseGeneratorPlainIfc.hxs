@@ -1,6 +1,7 @@
 namespace eccelerators.tutorial
 {
 	@Generator('docs.file_type', 'DrawIo')
+	@Generator('vhdl.ipxact.wrapper', 'true')
 	interface PulseGeneratorPlainIfc
 	{
 		AddressBusWidth = 16;
