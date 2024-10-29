@@ -13,16 +13,7 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-package PulseGeneratorPlainIfcCommonPackage is
-
-	type T_PulseGeneratorPlainIfcAxi4LiteTrace is
-	record
-		Axi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
-		Axi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
-		Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
-		UnoccupiedAck : std_logic;
-		TimeoutAck : std_logic;
-	end record;
+package PulseGeneratorPlainIfcUserPackage is
 	
 	type T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown is
 	record

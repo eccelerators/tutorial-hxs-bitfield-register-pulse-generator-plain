@@ -32,4 +32,10 @@ package PulseGeneratorPlainIfcWishbonePackage is
 		Ack : std_logic;
 	end record;
 	
+	type T_PulseGeneratorPlainIfcWishboneTrace is
+	record
+		WishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
+		WishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
+		UnoccupiedAck : std_logic;
+		TimeoutAck : std_logic;
 end;

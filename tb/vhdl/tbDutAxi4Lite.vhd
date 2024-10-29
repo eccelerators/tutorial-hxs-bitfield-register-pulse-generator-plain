@@ -31,11 +31,10 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.PulseGeneratorPlainIfcCommonPackage.all;
-use work.PulseGeneratorPlainIfcAxi4LiteBusPackage.all;
+use work.PulseGeneratorPlainIfcAxi4LitePackage.all;
 use work.tb_bus_pkg.all;
 
-entity PulseGeneratorPlainSimStmWrapper is
+entity tbDutAxi4Lite is
     generic (
         CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023;
         bustype : string := "wishbone"
@@ -43,21 +42,20 @@ entity PulseGeneratorPlainSimStmWrapper is
     port (
         Clk : in std_logic;
         Rst : in std_logic;
-        BusDown : in t_bus_down;
-        BusUp : out t_bus_up;
-        Trace : out T_PulseGeneratorPlainIfcTrace;
-        PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+        bus_down : in t_bus_down;
+        bus_up : out t_bus_up;
+        bus_trace : out t_axi4lite_trace;
+        Pulse : out std_logic;
+        Failure : out std_logic
     );
 end;
 
-architecture behavioural of PulseGeneratorPlainSimStm is
+architecture behavioural of tbDutAxi4Lite is
 
-    signal Axi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
-    signal Axi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
-    signal Trace : T_PulseGeneratorPlainIfcAxi4LiteTrace;
-    
-    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
-       
+    signal PulseGeneratorPlainAxi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
+    signal PulseGeneratorPlainAxi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
+    signal PulseGeneratorPlainAxi4LiteTrace : T_PulseGeneratorPlainIfcAxi4LiteTrace;
+           
 begin
 
    i_PulseGeneratorPlainAxi4LiteHxs : entity work.PulseGeneratorPlainAxi4LiteHxs
@@ -75,57 +73,86 @@ begin
         );
 
 
-    i_PulseGeneratorPlainIfcIfcWishbone : entity work.PulseGeneratorPlainIfcIfcWishbone
+    i_PulseGeneratorPlainAxi4LiteHxs : entity work.PulseGeneratorPlainAxi4LiteHxs
         port map(
             Clk => Clk,
             Rst => Rst,
-            WishboneDown => PulseGeneratorPlainIfcWishboneDown,
-            WishboneUp => PulseGeneratorPlainIfcWishboneUp,
-            Trace => PulseGeneratorPlainIfcTrace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+            PulseGeneratorPlainAxi4LiteDown => PulseGeneratorPlainAxi4LiteDown,
+            PulseGeneratorPlainAxi4LiteUp => PulseGeneratorPlainAxi4LiteUp,
+            PulseGeneratorPlainAxi4LiteTrace => PulseGeneratorPlainAxi4LiteTrace,
+            PulseGeneratorBlkDown => PulseGeneratorBlkDown,
+            Pulse => Pulse,
+            Failure => Failure
         );
-               
-        PulseGeneratorPlainIfcWishboneDown.Adr <= bus_down.wishbone.adr;
-        PulseGeneratorPlainIfcWishboneDown.Sel <= bus_down.wishbone.sel;
-        PulseGeneratorPlainIfcWishboneDown.DatIn <= bus_down.wishbone.data;
-        PulseGeneratorPlainIfcWishboneDown.We <= bus_down.wishbone.we;
-        PulseGeneratorPlainIfcWishboneDown.Stb <= bus_down.wishbone.stb;
-        PulseGeneratorPlainIfcWishboneDown.Cyc <= bus_down.wishbone.cyc;   
+             
+        -- wishbone unused     
+        bus_up.wishbone.data <= (others => '0');
+        bus_up.wishbone.ack <= '0';
         
-        bus_up.wishbone.data <= PulseGeneratorPlainIfcWishboneUp.DatOut;
-        bus_up.wishbone.ack <= PulseGeneratorPlainIfcWishboneUp.Ack;  
+        bus_trace.wishbone_down.adr <= (others => '0');
+        bus_trace.wishbone_down.sel <= (others => '0');
+        bus_trace.wishbone_down.data <= (others => '0');
+        bus_trace.wishbone_down.we <= '0';
+        bus_trace.wishbone_down.stb <= '0';
+        bus_trace.wishbone_down.cyc <= '0';          
+        bus_trace.wishbone_up.data <= (others => '0');
+        bus_trace.wishbone_up.ack <= '0';
         
+        -- avalon unused 
         bus_up.avalon.readdata <= (others => '0');
         bus_up.avalon.waitrequest <= '1';
         
-        bus_up.axi4lite.awready <= '0';
-        bus_up.axi4lite.wready <= '0';
-        bus_up.axi4lite.bvalid <= '0';
-        bus_up.axi4lite.bresp <= (others => '0');
-        bus_up.axi4lite.arready <= '0';
-        bus_up.axi4lite.rvalid <= '0';
-        bus_up.axi4lite.rdata <= (others => '0');
-        bus_up.axi4lite.rresp <= (others => '0');
-        
-                PulseGeneratorPlainIfcAxi4LiteDown.AWVALID <= bus_down.avalon.awvalid;
-        PulseGeneratorPlainIfcAxi4LiteDown.AWADDR <= bus_down.avalon.awaddr;
-        PulseGeneratorPlainIfcAxi4LiteDown.AWPROT <= bus_down.avalon.awprot;
-        PulseGeneratorPlainIfcAxi4LiteDown.WVALID <= bus_down.avalon.wvalid;
-        PulseGeneratorPlainIfcAxi4LiteDown.WDATA <= bus_down.avalon.wdata;
-        PulseGeneratorPlainIfcAxi4LiteDown.WSTRB <= bus_down.avalon.wstrb;
-        PulseGeneratorPlainIfcAxi4LiteDown.BREADY <= bus_down.avalon.bready;
-        PulseGeneratorPlainIfcAxi4LiteDown.ARVALID <= bus_down.avalon.arvalid;
-        PulseGeneratorPlainIfcAxi4LiteDown.ARADDR <= bus_down.avalon.araddr;
-        PulseGeneratorPlainIfcAxi4LiteDown.ARPROT <= bus_down.avalon.arprot;
-        PulseGeneratorPlainIfcAxi4LiteDown.RREADY <= bus_down.avalon.rready;
-               
-        bus_up.axi4lite.awready <= PulseGeneratorPlainIfcAxi4LiteUp.AWREADY;
-        bus_up.axi4lite.wready <= PulseGeneratorPlainIfcAxi4LiteUp.WREADY;
-        bus_up.axi4lite.bvalid <= PulseGeneratorPlainIfcAxi4LiteUp.BVALID;
-        bus_up.axi4lite.bresp <= PulseGeneratorPlainIfcAxi4LiteUp.BRESP;
-        bus_up.axi4lite.arready <= PulseGeneratorPlainIfcAxi4LiteUp.ARREADY;
-        bus_up.axi4lite.rvalid <= PulseGeneratorPlainIfcAxi4LiteUp.RVALID;
-        bus_up.axi4lite.rdata <= PulseGeneratorPlainIfcAxi4LiteUp.RDATA;
-        bus_up.axi4lite.rresp <= PulseGeneratorPlainIfcAxi4LiteUp.RRESP;  
-                                   
+        bus_trace.avalonmm_down.adr <= (others => '0');
+        bus_trace.avalonmm_down.byteenable <= (others => '0');
+        bus_trace.avalonmm_down.writedata <= (others => '0');
+        bus_trace.avalonmm_down.read <= '0';
+        bus_trace.avalonmm_down.write <= '0';
+        bus_trace.avalonmm_up.readdata <= (others => '0');
+        bus_trace.avalonmm_up.waitrequest <= '1';     
+        bus_trace.hxs_unoccupied_access <= '0';
+        bus_trace.hxs_timeout_access <= '0';
+
+        -- axi4lite connected to dut            
+        PulseGeneratorPlainAxi4LiteDown.AWVALID <= bus_down.axi4lite.awvalid;
+        PulseGeneratorPlainAxi4LiteDown.AWADDR <= bus_down.axi4lite.awaddr;
+        PulseGeneratorPlainAxi4LiteDown.AWPROT <= bus_down.axi4lite.awprot;
+        PulseGeneratorPlainAxi4LiteDown.WVALID <= bus_down.axi4lite.wvalid;
+        PulseGeneratorPlainAxi4LiteDown.WDATA <= bus_down.axi4lite.wdata;
+        PulseGeneratorPlainAxi4LiteDown.WSTRB <= bus_down.axi4lite.wstrb;
+        PulseGeneratorPlainAxi4LiteDown.BREADY <= bus_down.axi4lite.bready;
+        PulseGeneratorPlainAxi4LiteDown.ARVALID <= bus_down.axi4lite.arvalid;
+        PulseGeneratorPlainAxi4LiteDown.ARADDR <= bus_down.axi4lite.araddr;
+        PulseGeneratorPlainAxi4LiteDown.ARPROT <= bus_down.axi4lite.arprot;
+        PulseGeneratorPlainAxi4LiteDown.RREADY <= bus_down.axi4lite.rready;               
+        bus_up.axi4lite.awready <= PulseGeneratorPlainAxi4LiteUp.AWREADY;
+        bus_up.axi4lite.wready <= PulseGeneratorPlainAxi4LiteUp.WREADY;
+        bus_up.axi4lite.bvalid <= PulseGeneratorPlainAxi4LiteUp.BVALID;
+        bus_up.axi4lite.bresp <= PulseGeneratorPlainAxi4LiteUp.BRESP;
+        bus_up.axi4lite.arready <= PulseGeneratorPlainAxi4LiteUp.ARREADY;
+        bus_up.axi4lite.rvalid <= PulseGeneratorPlainAxi4LiteUp.RVALID;
+        bus_up.axi4lite.rdata <= PulseGeneratorPlainAxi4LiteUp.RDATA;
+        bus_up.axi4lite.rresp <= PulseGeneratorPlainAxi4LiteUp.RRESP;  
+            
+        bus_trace.axi4lite_down.awvalid <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.AWVALID;
+        bus_trace.axi4lite_down.awaddr <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.AWADDR;
+        bus_trace.axi4lite_down.awprot <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.AWPROT;
+        bus_trace.axi4lite_down.wvalid <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.WVALID;
+        bus_trace.axi4lite_down.wdata <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.WDATA;
+        bus_trace.axi4lite_down.wstrb <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.WSTRB;
+        bus_trace.axi4lite_down.bready <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.BREADY;
+        bus_trace.axi4lite_down.arvalid <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.ARVALID;
+        bus_trace.axi4lite_down.araddr <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.ARADDR;
+        bus_trace.axi4lite_down.arprot <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.ARPROT;
+        bus_trace.axi4lite_down.rready <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteDown.RREADY;        
+        bus_trace.axi4lite_up.awready <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.AWREADY;
+        bus_trace.axi4lite_up.wready <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.WREADY;        
+        bus_trace.axi4lite_up.bvalid <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.BVALID;
+        bus_trace.axi4lite_up.bresp <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.BRESP;  
+        bus_trace.axi4lite_up.arready <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.ARREADY;
+        bus_trace.axi4lite_up.rvalid <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.RVALID; 
+        bus_trace.axi4lite_up.rdata <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.RDATA;
+        bus_trace.axi4lite_up.rresp <= PulseGeneratorPlainAxi4LiteTrace.Axi4LiteUp.RRESP;         
+        bus_trace.hxs_unoccupied_access <= PulseGeneratorPlainAxi4LiteTrace.UnoccupiedAck;
+        bus_trace.hxs_timeout_access <= PulseGeneratorPlainAxi4LiteTrace.TimeoutAck;      
+                                                   
 end architecture;

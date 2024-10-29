@@ -31,11 +31,10 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.PulseGeneratorPlainIfcCommonPackage.all;
-use work.PulseGeneratorPlainIfcWishboneBusPackage.all;
+use work.PulseGeneratorPlainIfcWishbonePackage.all;
 use work.tb_bus_pkg.all;
 
-entity tb_PulseGeneratorPlain is
+entity tbDutWishbone is
     generic (
         CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
     );
@@ -45,37 +44,37 @@ entity tb_PulseGeneratorPlain is
         bus_down : in t_bus_down;
         bus_up : out t_bus_up;
         bus_trace : out t_wishbone_trace;
-        PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+        Pulse : out std_logic;
+        Failure : out std_logic
     );
 end;
 
-architecture behavioural of tb_top is
+architecture behavioural of tbDutWishbone is
 
-    signal PulseGeneratorPlainIfcWishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
-    signal PulseGeneratorPlainIfcWishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
-    signal PulseGeneratorPlainIfcWishboneTrace : T_PulseGeneratorPlainIfcWishboneTrace;
-    
-    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
-       
+    signal PulseGeneratorPlainWishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
+    signal PulseGeneratorPlainWishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
+    signal PulseGeneratorPlainWishboneTrace : T_PulseGeneratorPlainIfcWishboneTrace;
+           
 begin
 
-    i_PulseGeneratorPlainIfcIfcWishbone : entity work.PulseGeneratorPlainIfcIfcWishbone
+    i_PulseGeneratorPlainWishboneHxs : entity work.PulseGeneratorPlainWishboneHxs
         port map(
             Clk => Clk,
             Rst => Rst,
-            WishboneDown => PulseGeneratorPlainIfcWishboneDown,
-            WishboneUp => PulseGeneratorPlainIfcWishboneUp,
-            Trace => PulseGeneratorPlainIfcWishboneTrace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+            PulseGeneratorPlainWishboneDown => PulseGeneratorPlainWishboneDown,
+            PulseGeneratorPlainIfcWishboneUp => PulseGeneratorPlainWishboneUp,
+            PulseGeneratorPlainIfcWishboneTrace => PulseGeneratorPlainWishboneTrace,
+            Pulse => Pulse,
+            Failure => Failure
         );
                
+        -- wishbone connected to dut
         PulseGeneratorPlainIfcWishboneDown.Adr <= bus_down.wishbone.adr;
         PulseGeneratorPlainIfcWishboneDown.Sel <= bus_down.wishbone.sel;
         PulseGeneratorPlainIfcWishboneDown.DatIn <= bus_down.wishbone.data;
         PulseGeneratorPlainIfcWishboneDown.We <= bus_down.wishbone.we;
         PulseGeneratorPlainIfcWishboneDown.Stb <= bus_down.wishbone.stb;
-        PulseGeneratorPlainIfcWishboneDown.Cyc <= bus_down.wishbone.cyc;   
-        
+        PulseGeneratorPlainIfcWishboneDown.Cyc <= bus_down.wishbone.cyc;           
         bus_up.wishbone.data <= PulseGeneratorPlainIfcWishboneUp.DatOut;
         bus_up.wishbone.ack <= PulseGeneratorPlainIfcWishboneUp.Ack;  
         
@@ -86,11 +85,25 @@ begin
         bus_trace.wishbone_down.stb <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Stb;
         bus_trace.wishbone_down.cyc <= PulseGeneratorPlainIfcWishboneTrace.WishboneDown.Cyc;           
         bus_trace.wishbone_up.data <= PulseGeneratorPlainIfcWishboneTrace.WishboneUp.DatOut;
-        bus_trace.wishbone_up.ack <= PulseGeneratorPlainIfcWishboneTrace.WishboneUp.Ack;
-        
+        bus_trace.wishbone_up.ack <= PulseGeneratorPlainIfcWishboneTrace.WishboneUp.Ack;        
+        bus_trace.hxs_unoccupied_access <= PulseGeneratorPlainAxi4LiteTrace.UnoccupiedAck;
+        bus_trace.hxs_timeout_access <= PulseGeneratorPlainAxi4LiteTrace.TimeoutAck;
+                
+        -- avalon unused 
         bus_up.avalon.readdata <= (others => '0');
         bus_up.avalon.waitrequest <= '1';
         
+        bus_trace.avalonmm_down.adr <= (others => '0');
+        bus_trace.avalonmm_down.byteenable <= (others => '0');
+        bus_trace.avalonmm_down.writedata <= (others => '0');
+        bus_trace.avalonmm_down.read <= '0';
+        bus_trace.avalonmm_down.write <= '0';
+        bus_trace.avalonmm_up.readdata <= (others => '0');
+        bus_trace.avalonmm_up.waitrequest <= '1';     
+        bus_trace.hxs_unoccupied_access <= '0';
+        bus_trace.hxs_timeout_access <= '0';
+        
+        -- axi4lite unused 
         bus_up.axi4lite.awready <= '0';
         bus_up.axi4lite.wready <= '0';
         bus_up.axi4lite.bvalid <= '0';
@@ -99,5 +112,27 @@ begin
         bus_up.axi4lite.rvalid <= '0';
         bus_up.axi4lite.rdata <= (others => '0');
         bus_up.axi4lite.rresp <= (others => '0');
-                                  
+        
+        bus_trace.axi4lite_down.awvalid <= '0';
+        bus_trace.axi4lite_down.awaddr <= (others => '0');
+        bus_trace.axi4lite_down.awprot <= (others => '0');
+        bus_trace.axi4lite_down.wvalid <= '0';
+        bus_trace.axi4lite_down.wdata <= (others => '0');
+        bus_trace.axi4lite_down.wstrb <= (others => '0');
+        bus_trace.axi4lite_down.bready <= '0';
+        bus_trace.axi4lite_down.arvalid <= '0';
+        bus_trace.axi4lite_down.araddr <= (others => '0');
+        bus_trace.axi4lite_down.arprot <= (others => '0');
+        bus_trace.axi4lite_down.rready <= '0';
+        bus_trace.axi4lite_up.awready <= '0';
+        bus_trace.axi4lite_up.wready <= '0';       
+        bus_trace.axi4lite_up.bvalid <= '0';
+        bus_trace.axi4lite_up.bresp <= (others => '0'); 
+        bus_trace.axi4lite_up.arready <= '0';
+        bus_trace.axi4lite_up.rvalid <= '0';
+        bus_trace.axi4lite_up.rdata <= (others => '0');
+        bus_trace.axi4lite_up.rresp <= (others => '0');
+        bus_trace.hxs_unoccupied_access <= '0';
+        bus_trace.hxs_timeout_access <= '0';
+        
 end architecture;

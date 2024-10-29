@@ -31,10 +31,10 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcAvalonPackage.all;
 use work.tb_bus_pkg.all;
 
-entity PulseGeneratorPlainIfc is
+entity tbDutAvalon is
     generic (
         CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
     );
@@ -44,30 +44,31 @@ entity PulseGeneratorPlainIfc is
         bus_down : in t_bus_down;
         bus_up : out t_bus_up;
         bus_trace : out t_avalon_trace;
-        PulseGeneratorPlainBlkDown : out T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+        Pulse : out std_logic;
+        Failure : out std_logic
     );
 end;
 
-architecture behavioural of tb_top is
+architecture behavioural of tbDutAvalon is
 
-    signal PulseGeneratorPlainIfcAvalonDown : T_PulseGeneratorPlainIfcAvalonDown;
-    signal PulseGeneratorPlainIfcAvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
-    signal PulseGeneratorPlainIfcTrace : T_PulseGeneratorPlainIfcTrace;
-    
-    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
-       
+    signal PulseGeneratorPlainAvalonDown : T_PulseGeneratorPlainIfcAvalonDown;
+    signal PulseGeneratorPlainAvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
+    signal PulseGeneratorPlainAvalonTrace : T_PulseGeneratorPlainIfcTrace;
+           
 begin
 
-    i_PulseGeneratorPlainIfcIfcAvalon : entity work.PulseGeneratorPlainIfcIfcAvalon
+    i_PulseGeneratorPlainAvalonHxs : entity work.PulseGeneratorPlainAvalonHxs
         port map(
             Clk => Clk,
             Rst => Rst,
-            AvalonDown => PulseGeneratorPlainIfcAvalonDown,
-            AvalonUp => PulseGeneratorPlainIfcAvalonUp,
-            Trace => PulseGeneratorPlainIfcAvalonTrace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown
+            PulseGeneratorPlainAvalonDown => PulseGeneratorPlainAvalonDown,
+            PulseGeneratorPlainAvalonUp => PulseGeneratorPlainAvalonUp,
+            PulseGeneratorPlainAvalonTrace => PulseGeneratorPlainAvalonTrace,
+            Pulse => Pulse,
+            Failure => Failure
         );
-               
+          
+        -- wishbone unused     
         bus_up.wishbone.data <= (others => '0');
         bus_up.wishbone.ack <= '0';
         
@@ -79,16 +80,56 @@ begin
         bus_trace.wishbone_down.cyc <= '0';          
         bus_trace.wishbone_up.data <= (others => '0');
         bus_trace.wishbone_up.ack <= '0';
-        
-        bus_up.avalonmm.readdata <= PulseGeneratorPlainIfcAvalonUp.ReadData;
-        bus_up.avalonmm.waitrequest <= PulseGeneratorPlainIfcAvalonUp.WaitRequest;
-        
+
+        -- avalon connected to dut
         PulseGeneratorPlainIfcAvalonDown.Address <= bus_down.avalonmm_down.address;
         PulseGeneratorPlainIfcAvalonDown.ByteEnable <= bus_down.avalonmm_down.byteenable;
         PulseGeneratorPlainIfcAvalonDown.WriteData <= bus_down.avalonmm_down.writedata;
         PulseGeneratorPlainIfcAvalonDown.Read <= bus_down.avalonmm_down.read;
         PulseGeneratorPlainIfcAvalonDown.Write <= bus_down.avalonmm_down.write;
+        bus_up.avalonmm.readdata <= PulseGeneratorPlainIfcAvalonUp.ReadData;
+        bus_up.avalonmm.waitrequest <= PulseGeneratorPlainIfcAvalonUp.WaitRequest;
         
-               
-                  
+        bus_trace.avalonmm_down.adr <= PulseGeneratorPlainAvalonTrace.Address;
+        bus_trace.avalonmm_down.byteenable <= PulseGeneratorPlainAvalonTrace.ByteEnable;
+        bus_trace.avalonmm_down.writedata <= PulseGeneratorPlainAvalonTrace.WriteData;
+        bus_trace.avalonmm_down.read <= PulseGeneratorPlainAvalonTrace.Read;
+        bus_trace.avalonmm_down.write <= PulseGeneratorPlainAvalonTrace.Write;
+        bus_trace.avalonmm_up.readdata <= PulseGeneratorPlainAvalonTrace.AvalonUp.ReadData;
+        bus_trace.avalonmm_up.waitrequest <= PulseGeneratorPlainAvalonTrace.AvalonUp.WaitRequest;        
+        bus_trace.hxs_unoccupied_access <= PulseGeneratorPlainAvalonTrace.UnoccupiedAck;
+        bus_trace.hxs_timeout_access <= PulseGeneratorPlainAvalonTrace.TimeoutAck;
+       
+        -- axi4lite unused 
+        bus_up.axi4lite.awready <= '0';
+        bus_up.axi4lite.wready <= '0';
+        bus_up.axi4lite.bvalid <= '0';
+        bus_up.axi4lite.bresp <= (others => '0');
+        bus_up.axi4lite.arready <= '0';
+        bus_up.axi4lite.rvalid <= '0';
+        bus_up.axi4lite.rdata <= (others => '0');
+        bus_up.axi4lite.rresp <= (others => '0');
+        
+        bus_trace.axi4lite_down.awvalid <= '0';
+        bus_trace.axi4lite_down.awaddr <= (others => '0');
+        bus_trace.axi4lite_down.awprot <= (others => '0');
+        bus_trace.axi4lite_down.wvalid <= '0';
+        bus_trace.axi4lite_down.wdata <= (others => '0');
+        bus_trace.axi4lite_down.wstrb <= (others => '0');
+        bus_trace.axi4lite_down.bready <= '0';
+        bus_trace.axi4lite_down.arvalid <= '0';
+        bus_trace.axi4lite_down.araddr <= (others => '0');
+        bus_trace.axi4lite_down.arprot <= (others => '0');
+        bus_trace.axi4lite_down.rready <= '0';
+        bus_trace.axi4lite_up.awready <= '0';
+        bus_trace.axi4lite_up.wready <= '0';       
+        bus_trace.axi4lite_up.bvalid <= '0';
+        bus_trace.axi4lite_up.bresp <= (others => '0'); 
+        bus_trace.axi4lite_up.arready <= '0';
+        bus_trace.axi4lite_up.rvalid <= '0';
+        bus_trace.axi4lite_up.rdata <= (others => '0');
+        bus_trace.axi4lite_up.rresp <= (others => '0');
+        bus_trace.hxs_unoccupied_access <= '0';
+        bus_trace.hxs_timeout_access <= '0';
+                
 end architecture;

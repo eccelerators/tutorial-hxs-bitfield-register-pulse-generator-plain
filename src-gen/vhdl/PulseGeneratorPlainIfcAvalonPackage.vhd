@@ -31,4 +31,10 @@ package PulseGeneratorPlainIfcAvalonPackage is
 		WaitRequest : std_logic;
 	end record;
 	
+	type T_PulseGeneratorPlainIfcAvalonTrace is
+	record
+		AvalonDown : T_PulseGeneratorPlainIfcAvalonDown;
+		AvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
+		UnoccupiedAck : std_logic;
+		TimeoutAck : std_logic;
 end;

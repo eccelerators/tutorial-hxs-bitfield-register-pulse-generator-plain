@@ -2,7 +2,7 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcBusRecordsPackage.all;
+use work.PulseGeneratorPlainIfcPackage.all;
 
 entity PulseGeneratorPlainIfcWishboneWrapper is
 	generic (
@@ -29,8 +29,9 @@ entity PulseGeneratorPlainIfcWishboneWrapper is
 		Trace_WishboneUp_Ack : out std_logic;
 		Trace_UnoccupiedAck : out std_logic;
 		Trace_TimeoutAck : out std_logic;
-        Pulse : out std_logic;
-        Failure : out std_logic
+		PulseGeneratorPlainBlkDown_Operation : out std_logic_vector(1 downto 0);
+		PulseGeneratorPlainBlkDown_PulseWidthNs : out std_logic_vector(23 downto 0);
+		PulseGeneratorPlainBlkDown_PulsePeriodNs : out std_logic_vector(23 downto 0)
 	);
 end;
 
@@ -39,19 +40,9 @@ architecture Behavioural of PulseGeneratorPlainIfcWishboneWrapper is
 	signal WishboneDown : T_PulseGeneratorPlainIfcWishboneDown;
 	signal WishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
 	signal Trace : T_PulseGeneratorPlainIfcWishboneTrace;
-	
 	signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
 
 begin
-
-    i_PulseGeneratorPlainUserLogic: entity work.PulseGeneratorPlainUserLogic
-    port map (
-        Clk => Clk,
-        Rst => Rst,
-        PulseGeneratorBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
-        Pulse => Pulse,
-        Failure => Failure
-    );
 
 	PulseGeneratorPlainIfcWishbone_i : entity work.PulseGeneratorPlainIfcWishbone
 	generic map (

@@ -33,7 +33,7 @@ library ieee;
     
 use work.tb_bus_pkg.all;
 use work.tb_signals_pkg.all;
-use work.PulseGeneratorPlainIfcCommonPackage.vhd.all;
+use work.PulseGeneratorPlainIfcUserPackage.vhd.all;
 
 entity tbTop is
     generic (
