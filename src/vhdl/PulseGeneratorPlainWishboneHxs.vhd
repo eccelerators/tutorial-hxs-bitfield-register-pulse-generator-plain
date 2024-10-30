@@ -15,7 +15,7 @@ entity PulseGeneratorPlainWishboneHxs is
         Rst : in std_logic;
         PulseGeneratorPlainWishboneDown : in T_PulseGeneratorPlainIfcWishboneDown;    
         PulseGeneratorPlainWishboneUp : out T_PulseGeneratorPlainIfcWishboneUp;
-        PulseGeneratorPlainWishboneTrace : out T_PulseGeneratorPlainIfcTrace;
+        PulseGeneratorPlainWishboneTrace : out T_PulseGeneratorPlainIfcWishboneTrace;
         Pulse : out std_logic;
         Failure : out std_logic
 	);
@@ -23,7 +23,7 @@ end entity;
 
 architecture Behavioural of PulseGeneratorPlainWishboneHxs is
 
-    signal PulseGeneratorBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+    signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
 
 begin
 
@@ -40,11 +40,11 @@ begin
         PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown
     );
                         
-    i_PulseGeneratorPlainLogic : entity work.PulseGeneratorPlainLogic
+    i_PulseGeneratorPlainUserLogic : entity work.PulseGeneratorPlainUserLogic
         port map (
             Clk => Clk,
             Rst => Rst,
-            PulseGeneratorBlkDown => PulseGeneratorBlkDown,
+            PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );

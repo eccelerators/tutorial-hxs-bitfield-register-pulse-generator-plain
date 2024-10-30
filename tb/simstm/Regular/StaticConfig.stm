@@ -1,6 +1,6 @@
 
-    -- intern
-    var GetPulseVal 0  
+    -- global
+    -- var GetPulseVal 0  
 
 testPeriod400msWidth200ms:
 proc   

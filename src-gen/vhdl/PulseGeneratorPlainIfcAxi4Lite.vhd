@@ -13,9 +13,10 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcAxi4LitePackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
-entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
+entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite is
 	port (
 		Clk : in std_logic;
 		Rst : in std_logic;
@@ -42,7 +43,7 @@ entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 	);
 end;
 
-architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
+architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite is
 
 	signal PreReadData : std_logic_vector(31 downto 0);
 	
@@ -535,7 +536,8 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcAxi4LitePackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainIfcAxi4Lite is
 	generic (
@@ -641,7 +643,7 @@ begin
 			TimeoutAck => TimeoutAck
 		);
 	
-	i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfc : entity work.PulseGeneratorPlainBlk_PulseGeneratorPlainIfc
+	i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite : entity work.PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
 		port map (
 			Clk => Clk,
 			Rst => Rst,

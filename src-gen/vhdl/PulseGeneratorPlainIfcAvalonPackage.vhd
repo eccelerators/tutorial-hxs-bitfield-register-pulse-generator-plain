@@ -37,4 +37,6 @@ package PulseGeneratorPlainIfcAvalonPackage is
 		AvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
 		UnoccupiedAck : std_logic;
 		TimeoutAck : std_logic;
+	end record;
+
 end;

@@ -38,4 +38,6 @@ package PulseGeneratorPlainIfcWishbonePackage is
 		WishboneUp : T_PulseGeneratorPlainIfcWishboneUp;
 		UnoccupiedAck : std_logic;
 		TimeoutAck : std_logic;
+	end record;
+
 end;

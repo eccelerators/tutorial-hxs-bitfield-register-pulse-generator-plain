@@ -30,10 +30,11 @@
 library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
-    
+
+use work.tb_base_pkg.all;    
 use work.tb_bus_pkg.all;
 use work.tb_signals_pkg.all;
-use work.PulseGeneratorPlainIfcUserPackage.vhd.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity tbTop is
     generic (
@@ -55,17 +56,15 @@ architecture behavioural of tbTop is
     signal executing_file : text_line;
     signal marker : std_logic_vector(15 downto 0) := (others => '0');
     signal standard_test_error_count : std_logic_vector(31 downto 0);
-    signal standard_test_error_count : std_logic_vector(31 downto 0);
-    
+     
     signal signals_in : t_signals_in;
     signal signals_out : t_signals_out;
     signal bus_down : t_bus_down;
     signal bus_up : t_bus_up;
+    signal bus_trace : t_bus_trace;
                   
-    signal InitPulseGeneratorPlainLogic : std_logic;
+    signal InitPulseGeneratorPlain : std_logic;
     
-    signal Clk : std_logic;
-    signal Rst : std_logic;
     signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;    
     signal Pulse : std_logic;
     signal Failure : std_logic;
@@ -74,16 +73,26 @@ begin
 
     Rst <= transport '0' after 100 ns;
     Clk <= transport (not Clk) after 10 ns / 2; -- 100MHz
+
+    -- standard inputs
+    -- signals_in.in_signal_0 actual simulation time already supplied by package
+    signals_in.in_signal_1 <= std_logic_vector(to_unsigned(stimulus_test_suite_index, 32));
+    -- signals_in.in_signal_2 constant 0 already supplied by package
+    signals_in.in_signal_3 <= standard_test_error_count;
+    
+    -- interrupts
+    signals_in.in_signal_1000 <= '0';
+    signals_in.in_signal_1001 <= '0';
   
-    signals_in.in_signal_2000 <= to_unsigned(tutorial_flavour, 32);
-    signals_in.in_signal_2001 <= to_unsigned(tutorial_bustype, 32);
+    signals_in.in_signal_2000 <= std_logic_vector(to_unsigned(tutorial_flavour, 32));
+    signals_in.in_signal_2001 <= std_logic_vector(to_unsigned(tutorial_bustype, 32));
     signals_in.in_signal_2002 <= Pulse;
     signals_in.in_signal_2003 <= Failure; 
         
-    InitPulseGeneratorPlainLogic <= signals.out_signal_3000;
+    InitPulseGeneratorPlain <= signals_out.out_signal_3000;
     
     Clk <= Clk;
-    Rst <= Rst or InitPulseGeneratorPlainLogic;
+    Rst <= Rst or InitPulseGeneratorPlain;
 
     i_tb_simstm : entity work.tb_simstm
         generic map (
@@ -104,42 +113,39 @@ begin
         ); 
  
     g_tb_DutWishbone : if tutorial_bustype = 0 generate 
-        i_tb_DutWishbone : entity work.tb_DutWishbone
+        i_tbDutWishbone : entity work.tbDutWishbone
         port map(
             Clk => Clk,
             Rst => Rst,
             bus_down => bus_down,
             bus_up => bus_up,
             bus_trace => bus_trace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );    
     end generate; 
     
-    g_tb_DutAvalon : if tutorial_bustype = 0 generate 
-        i_tb_DutAvalon : entity work.tb_DutAvalon
+    g_tb_DutAvalon : if tutorial_bustype = 1 generate 
+        i_tbDutAvalon : entity work.tbDutAvalon
         port map(
             Clk => Clk,
             Rst => Rst,
             bus_down => bus_down,
             bus_up => bus_up,
             bus_trace => bus_trace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );    
     end generate;
     
-    g_tb_DutAxi4Lite : if tutorial_bustype = 0 generate 
-        i_tb_DutAxi4Lite : entity work.tb_DutAxi4Lite
+    g_tb_DutAxi4Lite : if tutorial_bustype = 2 generate 
+        i_tbDutAxi4Lite : entity work.tbDutAxi4Lite
         port map(
             Clk => Clk,
             Rst => Rst,
             bus_down => bus_down,
             bus_up => bus_up,
             bus_trace => bus_trace,
-            PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );    

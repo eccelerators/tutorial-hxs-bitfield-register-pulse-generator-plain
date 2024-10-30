@@ -8,22 +8,26 @@ use ieee.numeric_std.all;
 package tb_signals_pkg is
 
     type t_signals_in is record
+    
         -- TODO: Add here all your inputs
-        in_signal_1000 : std_logic; -- InterruptA unused
-        in_signal_1010 : std_logic; -- InterruptB unused
+        in_signal_0 : std_logic_vector(31 downto 0);
+        in_signal_1 : std_logic_vector(31 downto 0);
+        in_signal_2 : std_logic_vector(31 downto 0);
+        in_signal_3 : std_logic_vector(31 downto 0);
         
-        in_signal_2000 : std_logic_vector(15 downto 0); -- count 
-        in_signal_2001 : std_logic; -- count above threshold
-        
+        in_signal_1000 : std_logic;
+        in_signal_1001 : std_logic;
+                
+        in_signal_2000: std_logic_vector(31 downto 0);
+        in_signal_2001: std_logic_vector(31 downto 0);
+        in_signal_2002: std_logic;
+        in_signal_2003: std_logic;
+                
     end record;
 
     type t_signals_out is record
-        -- TODO: Add here all your outputs
-        out_signal_1001 : std_logic; -- InterruptBusyA unused
-        out_signal_1002 : std_logic; -- InterruptEnableA unused
-        out_signal_1011 : std_logic; -- InterruptBusyB unused
-        out_signal_1012 : std_logic; -- InterruptEnableB unused
-        
+    
+        -- TODO: Add here all your outputs       
         out_signal_3000 : std_logic; -- counter init
         
     end record;
@@ -68,12 +72,20 @@ package body tb_signals_pkg is
     function signals_in_init return t_signals_in is
         variable signals : t_signals_in;
     begin
+    
         -- TODO: Set here your init values
+        signals.in_signal_0 := (others => '0');
+        signals.in_signal_1 := (others => '0');
+        signals.in_signal_2 := (others => '0');
+        signals.in_signal_3 := (others => '0');
+        
         signals.in_signal_1000 := '0';
-        signals.in_signal_1010 := '0';
+        signals.in_signal_1001 := '0';
         
         signals.in_signal_2000 := (others => '0');
-        signals.in_signal_2001 := '0';
+        signals.in_signal_2001 := (others => '0');
+        signals.in_signal_2002 := '0';
+        signals.in_signal_2003 := '0';
 
         return signals;
     end function;
@@ -82,12 +94,8 @@ package body tb_signals_pkg is
     function signals_out_init return t_signals_out is
         variable signals : t_signals_out;
     begin
-        -- TODO: Set here your init values
-        signals.out_signal_1001 := '0';
-        signals.out_signal_1002 := '0';
-        signals.out_signal_1011 := '0';
-        signals.out_signal_1012 := '0';
-        
+    
+        -- TODO: Set here your init values    
         signals.out_signal_3000 := '0';
         
         return signals;
@@ -104,15 +112,31 @@ package body tb_signals_pkg is
         temp_var := (others => '0');
 
         case signal_number is
+
             -- TODO: add here your SimStm mapping
+            when 0 =>
+                temp_var(signals.in_signal_0'left downto 0) := std_logic_vector(to_unsigned((now / 1 ns), 32));
+            when 1 =>
+                temp_var(signals.in_signal_1'left downto 0) := signals.in_signal_1;
+            when 2 =>
+                temp_var(signals.in_signal_2'left downto 0) := (others => '0');
+            when 3 =>
+                temp_var(signals.in_signal_3'left downto 0) := signals.in_signal_3;
+                
             when 1000 =>
                 temp_var(0) := signals.in_signal_1000;
-            when 1010 =>
-                temp_var(0) := signals.in_signal_1010;
-            when 2000 =>         
+            when 1001 =>
+                temp_var(0) := signals.in_signal_1001;
+                
+            when 2000 =>
                 temp_var(signals.in_signal_2000'left downto 0) := signals.in_signal_2000;
             when 2001 =>
-                temp_var(0) := signals.in_signal_2001;
+                temp_var(signals.in_signal_2001'left downto 0) := signals.in_signal_2001;
+            when 2002 =>
+                temp_var(0) := signals.in_signal_2002;                                                
+            when 2003 =>
+                temp_var(0) := signals.in_signal_2003; 
+                
             when others =>
                 valid := 0;
         end case;
@@ -131,17 +155,11 @@ package body tb_signals_pkg is
         temp_var := std_logic_vector(to_signed(value, 32));
 
         case signal_number is
+        
             -- TODO: add here your SimStm mapping
-            when 1001 =>
-                signals.out_signal_1001 <= temp_var(0);
-            when 1002 =>
-                signals.out_signal_1002 <= temp_var(0);
-            when 1011 =>
-                signals.out_signal_1011 <= temp_var(0);
-            when 1012 =>
-                signals.out_signal_1012 <= temp_var(0);
             when 3000 =>
                 signals.out_signal_3000 <= temp_var(0);
+                
             -- when x =>
             --    signals.out_signal_x <= temp_var(signals.out_signal_x'left downto 0);
             when others =>
@@ -156,7 +174,7 @@ package body tb_signals_pkg is
     begin
         -- TODO: Connect in_signals used as interrupt to interrupt requests
         interrupt_requests(0) := signals.in_signal_1000;
-        interrupt_requests(1) := signals.in_signal_1010;
+        interrupt_requests(1) := signals.in_signal_1001;
         wait for 0 ps;
     end procedure;
 
@@ -204,15 +222,15 @@ package body tb_signals_pkg is
         interrupt_in_service(interrupt_number) := value_to_be_set;
         -- TODO: Connect to out_signals used to interrupt busy e.g., to a interrupt dispatcher for 
         -- multicore systems
-        case interrupt_number is
-            -- TODO: add here your SimStm mapping
-            when 0 =>
-                signals.out_signal_1001 <= value_to_be_set;
-            when 1 =>
-                signals.out_signal_1011 <= value_to_be_set;
-            when others =>
-                null;
-        end case;
+        -- case interrupt_number is
+        --     -- TODO: add here your SimStm mapping
+        --     when 0 =>
+        --         signals.out_signal_1000 <= value_to_be_set;
+        --     when 1 =>
+        --         signals.out_signal_1001 <= value_to_be_set;
+        --     when others =>
+        --         null;
+        -- end case;
     end procedure;
 
 end package body;

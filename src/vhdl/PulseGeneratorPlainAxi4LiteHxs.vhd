@@ -23,7 +23,7 @@ end entity;
 
 architecture Behavioural of PulseGeneratorPlainAxi4LiteHxs is
 
-    signal PulseGeneratorBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+    signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
 
 begin
 
@@ -35,14 +35,14 @@ begin
             Axi4LiteUp => PulseGeneratorPlainAxi4LiteUp,
             Axi4LiteAccess => open,
             Trace => PulseGeneratorPlainAxi4LiteTrace,
-            PulseGeneratorBlkDown => PulseGeneratorBlkDown
+            PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown
         ); 
                         
-    i_PulseGeneratorPlainLogic : entity work.PulseGeneratorPlainLogic
+    i_PulseGeneratorPlainUserLogic : entity work.PulseGeneratorPlainUserLogic
         port map (
             Clk => Clk,
             Rst => Rst,
-            PulseGeneratorBlkDown => PulseGeneratorBlkDown,
+            PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );

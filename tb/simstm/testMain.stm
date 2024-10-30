@@ -3,7 +3,6 @@ include "Common/Common.stm"
 file simulation_success "simulation.success"
 lines success_lines
 
-
     var UsedBusTypeNumber 0
 
 testMain:

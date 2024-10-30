@@ -2,7 +2,8 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcAxi4LitePackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainIfcAxi4LiteWrapper is
 	generic (
@@ -74,7 +75,7 @@ architecture Behavioural of PulseGeneratorPlainIfcAxi4LiteWrapper is
 	signal Axi4LiteDown : T_PulseGeneratorPlainIfcAxi4LiteDown;
 	signal Axi4LiteUp : T_PulseGeneratorPlainIfcAxi4LiteUp;
 	signal Trace : T_PulseGeneratorPlainIfcAxi4LiteTrace;
-	signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+	signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcAxi4LitePulseGeneratorPlainBlkDown;
 	signal Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
 
 begin

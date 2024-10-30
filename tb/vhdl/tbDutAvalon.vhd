@@ -43,7 +43,7 @@ entity tbDutAvalon is
         Rst : in std_logic;
         bus_down : in t_bus_down;
         bus_up : out t_bus_up;
-        bus_trace : out t_avalon_trace;
+        bus_trace : out t_bus_trace;
         Pulse : out std_logic;
         Failure : out std_logic
     );
@@ -53,7 +53,7 @@ architecture behavioural of tbDutAvalon is
 
     signal PulseGeneratorPlainAvalonDown : T_PulseGeneratorPlainIfcAvalonDown;
     signal PulseGeneratorPlainAvalonUp : T_PulseGeneratorPlainIfcAvalonUp;
-    signal PulseGeneratorPlainAvalonTrace : T_PulseGeneratorPlainIfcTrace;
+    signal PulseGeneratorPlainAvalonTrace : T_PulseGeneratorPlainIfcAvalonTrace;
            
 begin
 
@@ -72,33 +72,34 @@ begin
         bus_up.wishbone.data <= (others => '0');
         bus_up.wishbone.ack <= '0';
         
-        bus_trace.wishbone_down.adr <= (others => '0');
-        bus_trace.wishbone_down.sel <= (others => '0');
-        bus_trace.wishbone_down.data <= (others => '0');
-        bus_trace.wishbone_down.we <= '0';
-        bus_trace.wishbone_down.stb <= '0';
-        bus_trace.wishbone_down.cyc <= '0';          
-        bus_trace.wishbone_up.data <= (others => '0');
-        bus_trace.wishbone_up.ack <= '0';
+        bus_trace.wishbone_trace.wishbone_down.adr <= (others => '0');
+        bus_trace.wishbone_trace.wishbone_down.sel <= (others => '0');
+        bus_trace.wishbone_trace.wishbone_down.data <= (others => '0');
+        bus_trace.wishbone_trace.wishbone_down.we <= '0';
+        bus_trace.wishbone_trace.wishbone_down.stb <= '0';
+        bus_trace.wishbone_trace.wishbone_down.cyc <= '0';          
+        bus_trace.wishbone_trace.wishbone_up.data <= (others => '0');
+        bus_trace.wishbone_trace.wishbone_up.ack <= '0';
 
         -- avalon connected to dut
-        PulseGeneratorPlainIfcAvalonDown.Address <= bus_down.avalonmm_down.address;
-        PulseGeneratorPlainIfcAvalonDown.ByteEnable <= bus_down.avalonmm_down.byteenable;
-        PulseGeneratorPlainIfcAvalonDown.WriteData <= bus_down.avalonmm_down.writedata;
-        PulseGeneratorPlainIfcAvalonDown.Read <= bus_down.avalonmm_down.read;
-        PulseGeneratorPlainIfcAvalonDown.Write <= bus_down.avalonmm_down.write;
-        bus_up.avalonmm.readdata <= PulseGeneratorPlainIfcAvalonUp.ReadData;
-        bus_up.avalonmm.waitrequest <= PulseGeneratorPlainIfcAvalonUp.WaitRequest;
+        PulseGeneratorPlainAvalonDown.Address <= bus_down.avalonmm.address(15 downto 0);
+        PulseGeneratorPlainAvalonDown.ByteEnable <= bus_down.avalonmm.byteenable;
+        PulseGeneratorPlainAvalonDown.WriteData <= bus_down.avalonmm.writedata;
+        PulseGeneratorPlainAvalonDown.Read <= bus_down.avalonmm.read;
+        PulseGeneratorPlainAvalonDown.Write <= bus_down.avalonmm.write;
+        bus_up.avalonmm.readdata <= PulseGeneratorPlainAvalonUp.ReadData;
+        bus_up.avalonmm.waitrequest <= PulseGeneratorPlainAvalonUp.WaitRequest;
         
-        bus_trace.avalonmm_down.adr <= PulseGeneratorPlainAvalonTrace.Address;
-        bus_trace.avalonmm_down.byteenable <= PulseGeneratorPlainAvalonTrace.ByteEnable;
-        bus_trace.avalonmm_down.writedata <= PulseGeneratorPlainAvalonTrace.WriteData;
-        bus_trace.avalonmm_down.read <= PulseGeneratorPlainAvalonTrace.Read;
-        bus_trace.avalonmm_down.write <= PulseGeneratorPlainAvalonTrace.Write;
-        bus_trace.avalonmm_up.readdata <= PulseGeneratorPlainAvalonTrace.AvalonUp.ReadData;
-        bus_trace.avalonmm_up.waitrequest <= PulseGeneratorPlainAvalonTrace.AvalonUp.WaitRequest;        
-        bus_trace.hxs_unoccupied_access <= PulseGeneratorPlainAvalonTrace.UnoccupiedAck;
-        bus_trace.hxs_timeout_access <= PulseGeneratorPlainAvalonTrace.TimeoutAck;
+        bus_trace.avalonmm_trace.avalonmm_down.address(15 downto 0) <= PulseGeneratorPlainAvalonTrace.AvalonDown.Address;
+        bus_trace.avalonmm_trace.avalonmm_down.address(31 downto 16) <= (others => '0');
+        bus_trace.avalonmm_trace.avalonmm_down.byteenable <= PulseGeneratorPlainAvalonTrace.AvalonDown.ByteEnable;
+        bus_trace.avalonmm_trace.avalonmm_down.writedata <= PulseGeneratorPlainAvalonTrace.AvalonDown.WriteData;
+        bus_trace.avalonmm_trace.avalonmm_down.read <= PulseGeneratorPlainAvalonTrace.AvalonDown.Read;
+        bus_trace.avalonmm_trace.avalonmm_down.write <= PulseGeneratorPlainAvalonTrace.AvalonDown.Write;
+        bus_trace.avalonmm_trace.avalonmm_up.readdata <= PulseGeneratorPlainAvalonTrace.AvalonUp.ReadData;
+        bus_trace.avalonmm_trace.avalonmm_up.waitrequest <= PulseGeneratorPlainAvalonTrace.AvalonUp.WaitRequest;        
+        bus_trace.avalonmm_trace.hxs_unoccupied_access <= PulseGeneratorPlainAvalonTrace.UnoccupiedAck;
+        bus_trace.avalonmm_trace.hxs_timeout_access <= PulseGeneratorPlainAvalonTrace.TimeoutAck;
        
         -- axi4lite unused 
         bus_up.axi4lite.awready <= '0';
@@ -110,26 +111,26 @@ begin
         bus_up.axi4lite.rdata <= (others => '0');
         bus_up.axi4lite.rresp <= (others => '0');
         
-        bus_trace.axi4lite_down.awvalid <= '0';
-        bus_trace.axi4lite_down.awaddr <= (others => '0');
-        bus_trace.axi4lite_down.awprot <= (others => '0');
-        bus_trace.axi4lite_down.wvalid <= '0';
-        bus_trace.axi4lite_down.wdata <= (others => '0');
-        bus_trace.axi4lite_down.wstrb <= (others => '0');
-        bus_trace.axi4lite_down.bready <= '0';
-        bus_trace.axi4lite_down.arvalid <= '0';
-        bus_trace.axi4lite_down.araddr <= (others => '0');
-        bus_trace.axi4lite_down.arprot <= (others => '0');
-        bus_trace.axi4lite_down.rready <= '0';
-        bus_trace.axi4lite_up.awready <= '0';
-        bus_trace.axi4lite_up.wready <= '0';       
-        bus_trace.axi4lite_up.bvalid <= '0';
-        bus_trace.axi4lite_up.bresp <= (others => '0'); 
-        bus_trace.axi4lite_up.arready <= '0';
-        bus_trace.axi4lite_up.rvalid <= '0';
-        bus_trace.axi4lite_up.rdata <= (others => '0');
-        bus_trace.axi4lite_up.rresp <= (others => '0');
-        bus_trace.hxs_unoccupied_access <= '0';
-        bus_trace.hxs_timeout_access <= '0';
+        bus_trace.axi4lite_trace.axi4lite_down.awvalid <= '0';
+        bus_trace.axi4lite_trace.axi4lite_down.awaddr <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.awprot <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.wvalid <= '0';
+        bus_trace.axi4lite_trace.axi4lite_down.wdata <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.wstrb <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.bready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_down.arvalid <= '0';
+        bus_trace.axi4lite_trace.axi4lite_down.araddr <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.arprot <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_down.rready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.awready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.wready <= '0';       
+        bus_trace.axi4lite_trace.axi4lite_up.bvalid <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.bresp <= (others => '0'); 
+        bus_trace.axi4lite_trace.axi4lite_up.arready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.rvalid <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.rdata <= (others => '0');
+        bus_trace.axi4lite_trace.axi4lite_up.rresp <= (others => '0');
+        bus_trace.axi4lite_trace.hxs_unoccupied_access <= '0';
+        bus_trace.axi4lite_trace.hxs_timeout_access <= '0';
                 
 end architecture;

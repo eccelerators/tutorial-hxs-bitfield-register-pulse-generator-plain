@@ -23,7 +23,7 @@ end entity;
 
 architecture Behavioural of PulseGeneratorPlainAvalonHxs is
 
-    signal PulseGeneratorBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+    signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
 
 begin
 
@@ -40,11 +40,11 @@ begin
         PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown
     );
                         
-    i_PulseGeneratorPlainLogic : entity work.PulseGeneratorPlainLogic
+    i_PulseGeneratorPlainUserLogic : entity work.PulseGeneratorPlainUserLogic
         port map (
             Clk => Clk,
             Rst => Rst,
-            PulseGeneratorBlkDown => PulseGeneratorBlkDown,
+            PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown,
             Pulse => Pulse,
             Failure => Failure
         );

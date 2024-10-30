@@ -13,9 +13,10 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcWishbonePackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
-entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
+entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfcWishbone is
 	port (
 		Clk : in std_logic;
 		Rst : in std_logic;
@@ -34,7 +35,7 @@ entity PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
 	);
 end;
 
-architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfc is
+architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfcWishbone is
 
 	signal ByteAddress : std_logic_vector(15 downto 0);
 	signal PreReadData : std_logic_vector(31 downto 0);
@@ -230,7 +231,7 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-entity PulseGeneratorPlainIfcBusMonitor is
+entity PulseGeneratorPlainIfcWishboneBusMonitor is
 	generic (
 		CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
 	);
@@ -244,7 +245,7 @@ entity PulseGeneratorPlainIfcBusMonitor is
 	);
 end;
 
-architecture Behavioural of PulseGeneratorPlainIfcBusMonitor is
+architecture Behavioural of PulseGeneratorPlainIfcWishboneBusMonitor is
 
 	function get_num_bits (arg : natural) return natural is
 		variable nbits : natural;
@@ -319,7 +320,8 @@ library ieee;
 	use ieee.std_logic_1164.all;
 	use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcWishbonePackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainIfcWishbone is
 	generic (
@@ -349,7 +351,7 @@ architecture Behavioural of PulseGeneratorPlainIfcWishbone is
 
 begin
 
-	i_PulseGeneratorPlainIfcBusMonitor : entity work.PulseGeneratorPlainIfcBusMonitor
+	i_PulseGeneratorPlainIfcWishboneBusMonitor : entity work.PulseGeneratorPlainIfcWishboneBusMonitor
 		generic map (
 			CLOCKS_UNTIL_CYCLE_TIMEOUT => CLOCKS_UNTIL_CYCLE_TIMEOUT
 		)
@@ -362,7 +364,7 @@ begin
 			TimeoutAck => TimeoutAck
 		);
 	
-	i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfc : entity work.PulseGeneratorPlainBlk_PulseGeneratorPlainIfc
+	i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcWishbone : entity work.PulseGeneratorPlainBlk_PulseGeneratorPlainIfcWishbone
 		port map (
 			Clk => Clk,
 			Rst => Rst,

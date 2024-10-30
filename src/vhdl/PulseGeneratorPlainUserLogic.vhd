@@ -31,13 +31,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.PulseGeneratorPlainIfcPackage.all;
+use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainUserLogic is
     port (
         Clk : in std_logic;
         Rst : in std_logic;
-        PulseGeneratorBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+        PulseGeneratorPlainBlkDown : in T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
         Pulse : out std_logic;
         Failure : out std_logic
     );
@@ -45,26 +45,27 @@ end entity;
 
 architecture RTL of PulseGeneratorPlainUserLogic is
 
-    signal CountNs : unsigned(PULSEPERIODNS_WIDTH'high downto 0);
-    signal PulsePeriodNs : unsigned(PULSEPERIODNS_WIDTH'high downto 0);
-    signal PulseWidthNs : unsigned(PULSEWIDTHNS_WIDTH'high downto 0);
-
-    procedure zeroCountNs is
-    begin
-        CountNs <= to_unsigned(0, CountNs'length);
-    end procedure;
+    signal CountNs : unsigned(PULSEPERIODNS_WIDTH-1 downto 0);
+    signal PulsePeriodNs : unsigned(PULSEPERIODNS_WIDTH-1 downto 0);
+    signal PulseWidthNs : unsigned(PULSEWIDTHNS_WIDTH-1 downto 0);
     
-    procedure incCountNs is
-    begin
-        CountNs <= CountNs + 1;
-    end procedure;
-            
 begin
 
-    PulsePeriodNs <= unsigned(PulseGeneratorBlkDown.PulsePeriodNs);
-    PulseWidthNs <= unsigned(PulseGeneratorBlkDown.PulseWidthNs);
+    PulsePeriodNs <= unsigned(PulseGeneratorPlainBlkDown.PulsePeriodNs);
+    PulseWidthNs <= unsigned(PulseGeneratorPlainBlkDown.PulseWidthNs);
         
     prcCountNs : process (Clk, Rst) is
+    
+        procedure zeroCountNs is
+        begin
+            CountNs <= to_unsigned(0, CountNs'length);
+        end procedure;
+        
+        procedure incCountNs is
+        begin
+            CountNs <= CountNs + 1;
+        end procedure;    
+    
     begin
         if Rst then
         
@@ -79,10 +80,10 @@ begin
             if CountNs = PulseWidthNs then
                 Pulse <= '0';
             end if;
-        
-            case PulseGeneratorBlkDown.Operation is
+                   
+            case PulseGeneratorPlainBlkDown.Operation is
                 when STOPPED =>
-                    null;               
+                    null;
                 when CLEARED => 
                     zeroCountNs;
                 when RUNNING_LIST(0) | RUNNING_LIST(1) =>
@@ -93,6 +94,8 @@ begin
                     else
                         incCountNs;
                     end if;
+                when others => 
+                    null;
             end case;
             
             if CountNs >= PulsePeriodNs then

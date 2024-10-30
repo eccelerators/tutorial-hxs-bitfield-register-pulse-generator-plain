@@ -60,4 +60,6 @@ package PulseGeneratorPlainIfcAxi4LitePackage is
 		Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
 		UnoccupiedAck : std_logic;
 		TimeoutAck : std_logic;
+	end record;
+
 end;
