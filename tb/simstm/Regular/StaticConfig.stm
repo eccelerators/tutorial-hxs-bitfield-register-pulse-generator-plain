@@ -1,47 +1,152 @@
 
     -- global
     -- var GetPulseVal 0  
+    
+    -- intern
+    var GetNumberOfRisingEdgeRecordsVal 0
+    var GetRisingEdgeTimestamp0Val 0
+    var GetRisingEdgeTimestamp1Val 0
+    var GetRisingEdgeTimestamp2Val 0
+    var GetRisingEdgeTimestamp3Val 0
+    var GetNumberOfFallingEdgeRecordsVal 0
+    var GetFallingEdgeTimestamp0Val 0
+    var GetFallingEdgeTimestamp1Val 0
+    var GetFallingEdgeTimestamp2Val 0
+    var GetFallingEdgeTimestamp3Val 0
+    
+    var PulseWidthHigh0Val 0
+    var PulseWidthLow0Val 0
+    var PulseWidthHigh1Val 0
+    var PulseWidthLow1Val 0
+    var PulseWidthHigh2Val 0
+    var PulseWidthLow2Val 0
+    var PulseWidthHigh3Val 0
+    
+    var PulseWidthHighMin 1480
+    var PulseWidthHighMax 1520
+    var PulseWidthLowMin 2480
+    var PulseWidthLowMax 2520
 
-testPeriod400msWidth200ms:
+testPeriod4000nsWidth1500ns:
 proc   
     call $startStandardTestShell
-    
+
     signal write out_InitPulseGeneratorPlain 1
     wait 100
-    signal write out_InitPulseGeneratorPlain 1
+    signal write out_InitPulseGeneratorPlain 0
     wait 100
     
-    equ SetPulsePeriodNsVal 400000000    
+    equ SetPulsePeriodNsVal 4000   
     call $setPulsePeriodNs
-    equ SetPulseWidthNsVal 200000000    
+    equ SetPulseWidthNsVal 1500   
     call $setPulseWidthNs    
-    
-    array get RunningMValList 0 SetOperationVal
+ 
+    marker 0 1
+    signal write out_PulseRisingEdgeTimestampRecorderRestart 0
+    signal write out_PulseRisingEdgeTimestampRecorderRestart 1
+    signal write out_PulseFallingEdgeTimestampRecorderRestart 0
+    signal write out_PulseFallingEdgeTimestampRecorderRestart 1      
+    array get RunningMValList 0 SetOperationMVal
     call $setOperation
     
-    wait 20    
-    signal verify in_Pulse GetPulseVal 1 1
+    wait 16000
+    marker 0 0
+    signal verify in_PulseRisingEdgeRecordedNumberOfTimestamps GetNumberOfRisingEdgeRecordsVal 4 0xFFFFFFFF
+    signal verify in_PulseFallingEdgeRecordedNumberOfTimestamps GetNumberOfFallingEdgeRecordsVal 4 0xFFFFFFFF
+       
+    signal read in_PulseRisingEdgeTimestamp0 GetRisingEdgeTimestamp0Val
+    signal read in_PulseRisingEdgeTimestamp1 GetRisingEdgeTimestamp1Val
+    signal read in_PulseRisingEdgeTimestamp2 GetRisingEdgeTimestamp2Val
+    signal read in_PulseRisingEdgeTimestamp3 GetRisingEdgeTimestamp3Val
+    signal read in_PulseFallingEdgeTimestamp0 GetFallingEdgeTimestamp0Val
+    signal read in_PulseFallingEdgeTimestamp1 GetFallingEdgeTimestamp1Val
+    signal read in_PulseFallingEdgeTimestamp2 GetFallingEdgeTimestamp2Val
+    signal read in_PulseFallingEdgeTimestamp3 GetFallingEdgeTimestamp3Val
     
-    wait 199999970    
-    signal verify in_Pulse GetPulseVal 1 1
+    equ PulseWidthHigh0Val $GetFallingEdgeTimestamp0Val
+    sub PulseWidthHigh0Val $GetRisingEdgeTimestamp0Val
     
-    wait 30    
-    signal verify in_Pulse GetPulseVal 0 1 
+    equ PulseWidthLow0Val $GetRisingEdgeTimestamp1Val
+    sub PulseWidthLow0Val $GetFallingEdgeTimestamp0Val
     
-    wait 199999970    
-    signal verify in_Pulse GetPulseVal 0 1
+    equ PulseWidthHigh1Val $GetFallingEdgeTimestamp1Val
+    sub PulseWidthHigh1Val $GetRisingEdgeTimestamp1Val
     
-    wait 30    
-    signal verify in_Pulse GetPulseVal 1 1 
+    equ PulseWidthLow1Val $GetRisingEdgeTimestamp2Val
+    sub PulseWidthLow1Val $GetFallingEdgeTimestamp1Val
     
-    wait 199999970    
-    signal verify in_Pulse GetPulseVal 1 1
+    equ PulseWidthHigh2Val $GetFallingEdgeTimestamp2Val
+    sub PulseWidthHigh2Val $GetRisingEdgeTimestamp2Val
     
-    wait 30    
-    signal verify in_Pulse GetPulseVal 0 1 
+    equ PulseWidthLow2Val $GetRisingEdgeTimestamp3Val
+    sub PulseWidthLow2Val $GetFallingEdgeTimestamp2Val
     
-    wait 199999970    
-    signal verify in_Pulse GetPulseVal 0 1
-   
+    equ PulseWidthHigh3Val $GetFallingEdgeTimestamp3Val
+    sub PulseWidthHigh3Val $GetRisingEdgeTimestamp3Val
+    
+    
+    if $PulseWidthHigh0Val < $PulseWidthHighMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 0 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh0Val
+      call $incStandardTestErrorCount
+    end if
+   	if $PulseWidthHigh0Val > $PulseWidthHighMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 0 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh0Val
+      call $incStandardTestErrorCount
+    end if    
+    
+    if $PulseWidthLow0Val < $PulseWidthLowMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 0 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow0Val
+      call $incStandardTestErrorCount
+    end if
+    if $PulseWidthLow0Val > $PulseWidthLowMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 0 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow0Val
+      call $incStandardTestErrorCount
+    end if  
+        
+    if $PulseWidthHigh1Val < $PulseWidthHighMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 1 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh1Val
+      call $incStandardTestErrorCount
+    end if
+   	if $PulseWidthHigh1Val > $PulseWidthHighMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 1 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh1Val
+      call $incStandardTestErrorCount
+    end if    
+    
+    if $PulseWidthLow1Val < $PulseWidthLowMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 1 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow1Val
+      call $incStandardTestErrorCount
+    end if
+    if $PulseWidthLow1Val > $PulseWidthLowMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 1 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow1Val
+      call $incStandardTestErrorCount
+    end if  
+    
+    if $PulseWidthHigh2Val < $PulseWidthHighMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 2 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh2Val
+      call $incStandardTestErrorCount
+    end if
+   	if $PulseWidthHigh2Val > $PulseWidthHighMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 2 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh2Val
+      call $incStandardTestErrorCount
+    end if    
+    
+    if $PulseWidthLow2Val < $PulseWidthLowMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 2 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow2Val
+      call $incStandardTestErrorCount
+    end if
+    if $PulseWidthLow2Val > $PulseWidthLowMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 2 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow2Val
+      call $incStandardTestErrorCount
+    end if  
+        
+    if $PulseWidthHigh3Val < $PulseWidthHighMin 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 3 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh3Val
+      call $incStandardTestErrorCount
+    end if
+   	if $PulseWidthHigh3Val > $PulseWidthHighMax 
+      log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 3 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh3Val
+      call $incStandardTestErrorCount
+    end if    
+
     call $endStandardTestShell 
 end proc

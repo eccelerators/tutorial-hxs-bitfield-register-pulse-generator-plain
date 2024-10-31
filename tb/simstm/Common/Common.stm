@@ -19,11 +19,61 @@ bus avalon 1
 bus axi4lite 2
 var WaitTimeOut 100000 -- ms
 
+var UsedBusTypeNumber 0
+
 signal in_Flavour 2000
 signal in_BusType 2001
 signal in_Pulse 2002
 signal in_Failure 2003
 
-signal out_InitPulseGeneratorPlain 3000
+signal in_PulseRisingEdgeTimestamp0 2004
+signal in_PulseRisingEdgeTimestamp1 2005
+signal in_PulseRisingEdgeTimestamp2 2006
+signal in_PulseRisingEdgeTimestamp3 2007
+signal in_PulseRisingEdgeRecordedNumberOfTimestamps 2008
 
-var GetPulseVal 0 
+signal in_PulseFallingEdgeTimestamp0 2009
+signal in_PulseFallingEdgeTimestamp1 2010
+signal in_PulseFallingEdgeTimestamp2 2011
+signal in_PulseFallingEdgeTimestamp3 2012
+signal in_PulseFallingEdgeRecordedNumberOfTimestamps 2013
+
+signal out_InitPulseGeneratorPlain 3000
+signal out_PulseRisingEdgeTimestampRecorderRestart 3001
+signal out_PulseFallingEdgeTimestampRecorderRestart 3002
+
+	-- global 
+	var GetPulseVal 0
+	var GetFailureVal 0
+
+    -- parameter/result
+    var WaitForPulseTimeOut 0
+    
+waitForPulseHigh:
+proc
+    loop $WaitForPulseTimeOut
+        wait 1
+        signal read in_Pulse GetPulseVal         
+        log message $INFO_3 "waitForPulseValHigh:" $GetPulseVal
+        if $GetPulseVal = 1
+            return
+        end if
+    end loop
+    log message $FAILURE "waitForPulseValHigh not high within reasonable time"
+    abort
+end proc
+
+
+waitForPulseLow:
+proc
+    loop $WaitForPulseTimeOut
+        wait 1
+        signal read in_Pulse GetPulseVal         
+        log message $INFO_3 "waitForPulseValLow:" $GetPulseVal
+        if $GetPulseVal = 0
+            return
+        end if
+    end loop
+    log message $FAILURE "waitForPulseValLow not low within reasonable time"
+    abort
+end proc

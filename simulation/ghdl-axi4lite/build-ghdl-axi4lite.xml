@@ -63,7 +63,7 @@
       <mkdir dir="simulation/ghdl-axi4lite/../SimulationResults"/>
       <echo file="simulation/ghdl-axi4lite/work/simulation.started" append="false">STARTED</echo>
       <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
-         <arg value="--stop-time=100ms"/>
+         <arg value="--stop-time=1000000ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
       </exec>
       <echo file="simulation/ghdl-axi4lite/work/simulation.ended" append="false">ENDED</echo>
@@ -74,7 +74,7 @@
       <mkdir dir="simulation/ghdl-axi4lite/../SimulationResults"/>
       <echo file="simulation/ghdl-axi4lite/work/simulation.started" append="false">STARTED</echo>
       <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
-         <arg value="--stop-time=100ms"/>
+         <arg value="--stop-time=100000ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
          <arg value="--vcd=trace.vcd"/>
       </exec>
@@ -92,7 +92,7 @@
       <parallel threadCount="8">
          <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
             <redirector output="simulation/ghdl-axi4lite/../SimulationResults/testSuiteAbnormal.out" error="simulation/ghdl-axi4lite/../SimulationResults/testSuiteAbnormal.err" alwayslog="true"/>
-            <arg value="--stop-time=100ms"/>
+            <arg value="--stop-time=100000ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
             <arg value="-gstimulus_file=testMainSuiteAbnormal.stm"/>
             <arg value="-gstimulus_main_entry_label=$testMainSuiteAbnormal"/>
@@ -101,7 +101,7 @@
          </exec>
          <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
             <redirector output="simulation/ghdl-axi4lite/../SimulationResults/testSuiteRegular.out" error="simulation/ghdl-axi4lite/../SimulationResults/testSuiteRegular.err" alwayslog="true"/>
-            <arg value="--stop-time=100ms"/>
+            <arg value="--stop-time=100000ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
             <arg value="-gstimulus_file=testMainSuiteRegular.stm"/>
             <arg value="-gstimulus_main_entry_label=$testMainSuiteRegular"/>

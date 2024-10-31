@@ -3,8 +3,6 @@ include "Common/Common.stm"
 file simulation_success "simulation.success"
 lines success_lines
 
-    var UsedBusTypeNumber 0
-
 testMain:
 proc
 
@@ -28,13 +26,14 @@ proc
 	
 	call $PulseGeneratorPlainIfcInit
 
-	
 	verbosity $INFO_2
 	trace 0
+	resume 1
 	wait 1000
 	log message $INFO "Main test started"
 
-	call $testPeriod400msWidth200ms
+	call $testPeriod4000nsWidth1500ns
+	call $testPeriodChangeToTooSmall
 
 	log message $INFO "Main test finished"
 	wait 1000

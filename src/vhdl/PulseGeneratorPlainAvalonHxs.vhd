@@ -7,9 +7,9 @@ use work.PulseGeneratorPlainIfcAvalonPackage.all;
 use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainAvalonHxs is
-	generic(
-		SimFast : boolean := false
-	);
+    generic(
+        NsPerClk : natural := 1
+    );
 	port(
         Clk : in std_logic;
         Rst : in std_logic;
@@ -41,6 +41,9 @@ begin
     );
                         
     i_PulseGeneratorPlainUserLogic : entity work.PulseGeneratorPlainUserLogic
+        generic map (
+            NsPerClk => NsPerClk
+        )
         port map (
             Clk => Clk,
             Rst => Rst,

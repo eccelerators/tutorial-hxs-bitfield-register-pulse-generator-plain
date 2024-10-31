@@ -8,7 +8,7 @@ use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainAxi4LiteHxs is
 	generic(
-		SimFast : boolean := false
+        NsPerClk : natural := 1
 	);
 	port(
         Clk : in std_logic;
@@ -39,6 +39,9 @@ begin
         ); 
                         
     i_PulseGeneratorPlainUserLogic : entity work.PulseGeneratorPlainUserLogic
+        generic map (
+            NsPerClk => NsPerClk
+        )
         port map (
             Clk => Clk,
             Rst => Rst,

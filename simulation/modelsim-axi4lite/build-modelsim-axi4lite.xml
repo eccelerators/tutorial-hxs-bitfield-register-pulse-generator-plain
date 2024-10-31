@@ -83,6 +83,8 @@
          <arg value="work.tbTop"/>
          <arg value="-batch"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=2"/>
          <arg value="-do"/>
          <arg value="run_all.do"/>
       </exec>
@@ -99,6 +101,8 @@
          <arg value="work"/>
          <arg value="work.tbTop"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=2"/>
          <arg value="-i"/>
       </exec>
    </target>
@@ -144,7 +148,7 @@
       </parallel>
       <echo file="simulation/modelsim-axi4lite/../SimulationResults/testSuitesSimulation.end" append="false">ENDED</echo>
       <exec executable="${python-executable}">
-         <arg value="submodules/collect_fpga_build_results/collect_fpga_build_results/collect-simulation-results.py"/>
+         <arg value="submodules/tutorial-hxs-common/collect-simulation-results.py"/>
          <arg value="--infile"/>
          <arg value="setup.py"/>
          <arg value="--inoutdir_simulation_results_dir_path"/>

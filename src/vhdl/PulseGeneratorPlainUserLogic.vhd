@@ -34,6 +34,9 @@ use ieee.numeric_std.all;
 use work.PulseGeneratorPlainIfcUserPackage.all;
 
 entity PulseGeneratorPlainUserLogic is
+    generic (
+        NsPerClk : natural := 1
+    );
     port (
         Clk : in std_logic;
         Rst : in std_logic;
@@ -62,8 +65,8 @@ begin
         end procedure;
         
         procedure incCountNs is
-        begin
-            CountNs <= CountNs + 1;
+        begin           
+            CountNs <= CountNs + NsPerClk;
         end procedure;    
     
     begin
@@ -74,34 +77,40 @@ begin
             Failure <= '0';    
                     
         elsif rising_edge(Clk) then
-        
-            Pulse <= '1'; -- default assignment
- 
-            if CountNs = PulseWidthNs then
-                Pulse <= '0';
-            end if;
-                   
+                           
             case PulseGeneratorPlainBlkDown.Operation is
+            
                 when STOPPED =>
                     null;
+                    
                 when CLEARED => 
                     zeroCountNs;
+                    
                 when RUNNING_LIST(0) | RUNNING_LIST(1) =>
+                
+                    if CountNs < PulseWidthNs then
+                        Pulse <= '1';
+                    else 
+                        Pulse <= '0';
+                    end if;                
+                
                     if PulsePeriodNs = 0 then
                         zeroCountNs;
-                    elsif CountNs = PulsePeriodNs - 1 then
+                    elsif CountNs >= PulsePeriodNs - NsPerClk then
                         zeroCountNs;                  
                     else
                         incCountNs;
                     end if;
+                    
+                    if CountNs >= PulsePeriodNs then
+                        Failure <= '1';
+                    end if;
+                    
                 when others => 
                     null;
+                    
             end case;
-            
-            if CountNs >= PulsePeriodNs then
-                Failure <= '1';
-            end if;
-                       
+                
         end if;  
     end process; 
     

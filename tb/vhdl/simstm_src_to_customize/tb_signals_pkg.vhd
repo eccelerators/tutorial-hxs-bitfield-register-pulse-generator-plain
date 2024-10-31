@@ -9,10 +9,8 @@ package tb_signals_pkg is
 
     type t_signals_in is record
     
-        -- TODO: Add here all your inputs
-        in_signal_0 : std_logic_vector(31 downto 0);
-        in_signal_1 : std_logic_vector(31 downto 0);
-        in_signal_2 : std_logic_vector(31 downto 0);
+        -- TODO: Add here all your inputs        
+        in_signal_1 : std_logic_vector(31 downto 0);       
         in_signal_3 : std_logic_vector(31 downto 0);
         
         in_signal_1000 : std_logic;
@@ -22,13 +20,27 @@ package tb_signals_pkg is
         in_signal_2001: std_logic_vector(31 downto 0);
         in_signal_2002: std_logic;
         in_signal_2003: std_logic;
+        
+        in_signal_2004: std_logic_vector(31 downto 0);
+        in_signal_2005: std_logic_vector(31 downto 0);
+        in_signal_2006: std_logic_vector(31 downto 0);
+        in_signal_2007: std_logic_vector(31 downto 0);
+        in_signal_2008: std_logic_vector(31 downto 0);
+                      
+        in_signal_2009: std_logic_vector(31 downto 0);
+        in_signal_2010: std_logic_vector(31 downto 0);
+        in_signal_2011: std_logic_vector(31 downto 0);
+        in_signal_2012: std_logic_vector(31 downto 0);
+        in_signal_2013: std_logic_vector(31 downto 0);
                 
     end record;
 
     type t_signals_out is record
     
         -- TODO: Add here all your outputs       
-        out_signal_3000 : std_logic; -- counter init
+        out_signal_3000 : std_logic;
+        out_signal_3001 : std_logic;
+        out_signal_3002 : std_logic;
         
     end record;
 
@@ -73,10 +85,8 @@ package body tb_signals_pkg is
         variable signals : t_signals_in;
     begin
     
-        -- TODO: Set here your init values
-        signals.in_signal_0 := (others => '0');
-        signals.in_signal_1 := (others => '0');
-        signals.in_signal_2 := (others => '0');
+        -- TODO: Set here your init values      
+        signals.in_signal_1 := (others => '0');       
         signals.in_signal_3 := (others => '0');
         
         signals.in_signal_1000 := '0';
@@ -86,6 +96,18 @@ package body tb_signals_pkg is
         signals.in_signal_2001 := (others => '0');
         signals.in_signal_2002 := '0';
         signals.in_signal_2003 := '0';
+        
+        signals.in_signal_2004 := (others => '0');
+        signals.in_signal_2005 := (others => '0');
+        signals.in_signal_2006 := (others => '0');
+        signals.in_signal_2007 := (others => '0');
+        signals.in_signal_2008 := (others => '0');
+                      
+        signals.in_signal_2009 := (others => '0');
+        signals.in_signal_2010 := (others => '0');
+        signals.in_signal_2011 := (others => '0');
+        signals.in_signal_2012 := (others => '0');
+        signals.in_signal_2013 := (others => '0');
 
         return signals;
     end function;
@@ -97,6 +119,8 @@ package body tb_signals_pkg is
     
         -- TODO: Set here your init values    
         signals.out_signal_3000 := '0';
+        signals.out_signal_3001 := '0';
+        signals.out_signal_3002 := '0';
         
         return signals;
     end function;
@@ -115,11 +139,11 @@ package body tb_signals_pkg is
 
             -- TODO: add here your SimStm mapping
             when 0 =>
-                temp_var(signals.in_signal_0'left downto 0) := std_logic_vector(to_unsigned((now / 1 ns), 32));
+                temp_var := std_logic_vector(to_unsigned((now / 1 ns), 32));
             when 1 =>
                 temp_var(signals.in_signal_1'left downto 0) := signals.in_signal_1;
             when 2 =>
-                temp_var(signals.in_signal_2'left downto 0) := (others => '0');
+                temp_var := (others => '0');
             when 3 =>
                 temp_var(signals.in_signal_3'left downto 0) := signals.in_signal_3;
                 
@@ -136,6 +160,29 @@ package body tb_signals_pkg is
                 temp_var(0) := signals.in_signal_2002;                                                
             when 2003 =>
                 temp_var(0) := signals.in_signal_2003; 
+                
+            when 2004 =>
+                temp_var(signals.in_signal_2004'left downto 0) := signals.in_signal_2004;
+            when 2005 =>
+                temp_var(signals.in_signal_2006'left downto 0) := signals.in_signal_2005;
+            when 2006 =>
+                temp_var(signals.in_signal_2006'left downto 0) := signals.in_signal_2006;
+            when 2007 =>
+                temp_var(signals.in_signal_2007'left downto 0) := signals.in_signal_2007;
+            when 2008 =>
+                temp_var(signals.in_signal_2001'left downto 0) := signals.in_signal_2008;
+                
+            when 2009 =>
+                temp_var(signals.in_signal_2009'left downto 0) := signals.in_signal_2009;
+            when 2010 =>
+                temp_var(signals.in_signal_2010'left downto 0) := signals.in_signal_2010;
+            when 2011 =>
+                temp_var(signals.in_signal_2011'left downto 0) := signals.in_signal_2011;
+            when 2012 =>
+                temp_var(signals.in_signal_2012'left downto 0) := signals.in_signal_2012;
+            when 2013 =>
+                temp_var(signals.in_signal_2013'left downto 0) := signals.in_signal_2013;
+                          
                 
             when others =>
                 valid := 0;
@@ -159,6 +206,10 @@ package body tb_signals_pkg is
             -- TODO: add here your SimStm mapping
             when 3000 =>
                 signals.out_signal_3000 <= temp_var(0);
+            when 3001 =>
+                signals.out_signal_3001 <= temp_var(0);
+            when 3002 =>
+                signals.out_signal_3002 <= temp_var(0);
                 
             -- when x =>
             --    signals.out_signal_x <= temp_var(signals.out_signal_x'left downto 0);

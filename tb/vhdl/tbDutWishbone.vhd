@@ -36,7 +36,7 @@ use work.tb_bus_pkg.all;
 
 entity tbDutWishbone is
     generic (
-        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
+        NsPerClk : natural := 1
     );
     port (
         Clk : in std_logic;
@@ -58,6 +58,9 @@ architecture behavioural of tbDutWishbone is
 begin
 
     i_PulseGeneratorPlainWishboneHxs : entity work.PulseGeneratorPlainWishboneHxs
+        generic map (
+            NsPerClk => NsPerClk
+        )
         port map(
             Clk => Clk,
             Rst => Rst,
@@ -74,7 +77,8 @@ begin
         PulseGeneratorPlainWishboneDown.DatIn <= bus_down.wishbone.data;
         PulseGeneratorPlainWishboneDown.We <= bus_down.wishbone.we;
         PulseGeneratorPlainWishboneDown.Stb <= bus_down.wishbone.stb;
-        PulseGeneratorPlainWishboneDown.Cyc <= bus_down.wishbone.cyc;           
+        PulseGeneratorPlainWishboneDown.Cyc <= bus_down.wishbone.cyc;
+        bus_up.wishbone.clk <= Clk;      
         bus_up.wishbone.data <= PulseGeneratorPlainWishboneUp.DatOut;
         bus_up.wishbone.ack <= PulseGeneratorPlainWishboneUp.Ack;  
         
@@ -84,13 +88,15 @@ begin
         bus_trace.wishbone_trace.wishbone_down.data <= PulseGeneratorPlainWishboneTrace.WishboneDown.DatIn;
         bus_trace.wishbone_trace.wishbone_down.we <= PulseGeneratorPlainWishboneTrace.WishboneDown.We;
         bus_trace.wishbone_trace.wishbone_down.stb <= PulseGeneratorPlainWishboneTrace.WishboneDown.Stb;
-        bus_trace.wishbone_trace.wishbone_down.cyc <= PulseGeneratorPlainWishboneTrace.WishboneDown.Cyc;           
+        bus_trace.wishbone_trace.wishbone_down.cyc <= PulseGeneratorPlainWishboneTrace.WishboneDown.Cyc;
+        bus_trace.wishbone_trace.wishbone_up.clk <= Clk;             
         bus_trace.wishbone_trace.wishbone_up.data <= PulseGeneratorPlainWishboneTrace.WishboneUp.DatOut;
         bus_trace.wishbone_trace.wishbone_up.ack <= PulseGeneratorPlainWishboneTrace.WishboneUp.Ack;        
         bus_trace.wishbone_trace.hxs_unoccupied_access <= PulseGeneratorPlainWishboneTrace.UnoccupiedAck;
         bus_trace.wishbone_trace.hxs_timeout_access <= PulseGeneratorPlainWishboneTrace.TimeoutAck;
                 
-        -- avalon unused 
+        -- avalon unused
+        bus_up.avalonmm.clk <= '0';
         bus_up.avalonmm.readdata <= (others => '0');
         bus_up.avalonmm.waitrequest <= '1';
         
@@ -99,12 +105,14 @@ begin
         bus_trace.avalonmm_trace.avalonmm_down.writedata <= (others => '0');
         bus_trace.avalonmm_trace.avalonmm_down.read <= '0';
         bus_trace.avalonmm_trace.avalonmm_down.write <= '0';
+        bus_trace.avalonmm_trace.avalonmm_up.clk <= '0';
         bus_trace.avalonmm_trace.avalonmm_up.readdata <= (others => '0');
         bus_trace.avalonmm_trace.avalonmm_up.waitrequest <= '1';     
         bus_trace.avalonmm_trace.hxs_unoccupied_access <= '0';
         bus_trace.avalonmm_trace.hxs_timeout_access <= '0';
         
-        -- axi4lite unused 
+        -- axi4lite unused
+        bus_up.axi4lite.clk <= '0';
         bus_up.axi4lite.awready <= '0';
         bus_up.axi4lite.wready <= '0';
         bus_up.axi4lite.bvalid <= '0';
@@ -125,6 +133,7 @@ begin
         bus_trace.axi4lite_trace.axi4lite_down.araddr <= (others => '0');
         bus_trace.axi4lite_trace.axi4lite_down.arprot <= (others => '0');
         bus_trace.axi4lite_trace.axi4lite_down.rready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.clk <= '0';
         bus_trace.axi4lite_trace.axi4lite_up.awready <= '0';
         bus_trace.axi4lite_trace.axi4lite_up.wready <= '0';       
         bus_trace.axi4lite_trace.axi4lite_up.bvalid <= '0';

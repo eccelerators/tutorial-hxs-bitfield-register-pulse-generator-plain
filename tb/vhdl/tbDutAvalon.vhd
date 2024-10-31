@@ -36,7 +36,7 @@ use work.tb_bus_pkg.all;
 
 entity tbDutAvalon is
     generic (
-        CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
+        NsPerClk : natural := 1
     );
     port (
         Clk : in std_logic;
@@ -58,6 +58,9 @@ architecture behavioural of tbDutAvalon is
 begin
 
     i_PulseGeneratorPlainAvalonHxs : entity work.PulseGeneratorPlainAvalonHxs
+        generic map (
+            NsPerClk => NsPerClk
+        )
         port map(
             Clk => Clk,
             Rst => Rst,
@@ -68,7 +71,8 @@ begin
             Failure => Failure
         );
           
-        -- wishbone unused     
+        -- wishbone unused 
+        bus_up.wishbone.clk <= '0';     
         bus_up.wishbone.data <= (others => '0');
         bus_up.wishbone.ack <= '0';
         
@@ -77,7 +81,8 @@ begin
         bus_trace.wishbone_trace.wishbone_down.data <= (others => '0');
         bus_trace.wishbone_trace.wishbone_down.we <= '0';
         bus_trace.wishbone_trace.wishbone_down.stb <= '0';
-        bus_trace.wishbone_trace.wishbone_down.cyc <= '0';          
+        bus_trace.wishbone_trace.wishbone_down.cyc <= '0';
+        bus_trace.wishbone_trace.wishbone_up.clk <= '0';           
         bus_trace.wishbone_trace.wishbone_up.data <= (others => '0');
         bus_trace.wishbone_trace.wishbone_up.ack <= '0';
 
@@ -87,6 +92,7 @@ begin
         PulseGeneratorPlainAvalonDown.WriteData <= bus_down.avalonmm.writedata;
         PulseGeneratorPlainAvalonDown.Read <= bus_down.avalonmm.read;
         PulseGeneratorPlainAvalonDown.Write <= bus_down.avalonmm.write;
+        bus_up.avalonmm.clk <= Clk;
         bus_up.avalonmm.readdata <= PulseGeneratorPlainAvalonUp.ReadData;
         bus_up.avalonmm.waitrequest <= PulseGeneratorPlainAvalonUp.WaitRequest;
         
@@ -96,12 +102,14 @@ begin
         bus_trace.avalonmm_trace.avalonmm_down.writedata <= PulseGeneratorPlainAvalonTrace.AvalonDown.WriteData;
         bus_trace.avalonmm_trace.avalonmm_down.read <= PulseGeneratorPlainAvalonTrace.AvalonDown.Read;
         bus_trace.avalonmm_trace.avalonmm_down.write <= PulseGeneratorPlainAvalonTrace.AvalonDown.Write;
+        bus_trace.avalonmm_trace.avalonmm_up.clk <= Clk;
         bus_trace.avalonmm_trace.avalonmm_up.readdata <= PulseGeneratorPlainAvalonTrace.AvalonUp.ReadData;
         bus_trace.avalonmm_trace.avalonmm_up.waitrequest <= PulseGeneratorPlainAvalonTrace.AvalonUp.WaitRequest;        
         bus_trace.avalonmm_trace.hxs_unoccupied_access <= PulseGeneratorPlainAvalonTrace.UnoccupiedAck;
         bus_trace.avalonmm_trace.hxs_timeout_access <= PulseGeneratorPlainAvalonTrace.TimeoutAck;
        
         -- axi4lite unused 
+        bus_up.axi4lite.clk <= '0';
         bus_up.axi4lite.awready <= '0';
         bus_up.axi4lite.wready <= '0';
         bus_up.axi4lite.bvalid <= '0';
@@ -122,6 +130,7 @@ begin
         bus_trace.axi4lite_trace.axi4lite_down.araddr <= (others => '0');
         bus_trace.axi4lite_trace.axi4lite_down.arprot <= (others => '0');
         bus_trace.axi4lite_trace.axi4lite_down.rready <= '0';
+        bus_trace.axi4lite_trace.axi4lite_up.clk <= '0';
         bus_trace.axi4lite_trace.axi4lite_up.awready <= '0';
         bus_trace.axi4lite_trace.axi4lite_up.wready <= '0';       
         bus_trace.axi4lite_trace.axi4lite_up.bvalid <= '0';

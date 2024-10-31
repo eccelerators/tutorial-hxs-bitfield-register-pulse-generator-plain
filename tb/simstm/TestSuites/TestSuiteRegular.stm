@@ -6,15 +6,15 @@
 	
 testSuiteRegular:
 proc
-	call $testPeriod400msWidth200ms
+	call $testCasePeriod4000nsWidth1500ns
 end proc
 
 
-testCasePeriod400msWidth200ms:
+testCasePeriod4000nsWidth1500ns:
 proc
     file pointer copy TestCaseStartFile TestCasePeriod400msWidth200msStartFile
     file pointer copy TestCaseFile TestCasePeriod400msWidth200msFile
-    equ TestCaseNumberOfAssertions 1
+    equ TestCaseNumberOfAssertions 9
     call $beginTestCase
     
     if $SKIP = $NOT_SKIPPED
@@ -24,7 +24,7 @@ proc
 	    return   
     end if
     
-    call $testPeriod400msWidth200ms
+    call $testPeriod4000nsWidth1500ns
 
     signal read StandardTestErrorCount StandardTestErrorCountResult
     if $StandardTestErrorCountResult != 0
