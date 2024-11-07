@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
-<testsuites name="testSuitesSimulation" tests="2" skipped="0" errors="0" failures="0" assertions="10" timestamp="2024-10-31T21:44:29.207687" time="0.990496">
-   <testsuite name="testSuiteAbnormal" tests="1" skipped="0" errors="0" failures="0" assertions="1" timestamp="2024-10-31T21:44:30.050108" time="0.005003" file="TestSuites/TestSuiteAbnormal.stm">
+<testsuites name="testSuitesSimulation" tests="2" skipped="0" errors="0" failures="0" assertions="10" timestamp="2024-11-04T10:26:27.880316" time="0.935467">
+   <testsuite name="testSuiteAbnormal" tests="1" skipped="0" errors="0" failures="0" assertions="1" timestamp="2024-11-04T10:26:28.729740" time="0.008004" file="TestSuites/TestSuiteAbnormal.stm">
       <system-out># vsim -t ps -L work work.tbTop -batch -gstimulus_path=/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/ -gstimulus_file=testMainSuiteAbnormal.stm -gstimulus_main_entry_label=$testMainSuiteAbnormal -gtutorial_flavour=0 -gtutorial_bustype=2 -do &quot;run_all.do&quot; 
-# Start time: 21:44:29 on Oct 31,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt4
+# Start time: 10:26:28 on Nov 04,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
 # //  Questa Intel Starter FPGA Edition-64
 # //  Version 2023.3 linux_x86_64 Jul 17 2023
 # //
@@ -89,11 +89,11 @@
 # Main test suite Abnormal behaviours ended
 # ** Note: test finished with no errors!!
 #    Time: 5729200 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# End time: 21:44:30 on Oct 31,2024, Elapsed time: 0:00:01
+# End time: 10:26:28 on Nov 04,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 8
 </system-out>
       <system-err/>
-      <testcase name="testSuiteAbnormal_testCasePeriodChangeToTooSmall" assertions="1" classname="testSuiteAbnormal" file="TestSuites/TestSuiteAbnormal.stm" line="TestSuites/TestSuiteAbnormal.stm" time="0.005003">
+      <testcase name="testSuiteAbnormal_testCasePeriodChangeToTooSmall" assertions="1" classname="testSuiteAbnormal" file="TestSuites/TestSuiteAbnormal.stm" line="TestSuites/TestSuiteAbnormal.stm" time="0.008004">
          <properties>
             <property name="SimulatedStartTime" value="1004"/>
             <property name="SimulatedEndTime" value="4726"/>
@@ -101,10 +101,10 @@
          </properties>
       </testcase>
    </testsuite>
-   <testsuite name="testSuiteRegular" tests="1" skipped="0" errors="0" failures="0" assertions="9" timestamp="2024-10-31T21:44:30.160163" time="0.006004" file="TestSuites/TestSuiteRegular.stm">
+   <testsuite name="testSuiteRegular" tests="1" skipped="0" errors="0" failures="0" assertions="9" timestamp="2024-11-04T10:26:28.669710" time="0.131065" file="TestSuites/TestSuiteRegular.stm">
       <system-out># vsim -t ps -L work work.tbTop -batch -gstimulus_path=/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/ -gstimulus_file=testMainSuiteRegular.stm -gstimulus_main_entry_label=$testMainSuiteRegular -gtutorial_flavour=0 -gtutorial_bustype=2 -do &quot;run_all.do&quot; 
-# Start time: 21:44:29 on Oct 31,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt3
+# Start time: 10:26:28 on Nov 04,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # //  Questa Intel Starter FPGA Edition-64
 # //  Version 2023.3 linux_x86_64 Jul 17 2023
 # //
@@ -190,11 +190,11 @@
 # Main test suite Regular behaviours ended
 # ** Note: test finished with no errors!!
 #    Time: 18604500 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# End time: 21:44:30 on Oct 31,2024, Elapsed time: 0:00:01
+# End time: 10:26:28 on Nov 04,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 8
 </system-out>
       <system-err/>
-      <testcase name="testSuiteRegular_testCasePeriod4000nsWidth1500ns" assertions="9" classname="testSuiteRegular" file="TestSuites/TestSuiteRegular.stm" line="TestSuites/TestSuiteRegular.stm" time="0.006004">
+      <testcase name="testSuiteRegular_testCasePeriod4000nsWidth1500ns" assertions="9" classname="testSuiteRegular" file="TestSuites/TestSuiteRegular.stm" line="TestSuites/TestSuiteRegular.stm" time="0.131065">
          <properties>
             <property name="SimulatedStartTime" value="1004"/>
             <property name="SimulatedEndTime" value="17602"/>

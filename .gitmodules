@@ -7,3 +7,6 @@
 [submodule "submodules/vhdl-eccelerators-basic-package"]
 	path = submodules/vhdl-eccelerators-basic-package
 	url = https://github.com/eccelerators/vhdl-eccelerators-basic-package.git
+[submodule "submodules/vhdl-eccelerators-basic-components"]
+	path = submodules/vhdl-eccelerators-basic-components
+	url = https://github.com/eccelerators/vhdl-eccelerators-basic-components.git

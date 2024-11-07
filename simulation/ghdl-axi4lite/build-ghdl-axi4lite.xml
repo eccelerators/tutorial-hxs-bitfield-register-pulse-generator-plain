@@ -63,8 +63,10 @@
       <mkdir dir="simulation/ghdl-axi4lite/../SimulationResults"/>
       <echo file="simulation/ghdl-axi4lite/work/simulation.started" append="false">STARTED</echo>
       <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
-         <arg value="--stop-time=1000000ms"/>
+         <arg value="--stop-time=100ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=2"/>
       </exec>
       <echo file="simulation/ghdl-axi4lite/work/simulation.ended" append="false">ENDED</echo>
    </target>
@@ -74,8 +76,10 @@
       <mkdir dir="simulation/ghdl-axi4lite/../SimulationResults"/>
       <echo file="simulation/ghdl-axi4lite/work/simulation.started" append="false">STARTED</echo>
       <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
-         <arg value="--stop-time=100000ms"/>
+         <arg value="--stop-time=100ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=2"/>
          <arg value="--vcd=trace.vcd"/>
       </exec>
       <exec executable="${gtkwave-executable}" dir="simulation/ghdl-axi4lite/work">
@@ -92,7 +96,7 @@
       <parallel threadCount="8">
          <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
             <redirector output="simulation/ghdl-axi4lite/../SimulationResults/testSuiteAbnormal.out" error="simulation/ghdl-axi4lite/../SimulationResults/testSuiteAbnormal.err" alwayslog="true"/>
-            <arg value="--stop-time=100000ms"/>
+            <arg value="--stop-time=100ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
             <arg value="-gstimulus_file=testMainSuiteAbnormal.stm"/>
             <arg value="-gstimulus_main_entry_label=$testMainSuiteAbnormal"/>
@@ -101,7 +105,7 @@
          </exec>
          <exec executable="${basedir}/simulation/ghdl-axi4lite/work/tbtop" dir="simulation/ghdl-axi4lite/work">
             <redirector output="simulation/ghdl-axi4lite/../SimulationResults/testSuiteRegular.out" error="simulation/ghdl-axi4lite/../SimulationResults/testSuiteRegular.err" alwayslog="true"/>
-            <arg value="--stop-time=100000ms"/>
+            <arg value="--stop-time=100ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
             <arg value="-gstimulus_file=testMainSuiteRegular.stm"/>
             <arg value="-gstimulus_main_entry_label=$testMainSuiteRegular"/>
@@ -109,9 +113,9 @@
             <arg value="-gtutorial_bustype=2"/>
          </exec>
       </parallel>
-      <echo file="simulation/ghdl-axi4lite/../SimulationResults/testSuitesSimulation.end" append="false">ENDED</echo>
+      <echo file="${basedir}/simulation/ghdl-axi4lite/../SimulationResults/testSuitesSimulation.end" append="false">ENDED</echo>
       <exec executable="${python-executable}">
-         <arg value="submodules/collect_fpga_build_results/collect_fpga_build_results/collect-simulation-results.py"/>
+         <arg value="submodules/tutorial-hxs-common/collect-simulation-results.py"/>
          <arg value="--infile"/>
          <arg value="setup.py"/>
          <arg value="--inoutdir_simulation_results_dir_path"/>

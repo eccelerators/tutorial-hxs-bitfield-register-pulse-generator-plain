@@ -62,9 +62,11 @@
       <delete dir="simulation/ghdl-wishbone/../SimulationResults"/>
       <mkdir dir="simulation/ghdl-wishbone/../SimulationResults"/>
       <echo file="simulation/ghdl-wishbone/work/simulation.started" append="false">STARTED</echo>
-      <exec executable="simulation/ghdl-wishbone/work/tbTop" dir="simulation/ghdl-wishbone/work">
+      <exec executable="${basedir}/simulation/ghdl-wishbone/work/tbtop" dir="simulation/ghdl-wishbone/work">
          <arg value="--stop-time=100ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=0"/>
       </exec>
       <echo file="simulation/ghdl-wishbone/work/simulation.ended" append="false">ENDED</echo>
    </target>
@@ -73,9 +75,11 @@
       <delete dir="simulation/ghdl-wishbone/../SimulationResults"/>
       <mkdir dir="simulation/ghdl-wishbone/../SimulationResults"/>
       <echo file="simulation/ghdl-wishbone/work/simulation.started" append="false">STARTED</echo>
-      <exec executable="simulation/ghdl-wishbone/work/tbTop" dir="simulation/ghdl-wishbone/work">
+      <exec executable="${basedir}/simulation/ghdl-wishbone/work/tbtop" dir="simulation/ghdl-wishbone/work">
          <arg value="--stop-time=100ms"/>
          <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=0"/>
          <arg value="--vcd=trace.vcd"/>
       </exec>
       <exec executable="${gtkwave-executable}" dir="simulation/ghdl-wishbone/work">
@@ -90,7 +94,7 @@
       <mkdir dir="simulation/ghdl-wishbone/../SimulationResults"/>
       <echo file="simulation/ghdl-wishbone/../SimulationResults/testSuitesSimulation.start" append="false">STARTED</echo>
       <parallel threadCount="8">
-         <exec executable="simulation/ghdl-wishbone/work/tbTop" dir="simulation/ghdl-wishbone/work">
+         <exec executable="${basedir}/simulation/ghdl-wishbone/work/tbtop" dir="simulation/ghdl-wishbone/work">
             <redirector output="simulation/ghdl-wishbone/../SimulationResults/testSuiteAbnormal.out" error="simulation/ghdl-wishbone/../SimulationResults/testSuiteAbnormal.err" alwayslog="true"/>
             <arg value="--stop-time=100ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
@@ -99,7 +103,7 @@
             <arg value="-gtutorial_flavour=0"/>
             <arg value="-gtutorial_bustype=0"/>
          </exec>
-         <exec executable="simulation/ghdl-wishbone/work/tbTop" dir="simulation/ghdl-wishbone/work">
+         <exec executable="${basedir}/simulation/ghdl-wishbone/work/tbtop" dir="simulation/ghdl-wishbone/work">
             <redirector output="simulation/ghdl-wishbone/../SimulationResults/testSuiteRegular.out" error="simulation/ghdl-wishbone/../SimulationResults/testSuiteRegular.err" alwayslog="true"/>
             <arg value="--stop-time=100ms"/>
             <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
@@ -109,9 +113,9 @@
             <arg value="-gtutorial_bustype=0"/>
          </exec>
       </parallel>
-      <echo file="simulation/ghdl-wishbone/../SimulationResults/testSuitesSimulation.end" append="false">ENDED</echo>
+      <echo file="${basedir}/simulation/ghdl-wishbone/../SimulationResults/testSuitesSimulation.end" append="false">ENDED</echo>
       <exec executable="${python-executable}">
-         <arg value="submodules/collect_fpga_build_results/collect_fpga_build_results/collect-simulation-results.py"/>
+         <arg value="submodules/tutorial-hxs-common/collect-simulation-results.py"/>
          <arg value="--infile"/>
          <arg value="setup.py"/>
          <arg value="--inoutdir_simulation_results_dir_path"/>
