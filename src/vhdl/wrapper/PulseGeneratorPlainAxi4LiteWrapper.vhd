@@ -9,60 +9,61 @@ entity PulseGeneratorPlainAxi4LiteWrapper is
         CLOCKS_UNTIL_CYCLE_TIMEOUT : integer := 1023
     );
     port (
-        Clk : in std_logic;
-        Rst : in std_logic;
-        AWVALID : in std_logic;
-        AWADDR : in std_logic_vector(15 downto 0);
-        AWPROT : in std_logic_vector(2 downto 0);
-        WVALID : in std_logic;
-        WDATA : in std_logic_vector(31 downto 0);
-        WSTRB : in std_logic_vector(3 downto 0);
-        BREADY : in std_logic;
-        ARVALID : in std_logic;
-        ARADDR : in std_logic_vector(15 downto 0);
-        ARPROT : in std_logic_vector(2 downto 0);
-        RREADY : in std_logic;
-        AWREADY : out std_logic;
-        WREADY : out std_logic;
-        BVALID : out std_logic;
-        BRESP : out std_logic_vector(1 downto 0);
-        ARREADY : out std_logic;
-        RVALID : out std_logic;
-        RDATA : out std_logic_vector(31 downto 0);
-        RRESP : out std_logic_vector(1 downto 0);
-        WritePrivileged : out std_logic;
-        WriteSecure : out std_logic;
-        WriteInstruction : out std_logic;
-        ReadPrivileged : out std_logic;
-        ReadSecure : out std_logic;
-        ReadInstruction : out std_logic;
-        Trace_Axi4LiteDown_AWVALID : out std_logic;
-        Trace_Axi4LiteDown_AWADDR : out std_logic_vector(15 downto 0);
-        Trace_Axi4LiteDown_AWPROT : out std_logic_vector(2 downto 0);
-        Trace_Axi4LiteDown_WVALID : out std_logic;
-        Trace_Axi4LiteDown_WDATA : out std_logic_vector(31 downto 0);
-        Trace_Axi4LiteDown_WSTRB : out std_logic_vector(3 downto 0);
-        Trace_Axi4LiteDown_BREADY : out std_logic;
-        Trace_Axi4LiteDown_ARVALID : out std_logic;
-        Trace_Axi4LiteDown_ARADDR : out std_logic_vector(15 downto 0);
-        Trace_Axi4LiteDown_ARPROT : out std_logic_vector(2 downto 0);
-        Trace_Axi4LiteDown_RREADY : out std_logic;
-        Trace_Axi4LiteUp_AWREADY : out std_logic;
-        Trace_Axi4LiteUp_WREADY : out std_logic;
-        Trace_Axi4LiteUp_BVALID : out std_logic;
-        Trace_Axi4LiteUp_BRESP : out std_logic_vector(1 downto 0);
-        Trace_Axi4LiteUp_ARREADY : out std_logic;
-        Trace_Axi4LiteUp_RVALID : out std_logic;
-        Trace_Axi4LiteUp_RDATA : out std_logic_vector(31 downto 0);
-        Trace_Axi4LiteUp_RRESP : out std_logic_vector(1 downto 0);
-        Trace_Axi4LiteAccess_WritePrivileged : out std_logic;
-        Trace_Axi4LiteAccess_WriteSecure : out std_logic;
-        Trace_Axi4LiteAccess_WriteInstruction : out std_logic;
-        Trace_Axi4LiteAccess_ReadPrivileged : out std_logic;
-        Trace_Axi4LiteAccess_ReadSecure : out std_logic;
-        Trace_Axi4LiteAccess_ReadInstruction : out std_logic;
-        Trace_UnoccupiedAck : out std_logic;
-        Trace_TimeoutAck : out std_logic;
+        S_AXI_0_ACLK : in std_logic;
+        S_AXI_0_ARESETN : in std_logic;
+        S_AXI_0_AWVALID : in std_logic;
+        S_AXI_0_AWADDR : in std_logic_vector(15 downto 0);
+        S_AXI_0_AWPROT : in std_logic_vector(2 downto 0);
+        S_AXI_0_WVALID : in std_logic;
+        S_AXI_0_WDATA : in std_logic_vector(31 downto 0);
+        S_AXI_0_WSTRB : in std_logic_vector(3 downto 0);
+        S_AXI_0_BREADY : in std_logic;
+        S_AXI_0_ARVALID : in std_logic;
+        S_AXI_0_ARADDR : in std_logic_vector(15 downto 0);
+        S_AXI_0_ARPROT : in std_logic_vector(2 downto 0);
+        S_AXI_0_RREADY : in std_logic;
+        S_AXI_0_AWREADY : out std_logic;
+        S_AXI_0_WREADY : out std_logic;
+        S_AXI_0_BVALID : out std_logic;
+        S_AXI_0_BRESP : out std_logic_vector(1 downto 0);
+        S_AXI_0_ARREADY : out std_logic;
+        S_AXI_0_RVALID : out std_logic;
+        S_AXI_0_RDATA : out std_logic_vector(31 downto 0);
+        S_AXI_0_RRESP : out std_logic_vector(1 downto 0);
+        S_AXI_0_WritePrivileged : out std_logic;
+        S_AXI_0_WriteSecure : out std_logic;
+        S_AXI_0_WriteInstruction : out std_logic;
+        S_AXI_0_ReadPrivileged : out std_logic;
+        S_AXI_0_ReadSecure : out std_logic;
+        S_AXI_0_ReadInstruction : out std_logic;
+        HXS_TRACE_S_AXI_0_DOWN_AWVALID : out std_logic;
+        HXS_TRACE_S_AXI_0_DOWN_AWADDR : out std_logic_vector(15 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_AWPROT : out std_logic_vector(2 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_WVALID : out std_logic;
+        HXS_TRACE_S_AXI_0_DOWN_WDATA : out std_logic_vector(31 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_WSTRB : out std_logic_vector(3 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_BREADY : out std_logic;
+        HXS_TRACE_S_AXI_0_DOWN_ARVALID : out std_logic;
+        HXS_TRACE_S_AXI_0_DOWN_ARADDR : out std_logic_vector(15 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_ARPROT : out std_logic_vector(2 downto 0);
+        HXS_TRACE_S_AXI_0_DOWN_RREADY : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_AWREADY : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_WREADY : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_BVALID : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_BRESP : out std_logic_vector(1 downto 0);
+        HXS_TRACE_S_AXI_0_UP_ARREADY : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_RVALID : out std_logic;
+        HXS_TRACE_S_AXI_0_UP_RDATA : out std_logic_vector(31 downto 0);
+        HXS_TRACE_S_AXI_0_UP_RRESP : out std_logic_vector(1 downto 0);
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITEPRIVILEGED : out std_logic;
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITESECURE : out std_logic;
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITEINSTRUCTION : out std_logic;
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_READPRIVILEGED : out std_logic;
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_READSECURE : out std_logic;
+        HXS_TRACE_S_AXI_0_ACCESS_DOWN_READINSTRUCTION : out std_logic;
+        HXS_TRACE_S_AXI_0_HXS_EXTRA_UP_UNOCCUPIEDACK : out std_logic;
+        HXS_TRACE_S_AXI_0_HXS_EXTRA_UP_TIMEOUTACK : out std_logic;
+        HXS_TRACE_S_AXI_0_HXS_EXTRA_DOWN_SELECTS : out std_logic_vector(31 downto 0);
         Pulse : out std_logic;
         Failure : out std_logic
     );
@@ -76,53 +77,47 @@ architecture Behavioural of PulseGeneratorPlainIfcAxi4LiteWrapper is
     signal PulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
     signal Axi4LiteAccess : T_PulseGeneratorPlainIfcAxi4LiteAccess;
     
-    signal PulseGeneratorBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
+    signal Clk : std_logic;
+    signal Rst : std_logic;
 
 begin
 
-    i_PulseGeneratorPlainUserLogic: entity work.PulseGeneratorPlainUserLogic
-    port map (
-        Clk => Clk,
-        Rst => Rst,
-        PulseGeneratorBlkDown => PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown,
-        Pulse => Pulse,
-        Failure => Failure
-    );
+    Clk <= S_AXI_0_ACLK;
+    Rst <= not S_AXI_0_ARESETN;
 
-    PulseGeneratorPlainIfcAxi4Lite_i : entity work.PulseGeneratorPlainIfcAxi4Lite
+    i_PulseGeneratorPlainAxi4LiteHxs : entity work.PulseGeneratorPlainAxi4LiteHxs
     generic map (
         CLOCKS_UNTIL_CYCLE_TIMEOUT => 1023
     )
     port map (
         Clk => Clk,
         Rst => Rst,
-        Axi4LiteDown => Axi4LiteDown,
-        Axi4LiteUp => Axi4LiteUp,
-        Axi4LiteAccess => Axi4LiteAccess,
-        Trace => Trace,
-        PulseGeneratorPlainBlkDown => PulseGeneratorPlainBlkDown
+        PulseGeneratorPlainAxi4LiteDown => PulseGeneratorPlainAxi4LiteDown,
+        PulseGeneratorPlainAxi4LiteUp => PulseGeneratorPlainAxi4LiteUp,
+        Pulse => Pulse,
+        Failure => Failure
     );
     
-    Axi4LiteDown.AWVALID <= AWVALID;
-    Axi4LiteDown.AWADDR <= AWADDR;
-    Axi4LiteDown.AWPROT <= AWPROT;
-    Axi4LiteDown.WVALID <= WVALID;
-    Axi4LiteDown.WDATA <= WDATA;
-    Axi4LiteDown.WSTRB <= WSTRB;
-    Axi4LiteDown.BREADY <= BREADY;
-    Axi4LiteDown.ARVALID <= ARVALID;
-    Axi4LiteDown.ARADDR <= ARADDR;
-    Axi4LiteDown.ARPROT <= ARPROT;
-    Axi4LiteDown.RREADY <= RREADY;
+    Axi4LiteDown.AWVALID <= S_AXI_0_AWVALID;
+    Axi4LiteDown.AWADDR <= S_AXI_0_AWADDR;
+    Axi4LiteDown.AWPROT <= S_AXI_0_AWPROT;
+    Axi4LiteDown.WVALID <= S_AXI_0_WVALID;
+    Axi4LiteDown.WDATA <= S_AXI_0_WDATA;
+    Axi4LiteDown.WSTRB <= S_AXI_0_WSTRB;
+    Axi4LiteDown.BREADY <= S_AXI_0_BREADY;
+    Axi4LiteDown.ARVALID <= S_AXI_0_ARVALID;
+    Axi4LiteDown.ARADDR <= S_AXI_0_ARADDR;
+    Axi4LiteDown.ARPROT <= S_AXI_0_ARPROT;
+    Axi4LiteDown.RREADY <= S_AXI_0_RREADY;
     
-    AWREADY <= Axi4LiteUp.AWREADY;
-    WREADY <= Axi4LiteUp.WREADY;
-    BVALID <= Axi4LiteUp.BVALID;
-    BRESP <= Axi4LiteUp.BRESP;
-    ARREADY <= Axi4LiteUp.ARREADY;
-    RVALID <= Axi4LiteUp.RVALID;
-    RDATA <= Axi4LiteUp.RDATA;
-    RRESP <= Axi4LiteUp.RRESP;
+    S_AXI_0_AWREADY <= Axi4LiteUp.AWREADY;
+    S_AXI_0_WREADY <= Axi4LiteUp.WREADY;
+    S_AXI_0_BVALID <= Axi4LiteUp.BVALID;
+    S_AXI_0_BRESP <= Axi4LiteUp.BRESP;
+    S_AXI_0_ARREADY <= Axi4LiteUp.ARREADY;
+    S_AXI_0_RVALID <= Axi4LiteUp.RVALID;
+    S_AXI_0_RDATA <= Axi4LiteUp.RDATA;
+    S_AXI_0_RRESP <= Axi4LiteUp.RRESP;
     
     WritePrivileged <= Axi4LiteAccess.WritePrivileged;
     WriteSecure <= Axi4LiteAccess.WriteSecure;
@@ -131,35 +126,38 @@ begin
     ReadSecure <= Axi4LiteAccess.ReadPrivileged;
     ReadInstruction <= Axi4LiteAccess.ReadInstruction;
     
-    Trace_Axi4LiteDown_AWVALID <= Trace.Axi4LiteDown.AWVALID;
-    Trace_Axi4LiteDown_AWADDR <= Trace.Axi4LiteDown.AWADDR;
-    Trace_Axi4LiteDown_AWPROT <= Trace.Axi4LiteDown.AWPROT;
-    Trace_Axi4LiteDown_WVALID <= Trace.Axi4LiteDown.WVALID;
-    Trace_Axi4LiteDown_WDATA <= Trace.Axi4LiteDown.WDATA;
-    Trace_Axi4LiteDown_WSTRB <= Trace.Axi4LiteDown.WSTRB;
-    Trace_Axi4LiteDown_BREADY <= Trace.Axi4LiteDown.BREADY;
-    Trace_Axi4LiteDown_ARVALID <= Trace.Axi4LiteDown.ARVALID;
-    Trace_Axi4LiteDown_ARADDR <= Trace.Axi4LiteDown.ARADDR;
-    Trace_Axi4LiteDown_ARPROT <= Trace.Axi4LiteDown.ARPROT;
-    Trace_Axi4LiteDown_RREADY <= Trace.Axi4LiteDown.RREADY;
+    HXS_TRACE_S_AXI_0_DOWN_AWVALID <= Trace.Axi4LiteDown.AWVALID;
+    HXS_TRACE_S_AXI_0_DOWN_AWADDR <= Trace.Axi4LiteDown.AWADDR;
+    HXS_TRACE_S_AXI_0_DOWN_AWPROT <= Trace.Axi4LiteDown.AWPROT;
+    HXS_TRACE_S_AXI_0_DOWN_WVALID <= Trace.Axi4LiteDown.WVALID;
+    HXS_TRACE_S_AXI_0_DOWN_WDATA <= Trace.Axi4LiteDown.WDATA;
+    HXS_TRACE_S_AXI_0_DOWN_WSTRB <= Trace.Axi4LiteDown.WSTRB;
+    HXS_TRACE_S_AXI_0_DOWN_BREADY <= Trace.Axi4LiteDown.BREADY;
+    HXS_TRACE_S_AXI_0_DOWN_ARVALID <= Trace.Axi4LiteDown.ARVALID;
+    HXS_TRACE_S_AXI_0_DOWN_ARADDR <= Trace.Axi4LiteDown.ARADDR;
+    HXS_TRACE_S_AXI_0_DOWN_ARPROT <= Trace.Axi4LiteDown.ARPROT;
+    HXS_TRACE_S_AXI_0_DOWN_RREADY <= Trace.Axi4LiteDown.RREADY;
     
-    Trace_Axi4LiteUp_AWREADY <= Trace.Axi4LiteUp.AWREADY;
-    Trace_Axi4LiteUp_WREADY <= Trace.Axi4LiteUp.WREADY;
-    Trace_Axi4LiteUp_BVALID <= Trace.Axi4LiteUp.BVALID;
-    Trace_Axi4LiteUp_BRESP <= Trace.Axi4LiteUp.BRESP;
-    Trace_Axi4LiteUp_ARREADY <= Trace.Axi4LiteUp.ARREADY;
-    Trace_Axi4LiteUp_RVALID <= Trace.Axi4LiteUp.RVALID;
-    Trace_Axi4LiteUp_RDATA <= Trace.Axi4LiteUp.RDATA;
-    Trace_Axi4LiteUp_RRESP <= Trace.Axi4LiteUp.RRESP;
+    HXS_TRACE_S_AXI_0_UP_AWREADY <= Trace.Axi4LiteUp.AWREADY;
+    HXS_TRACE_S_AXI_0_UP_WREADY <= Trace.Axi4LiteUp.WREADY;
+    HXS_TRACE_S_AXI_0_UP_BVALID <= Trace.Axi4LiteUp.BVALID;
+    HXS_TRACE_S_AXI_0_UP_BRESP <= Trace.Axi4LiteUp.BRESP;
+    HXS_TRACE_S_AXI_0_UP_ARREADY <= Trace.Axi4LiteUp.ARREADY;
+    HXS_TRACE_S_AXI_0_UP_RVALID <= Trace.Axi4LiteUp.RVALID;
+    HXS_TRACE_S_AXI_0_UP_RDATA <= Trace.Axi4LiteUp.RDATA;
+    HXS_TRACE_S_AXI_0_UP_RRESP <= Trace.Axi4LiteUp.RRESP;
     
-    Trace_Axi4LiteAccess_WritePrivileged <= Trace.Axi4LiteAccess.WritePrivileged;
-    Trace_Axi4LiteAccess_WriteSecure <= Trace.Axi4LiteAccess.WriteSecure;
-    Trace_Axi4LiteAccess_WriteInstruction <= Trace.Axi4LiteAccess.WriteInstruction;
-    Trace_Axi4LiteAccess_ReadPrivileged<= Trace.Axi4LiteAccess.ReadPrivileged;
-    Trace_Axi4LiteAccess_ReadSecure <= Trace.Axi4LiteAccess.ReadPrivileged;
-    Trace_Axi4LiteAccess_ReadInstruction <= Trace.Axi4LiteAccess.ReadInstruction;
-    Trace_UnoccupiedAck <= Trace.UnoccupiedAck;
-    Trace_TimeoutAck <= Trace.TimeoutAck;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITEPRIVILEGED <= Trace.Axi4LiteAccess.WritePrivileged;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITESECURE <= Trace.Axi4LiteAccess.WriteSecure;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_WRITEINSTRUCTION <= Trace.Axi4LiteAccess.WriteInstruction;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_READPRIVILEGED<= Trace.Axi4LiteAccess.ReadPrivileged;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_READSECURE <= Trace.Axi4LiteAccess.ReadPrivileged;
+    HXS_TRACE_S_AXI_0_ACCESS_DOWN_READINSTRUCTION <= Trace.Axi4LiteAccess.ReadInstruction;
+    HXS_TRACE_S_AXI_0_HXS_EXTRA_UP_UNOCCUPIEDACK <= Trace.UnoccupiedAck;
+    HXS_TRACE_S_AXI_0_HXS_EXTRA_UP_TIMEOUTACK <= Trace.TimeoutAck;
+    
+    HXS_TRACE_S_AXI_0_HXS_EXTRA_DOWN_SELECTS <= (others => '0');
+    
     PulseGeneratorPlainBlkDown_PulseWidthNs <= PulseGeneratorPlainBlkDown.PulseWidthNs;
     PulseGeneratorPlainBlkDown_Operation <= PulseGeneratorPlainBlkDown.Operation;
     PulseGeneratorPlainBlkDown_PulsePeriodNs <= PulseGeneratorPlainBlkDown.PulsePeriodNs;

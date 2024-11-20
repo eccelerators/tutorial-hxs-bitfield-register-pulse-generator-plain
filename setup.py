@@ -155,7 +155,7 @@ static_setup_data = {
             {"file":"tb/simstm/SetGet/PulseGeneratorPlainSetGet.stm"}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common", [
-            {"file":"tb/simstm/Common/common.stm"}
+            {"file":"tb/simstm/Common/Common.stm"}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites", [
             {"file":"tb/simstm/TestSuites/TestSuiteAbnormal.stm"},
