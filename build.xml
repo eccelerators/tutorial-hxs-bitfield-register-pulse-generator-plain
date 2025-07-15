@@ -89,3 +89,37 @@
     </target>
 		
 </project>
+
+<!--  
+<project default="menu">
+
+    <property environment="env"/>
+
+    <path id="runtime.cp">
+        <pathelement location="${env.ANTFORM_HOME}/lib/antform.jar"/>
+    </path>
+
+    <target name="menu">        
+        <taskdef name="antmenu" classname="com.sardak.antform.AntMenu" classpathref="runtime.cp"/>
+
+        <antmenu image="${env.ANTFORM_HOME}/doc/images/logo-small.jpg" title="My simple form" stylesheet="${env.ANTFORM_HOME}/style.test">
+            <label>A short label with a few explanatory words concerning the menu at hand.</label>
+            <button label="Echo 1 target" target="echo1"/>
+            <button label="Echo 2 target" target="echo2"/>
+            <button label="Echo 3 target" target="echo3"/>            
+        </antmenu>
+    </target>
+
+    <target name="echo1">
+        <echo>DO SOMETHING</echo>
+    </target>
+
+    <target name="echo2">
+        <echo>DO SOMETHING</echo>
+    </target>
+
+    <target name="echo3">
+        <echo>DO SOMETHING</echo>
+    </target>
+
+</project> -->

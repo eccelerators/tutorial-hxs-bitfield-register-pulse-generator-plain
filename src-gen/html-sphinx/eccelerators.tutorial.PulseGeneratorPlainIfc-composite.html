@@ -48,7 +48,7 @@
 </td>
 <td id="ac46d4e52b2e"><p>PulseGeneratorPlainBlk</p></td>
 <td><p><a class="reference internal" href="#a9ff599292cf">(PulseGeneratorPlainBlk)</a></p>
-<p>Registers: ControlReg, ParameterReg</p>
+<p>Registers: ControlReg, PulsePeriodReg, PulseWidthReg</p>
 </td>
 </tr>
 </tbody>
@@ -83,7 +83,7 @@
 <tr class="row-even"><td colspan="2"><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">0x0000</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">..</span></code></div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0007</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x000b</span></code></div>
 </div>
 </td>
 <td id="a9ff599292cf"><p><a class="reference internal" href="#ac46d4e52b2e">(PulseGeneratorPlainBlk)</a></p></td>
@@ -100,11 +100,18 @@
 <td><p><a class="reference internal" href="#a0f0eb5927f8">(ControlReg)</a></p></td>
 </tr>
 <tr class="row-odd"><td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0004</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0001</span></code></div>
 </div>
 </td>
-<td id="abef09ba811a"><p>ParameterReg</p></td>
-<td><p><a class="reference internal" href="#aab10068f02d">(ParameterReg)</a></p></td>
+<td id="acc50372d28d"><p>PulsePeriodReg</p></td>
+<td><p><a class="reference internal" href="#a2dd3986b900">(PulsePeriodReg)</a></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0005</span></code></div>
+</div>
+</td>
+<td id="a321cc677079"><p>PulseWidthReg</p></td>
+<td><p><a class="reference internal" href="#a5f2e402a181">(PulseWidthReg)</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -127,9 +134,9 @@
 <td><p>Description</p></td>
 </tr>
 <tr class="row-even"><td><div class="line-block">
-<div class="line">25</div>
+<div class="line">1</div>
 <div class="line">..</div>
-<div class="line">24</div>
+<div class="line">0</div>
 </div>
 </td>
 <td><p>Operation</p>
@@ -160,7 +167,7 @@
 <td></td>
 </tr>
 <tr class="row-even"><td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0b1*</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0b11</span></code></div>
 </div>
 </td>
 <td id="a306a116bb7b"><p>Running</p></td>
@@ -187,23 +194,44 @@
 </table>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="line-block">
-<div class="line">23</div>
+</tbody>
+</table>
+</section>
+<section id="pulseperiodreg">
+<h3><span class="section-number">3.1.2. </span>(PulsePeriodReg)<a class="headerlink" href="#pulseperiodreg" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-text">Bits of</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td colspan="4"><p>Bits of</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0001</span></code></div>
+</div>
+</td>
+<td id="a2dd3986b900"><p><a class="reference internal" href="#acc50372d28d">(PulsePeriodReg) (PulsePeriodReg)</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bits</p></td>
+<td><p>ID</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">31</div>
 <div class="line">..</div>
 <div class="line">00</div>
 </div>
 </td>
-<td><p>PulseWidthNs</p>
+<td><p>PulsePeriodNs</p>
 </td>
-<td id="af775f047eac"><p>RW</p></td>
-<td><table class="docutils align-default" id="id7">
-<caption><span class="caption-text">Resets of PulseWidthNs</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<td id="ab95e549cb0f"><p>RW</p></td>
+<td><table class="docutils align-default" id="id8">
+<caption><span class="caption-text">Resets of PulsePeriodNs</span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
 <tbody>
 <tr class="row-odd"><td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0x00.0000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0000.0000</span></code></div>
 </div>
 </td>
-<td id="a5b264d8d05d"><p>BusReset</p></td>
+<td id="aa9b98ddfbbe"><p>BusReset</p></td>
 <td><p>RW</p></td>
 <td><p>Default Bus Reset</p></td>
 </tr>
@@ -214,18 +242,18 @@
 </tbody>
 </table>
 </section>
-<section id="parameterreg">
-<h3><span class="section-number">3.1.2. </span>(ParameterReg)<a class="headerlink" href="#parameterreg" title="Link to this heading">¶</a></h3>
-<table class="docutils align-default" id="id8">
-<caption><span class="caption-text">Bits of</span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<section id="pulsewidthreg">
+<h3><span class="section-number">3.1.3. </span>(PulseWidthReg)<a class="headerlink" href="#pulsewidthreg" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-text">Bits of</span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
 <tbody>
 <tr class="row-odd"><td colspan="4"><p>Bits of</p></td>
 </tr>
 <tr class="row-even"><td colspan="3"><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0004</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0005</span></code></div>
 </div>
 </td>
-<td id="aab10068f02d"><p><a class="reference internal" href="#abef09ba811a">(ParameterReg) (ParameterReg)</a></p></td>
+<td id="a5f2e402a181"><p><a class="reference internal" href="#a321cc677079">(PulseWidthReg) (PulseWidthReg)</a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Bits</p></td>
 <td><p>ID</p></td>
@@ -233,22 +261,22 @@
 <td><p>Description</p></td>
 </tr>
 <tr class="row-even"><td><div class="line-block">
-<div class="line">23</div>
+<div class="line">31</div>
 <div class="line">..</div>
 <div class="line">00</div>
 </div>
 </td>
-<td><p>PulsePeriodNs</p>
+<td><p>PulseWidthNs</p>
 </td>
-<td id="a72c3d29c854"><p>RW</p></td>
-<td><table class="docutils align-default" id="id9">
-<caption><span class="caption-text">Resets of PulsePeriodNs</span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
+<td id="ad407f078742"><p>RW</p></td>
+<td><table class="docutils align-default" id="id10">
+<caption><span class="caption-text">Resets of PulseWidthNs</span><a class="headerlink" href="#id10" title="Link to this table">¶</a></caption>
 <tbody>
 <tr class="row-odd"><td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">0x00.0000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0x0000.0000</span></code></div>
 </div>
 </td>
-<td id="accd0bd03f82"><p>BusReset</p></td>
+<td id="aa570dd5cc03"><p>BusReset</p></td>
 <td><p>RW</p></td>
 <td><p>Default Bus Reset</p></td>
 </tr>

@@ -41,9 +41,11 @@
      modelsim-axi4lite-simulate-gui"/>
 
    <target name="modelsim-axi4lite-compile" depends="
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_wishbone_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_avalon_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg_body.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd,
      -do_compile_modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_bus_pkg.vhd,
      -do_compile_modelsim-axi4lite-submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd,
      -do_compile_modelsim-axi4lite-src-gen_vhdl_PulseGeneratorPlainIfcUserPackage.vhd,
@@ -61,12 +63,10 @@
      -do_compile_modelsim-axi4lite-src_vhdl_PulseGeneratorPlainAvalonHxs.vhd,
      -do_compile_modelsim-axi4lite-tb_vhdl_tbDutAvalon.vhd,
      -do_compile_modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_signals_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_base_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_base_pkg_body.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_instructions_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg_body.vhd,
-     -do_compile_modelsim-axi4lite-submodules_simstm_src_tb_simstm.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_instructions_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd,
+     -do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_simstm.vhd,
      -do_compile_modelsim-axi4lite-tb_vhdl_tbTop.vhd"
          description="compile all"/>
 
@@ -174,9 +174,11 @@
 
    <target name="modelsim-axi4lite-init-skip-properties">
       <mkdir dir="simulation/modelsim-axi4lite/work/TimeStamps"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_wishbone_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_wishbone_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_bus_wishbone_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_axi4lite_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_axi4lite_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_bus_avalon_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_avalon_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_bus_avalon_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_base_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_base_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_base_pkg_body.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_base_pkg_body.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg_body.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_simstm_src_to_customize_tb_bus_pkg.vhd" property="modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_bus_pkg.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd" property="modelsim-axi4lite-submodules_vhdl-eccelerators-basic-package_src_eccelerators_basic.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/src-gen_vhdl_PulseGeneratorPlainIfcUserPackage.vhd" property="modelsim-axi4lite-src-gen_vhdl_PulseGeneratorPlainIfcUserPackage.vhd.skip" value="true"/>
@@ -194,37 +196,51 @@
       <uptodate srcfile="${basedir}/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/src_vhdl_PulseGeneratorPlainAvalonHxs.vhd" property="modelsim-axi4lite-src_vhdl_PulseGeneratorPlainAvalonHxs.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/tb/vhdl/tbDutAvalon.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_tbDutAvalon.vhd" property="modelsim-axi4lite-tb_vhdl_tbDutAvalon.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_simstm_src_to_customize_tb_signals_pkg.vhd" property="modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_signals_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_base_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_base_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_base_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_base_pkg_body.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_base_pkg_body.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_base_pkg_body.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_instructions_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_instructions_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_instructions_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_interpreter_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_interpreter_pkg_body.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg_body.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg_body.vhd.skip" value="true"/>
-      <uptodate srcfile="${basedir}/submodules/simstm/src/tb_simstm.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_simstm.vhd" property="modelsim-axi4lite-submodules_simstm_src_tb_simstm.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_instructions_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_instructions_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd.skip" value="true"/>
+      <uptodate srcfile="${basedir}/submodules/simstm/src/vhdl/tb_simstm.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_simstm.vhd" property="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_simstm.vhd.skip" value="true"/>
       <uptodate srcfile="${basedir}/tb/vhdl/tbTop.vhd" targetfile="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_tbTop.vhd" property="modelsim-axi4lite-tb_vhdl_tbTop.vhd.skip" value="true"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_wishbone_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_bus_wishbone_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_bus_wishbone_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_base_pkg.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_wishbone_pkg.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_base_pkg.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_bus_axi4lite_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg_body.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_base_pkg_body.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_bus_axi4lite_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_base_pkg_body.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_axi4lite_pkg.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_base_pkg_body.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_bus_avalon_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_bus_avalon_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_bus_avalon_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_bus_avalon_pkg.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_wishbone_32_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd.skip">
+      <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
+         <arg value="-2008"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_axi4lite_32_pkg.vhd"/>
+   </target>
+
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd.skip">
+      <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
+         <arg value="-2008"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd"/>
+      </exec>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_bus_avalon_32_pkg.vhd"/>
    </target>
 
    <target name="-do_compile_modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_bus_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-tb_vhdl_simstm_src_to_customize_tb_bus_pkg.vhd.skip">
@@ -363,52 +379,36 @@
       <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_simstm_src_to_customize_tb_signals_pkg.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_base_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_base_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_instructions_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_instructions_pkg.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_base_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_base_pkg.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_instructions_pkg.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_base_pkg_body.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_base_pkg_body.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_base_pkg_body.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_base_pkg_body.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_interpreter_pkg.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_instructions_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_instructions_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_instructions_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_instructions_pkg.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_interpreter_pkg_body.vhd"/>
    </target>
 
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg.vhd.skip">
+   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_vhdl_tb_simstm.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_vhdl_tb_simstm.vhd.skip">
       <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
          <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_interpreter_pkg.vhd"/>
+         <arg value="${basedir}/submodules/simstm/src/vhdl/tb_simstm.vhd"/>
       </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg.vhd"/>
-   </target>
-
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg_body.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_interpreter_pkg_body.vhd.skip">
-      <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
-         <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_interpreter_pkg_body.vhd"/>
-      </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_interpreter_pkg_body.vhd"/>
-   </target>
-
-   <target name="-do_compile_modelsim-axi4lite-submodules_simstm_src_tb_simstm.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-submodules_simstm_src_tb_simstm.vhd.skip">
-      <exec executable="${vcom-executable}" dir="simulation/modelsim-axi4lite/work" failonerror="true">
-         <arg value="-2008"/>
-         <arg value="${basedir}/submodules/simstm/src/tb_simstm.vhd"/>
-      </exec>
-      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_tb_simstm.vhd"/>
+      <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/submodules_simstm_src_vhdl_tb_simstm.vhd"/>
    </target>
 
    <target name="-do_compile_modelsim-axi4lite-tb_vhdl_tbTop.vhd" depends="modelsim-axi4lite-init-skip-properties" unless="modelsim-axi4lite-tb_vhdl_tbTop.vhd.skip">
@@ -417,5 +417,22 @@
          <arg value="${basedir}/tb/vhdl/tbTop.vhd"/>
       </exec>
       <touch file="${basedir}/simulation/modelsim-axi4lite/work/TimeStamps/tb_vhdl_tbTop.vhd"/>
+   </target>
+
+   <target name="modelsim-axi4lite-exit-on-junit-errors-or-failures">
+      <xmlproperty file="simulation/modelsim/../SimulationResults/testSuitesSimulation.xml" keepRoot="true"/>
+      <condition property="no-failures">
+         <equals arg1="${testsuites(failures)}" arg2="0"/>
+      </condition>
+      <condition property="no-errors">
+         <equals arg1="${testsuites(errors)}" arg2="0"/>
+      </condition>
+      <condition property="no-errors-or-failures">
+         <and>
+            <isset property="no-failures"/>
+            <isset property="no-errors"/>
+         </and>
+      </condition>
+      <fail unless="no-errors-or-failures" message="Testsuites report errors or failures"/>
    </target>
 </project>

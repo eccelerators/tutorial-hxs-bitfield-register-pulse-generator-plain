@@ -65,8 +65,8 @@ entity PulseGeneratorPlainIfcAxi4LiteWrapper is
 		Trace_UnoccupiedAck : out std_logic;
 		Trace_TimeoutAck : out std_logic;
 		PulseGeneratorPlainBlkDown_Operation : out std_logic_vector(1 downto 0);
-		PulseGeneratorPlainBlkDown_PulseWidthNs : out std_logic_vector(23 downto 0);
-		PulseGeneratorPlainBlkDown_PulsePeriodNs : out std_logic_vector(23 downto 0)
+		PulseGeneratorPlainBlkDown_PulsePeriodNs : out std_logic_vector(31 downto 0);
+		PulseGeneratorPlainBlkDown_PulseWidthNs : out std_logic_vector(31 downto 0)
 	);
 end;
 
@@ -151,8 +151,8 @@ begin
 	Trace_Axi4LiteAccess_ReadInstruction <= Trace.Axi4LiteAccess.ReadInstruction;
 	Trace_UnoccupiedAck <= Trace.UnoccupiedAck;
 	Trace_TimeoutAck <= Trace.TimeoutAck;
-	PulseGeneratorPlainBlkDown_PulseWidthNs <= PulseGeneratorPlainBlkDown.PulseWidthNs;
 	PulseGeneratorPlainBlkDown_Operation <= PulseGeneratorPlainBlkDown.Operation;
 	PulseGeneratorPlainBlkDown_PulsePeriodNs <= PulseGeneratorPlainBlkDown.PulsePeriodNs;
+	PulseGeneratorPlainBlkDown_PulseWidthNs <= PulseGeneratorPlainBlkDown.PulseWidthNs;
 
 end;

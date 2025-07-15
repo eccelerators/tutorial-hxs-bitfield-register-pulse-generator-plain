@@ -102,49 +102,49 @@ static_setup_data = {
             {"file":"submodules/setup2vivado/setup2vivado/common_spirit_elements/eccelerators_axilite_trace_interface/eccelerators_axilite_trace_interface_rtl.xml", "file_type":"IP-XACT"}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src", [
-            {"file":"submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd", "file_type":"VHDL 2008", "hdl_order":"00040"}
+            {"file":"submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd", "file_type":"VHDL 2008", "hdl_order":"00050"}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/auxiliary", [
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl", [
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00070"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd", "file_type":"VHDL 2008", "hdl_order":"00080"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00110"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00150"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd", "file_type":"VHDL 2008", "hdl_order":"00160"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00050"},
-            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd", "file_type":"VHDL 2008", "hdl_order":"00120"}
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00080"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd", "file_type":"VHDL 2008", "hdl_order":"00090"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00120"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00160"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd", "file_type":"VHDL 2008", "hdl_order":"00170"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd", "file_type":"VHDL 2008", "hdl_order":"00060"},
+            {"file":"src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd", "file_type":"VHDL 2008", "hdl_order":"00130"}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/wrapper", [
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl", [
-            {"file":"src/vhdl/PulseGeneratorPlainWishboneHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00090"},
-            {"file":"src/vhdl/PulseGeneratorPlainAvalonHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00170"},
-            {"file":"src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00130"},
-            {"file":"src/vhdl/PulseGeneratorPlainUserLogic.vhd", "file_type":"VHDL 2008", "hdl_order":"00060"}
+            {"file":"src/vhdl/PulseGeneratorPlainWishboneHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00100"},
+            {"file":"src/vhdl/PulseGeneratorPlainAvalonHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00180"},
+            {"file":"src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd", "file_type":"VHDL 2008", "hdl_order":"00140"},
+            {"file":"src/vhdl/PulseGeneratorPlainUserLogic.vhd", "file_type":"VHDL 2008", "hdl_order":"00070"}
         ])
     ],
     "tb_data_files" : [(
-        "tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src", [
-            {"file":"submodules/simstm/src/tb_bus_avalon_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00020", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_base_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00200", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_interpreter_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00220", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_interpreter_pkg_body.vhd", "file_type":"VHDL 2008", "hdl_order":"00221", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_bus_axi4lite_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00010", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_base_pkg_body.vhd", "file_type":"VHDL 2008", "hdl_order":"00201", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_instructions_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00210", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_simstm.vhd", "file_type":"VHDL 2008", "hdl_order":"00230", "ghdl_options":["-frelaxed"]},
-            {"file":"submodules/simstm/src/tb_bus_wishbone_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00000", "ghdl_options":["-frelaxed"]}
+        "tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl", [
+            {"file":"submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00020", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_base_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00000", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00220", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd", "file_type":"VHDL 2008", "hdl_order":"00221", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00030", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_base_pkg_body.vhd", "file_type":"VHDL 2008", "hdl_order":"00001", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00010", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_instructions_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00210", "ghdl_options":["-frelaxed"]},
+            {"file":"submodules/simstm/src/vhdl/tb_simstm.vhd", "file_type":"VHDL 2008", "hdl_order":"00230", "ghdl_options":["-frelaxed"]}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize", [
-            {"file":"tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00030", "ghdl_options":["-frelaxed"]},
-            {"file":"tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00190", "ghdl_options":["-frelaxed"]}
+            {"file":"tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00040", "ghdl_options":["-frelaxed"]},
+            {"file":"tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd", "file_type":"VHDL 2008", "hdl_order":"00200", "ghdl_options":["-frelaxed"]}
         ]),(
         "tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl", [
-            {"file":"tb/vhdl/tbDutAxi4Lite.vhd", "file_type":"VHDL 2008", "hdl_order":"00140", "ghdl_options":["-frelaxed"]},
+            {"file":"tb/vhdl/tbDutAxi4Lite.vhd", "file_type":"VHDL 2008", "hdl_order":"00150", "ghdl_options":["-frelaxed"]},
             {"file":"tb/vhdl/tbTop.vhd", "file_type":"VHDL 2008", "hdl_order":"00240", "ghdl_options":["-frelaxed"]},
-            {"file":"tb/vhdl/tbDutAvalon.vhd", "file_type":"VHDL 2008", "hdl_order":"00180", "ghdl_options":["-frelaxed"]},
-            {"file":"tb/vhdl/tbDutWishbone.vhd", "file_type":"VHDL 2008", "hdl_order":"00100", "ghdl_options":["-frelaxed"]}
+            {"file":"tb/vhdl/tbDutAvalon.vhd", "file_type":"VHDL 2008", "hdl_order":"00190", "ghdl_options":["-frelaxed"]},
+            {"file":"tb/vhdl/tbDutWishbone.vhd", "file_type":"VHDL 2008", "hdl_order":"00110", "ghdl_options":["-frelaxed"]}
         ])
     ],
     "src_tb_simstm_data_files" : [(

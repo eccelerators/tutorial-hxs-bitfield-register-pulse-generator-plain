@@ -4,26 +4,16 @@ namespace eccelerators.tutorial
 	{
 		Registers = [
 			ControlReg, 
-			ParameterReg
+			PulsePeriodReg,
+			PulseWidthReg
 		];
 			
 		register ControlReg
 		{
 			Bits = [
-				PulseWidthNs,
 				Operation
 			];
-			
-			data PulsePeriodNs
-			{
-				Width = 24;
-			}
-			
-			data PulseWidthNs
-			{
-				Width = 24;
-			}
-				
+							
 			enum Operation
 			{
 				Width = 2;
@@ -42,19 +32,30 @@ namespace eccelerators.tutorial
 				}
 				value Running
 				{
-					Value = 0b1*;
+					Value = 0b11;
 				}
 			}
 		}
 			
-		register ParameterReg {
+		register PulsePeriodReg {
 			Bits = [
 				PulsePeriodNs
 			];
 			
 			data PulsePeriodNs
 			{
-				Width = 24;
+				Width = 32;
+			}
+		}
+		
+		register PulseWidthReg {
+			Bits = [
+				PulseWidthNs
+			];
+			
+			data PulseWidthNs
+			{
+				Width = 32;
 			}
 		}
 								

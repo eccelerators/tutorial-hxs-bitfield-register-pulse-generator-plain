@@ -86,7 +86,7 @@ begin
                 when CLEARED => 
                     zeroCountNs;
                     
-                when RUNNING_LIST(0) | RUNNING_LIST(1) =>
+                when RUNNING =>
                 
                     if CountNs < PulseWidthNs then
                         Pulse <= '1';

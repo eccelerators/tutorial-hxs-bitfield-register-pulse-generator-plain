@@ -10,8 +10,11 @@ package tb_signals_pkg is
     type t_signals_in is record
     
         -- TODO: Add here all your inputs        
-        in_signal_1 : std_logic_vector(31 downto 0);       
-        in_signal_3 : std_logic_vector(31 downto 0);
+        in_signal_1 : std_logic_vector(31 downto 0); -- stimulus_test_suite_index       
+        in_signal_3 : std_logic_vector(31 downto 0); -- standard_test_verify_passes_count
+        in_signal_4 : std_logic_vector(31 downto 0); -- standard_test_verify_failure_count
+        in_signal_5 : std_logic_vector(31 downto 0); -- bus_timeout_passes_count
+        in_signal_6 : std_logic_vector(31 downto 0); -- bus_timeout_failure_count
         
         in_signal_1000 : std_logic;
         in_signal_1001 : std_logic;
@@ -37,7 +40,10 @@ package tb_signals_pkg is
 
     type t_signals_out is record
     
-        -- TODO: Add here all your outputs       
+        -- TODO: Add here all your outputs
+        out_signal_0 : std_logic; -- init dut
+        out_signal_4 : std_logic_vector(31 downto 0); -- expected standard_test_error_count    
+        out_signal_6 : std_logic_vector(31 downto 0); -- expected bus_timeout_test_error_count      
         out_signal_3000 : std_logic;
         out_signal_3001 : std_logic;
         out_signal_3002 : std_logic;
@@ -54,12 +60,12 @@ package tb_signals_pkg is
 
     procedure signal_read(signal signals : in t_signals_in;
                           variable signal_number : in integer;
-                          variable value : out integer;
+                          variable value : out unsigned;
                           variable valid : out integer);
 
     procedure signal_write(signal signals : out t_signals_out;
                            variable signal_number : in integer;
-                           variable value : in integer;
+                           variable value : in unsigned;
                            variable valid : out integer);
 
     procedure get_interrupt_requests(signal signals : in t_signals_in;
@@ -86,8 +92,9 @@ package body tb_signals_pkg is
     begin
     
         -- TODO: Set here your init values      
-        signals.in_signal_1 := (others => '0');       
-        signals.in_signal_3 := (others => '0');
+        signals.in_signal_1 := (others => '0');  -- stimulus_test_suite_index                 
+        signals.in_signal_4 := (others => '0');  -- expected_standard_test_verify_failure_count           
+        signals.in_signal_6 := (others => '0');  -- expected_bus_timeout_failure_count            
         
         signals.in_signal_1000 := '0';
         signals.in_signal_1001 := '0';
@@ -117,7 +124,10 @@ package body tb_signals_pkg is
         variable signals : t_signals_out;
     begin
     
-        -- TODO: Set here your init values    
+        -- TODO: Set here your init values 
+        signals.out_signal_0 := '0'; 
+        signals.out_signal_4 := (others => '0'); 
+        signals.out_signal_6 := (others => '0');    
         signals.out_signal_3000 := '0';
         signals.out_signal_3001 := '0';
         signals.out_signal_3002 := '0';
@@ -128,88 +138,99 @@ package body tb_signals_pkg is
     -- SimStm Mapping for input signals
     procedure signal_read(signal signals : in t_signals_in;
                           variable signal_number : in integer;
-                          variable value : out integer;
+                          variable value : out unsigned;
                           variable valid : out integer) is
-        variable temp_var : std_logic_vector(31 downto 0);
     begin
         valid := 1;
-        temp_var := (others => '0');
+        value := to_unsigned(0, value'length);
 
         case signal_number is
 
             -- TODO: add here your SimStm mapping
             when 0 =>
-                temp_var := std_logic_vector(to_unsigned((now / 1 ns), 32));
+                value := to_unsigned((now / 1 ns), value'length);
             when 1 =>
-                temp_var(signals.in_signal_1'left downto 0) := signals.in_signal_1;
+                value(signals.in_signal_1'left downto 0) := unsigned(signals.in_signal_1);
             when 2 =>
-                temp_var := (others => '0');
+                value := to_unsigned(0 , value'length);
             when 3 =>
-                temp_var(signals.in_signal_3'left downto 0) := signals.in_signal_3;
-                
+                value(signals.in_signal_3'left downto 0) := unsigned(signals.in_signal_3);
+            when 4 =>
+                value(signals.in_signal_4'left downto 0) := unsigned(signals.in_signal_4);               
+            when 5 =>
+                value(signals.in_signal_5'left downto 0) := unsigned(signals.in_signal_5);
+            when 6 =>
+                value(signals.in_signal_6'left downto 0) := unsigned(signals.in_signal_6);
+            when 7 =>
+                value := to_unsigned(value'length, value'length); 
+                                
             when 1000 =>
-                temp_var(0) := signals.in_signal_1000;
+                value(0) := signals.in_signal_1000;
             when 1001 =>
-                temp_var(0) := signals.in_signal_1001;
+                value(0) := signals.in_signal_1001;
                 
             when 2000 =>
-                temp_var(signals.in_signal_2000'left downto 0) := signals.in_signal_2000;
+                value(signals.in_signal_2000'left downto 0) := unsigned(signals.in_signal_2000);
             when 2001 =>
-                temp_var(signals.in_signal_2001'left downto 0) := signals.in_signal_2001;
+                value(signals.in_signal_2001'left downto 0) := unsigned(signals.in_signal_2001);
             when 2002 =>
-                temp_var(0) := signals.in_signal_2002;                                                
+                value(0) := signals.in_signal_2002;                                                
             when 2003 =>
-                temp_var(0) := signals.in_signal_2003; 
+                value(0) := signals.in_signal_2003; 
                 
             when 2004 =>
-                temp_var(signals.in_signal_2004'left downto 0) := signals.in_signal_2004;
+                value(signals.in_signal_2004'left downto 0) := unsigned(signals.in_signal_2004);
             when 2005 =>
-                temp_var(signals.in_signal_2006'left downto 0) := signals.in_signal_2005;
+                value(signals.in_signal_2006'left downto 0) := unsigned(signals.in_signal_2005);
             when 2006 =>
-                temp_var(signals.in_signal_2006'left downto 0) := signals.in_signal_2006;
+                value(signals.in_signal_2006'left downto 0) := unsigned(signals.in_signal_2006);
             when 2007 =>
-                temp_var(signals.in_signal_2007'left downto 0) := signals.in_signal_2007;
+                value(signals.in_signal_2007'left downto 0) := unsigned(signals.in_signal_2007);
             when 2008 =>
-                temp_var(signals.in_signal_2001'left downto 0) := signals.in_signal_2008;
+                value(signals.in_signal_2001'left downto 0) := unsigned(signals.in_signal_2008);
                 
             when 2009 =>
-                temp_var(signals.in_signal_2009'left downto 0) := signals.in_signal_2009;
+                value(signals.in_signal_2009'left downto 0) := unsigned(signals.in_signal_2009);
             when 2010 =>
-                temp_var(signals.in_signal_2010'left downto 0) := signals.in_signal_2010;
+                value(signals.in_signal_2010'left downto 0) := unsigned(signals.in_signal_2010);
             when 2011 =>
-                temp_var(signals.in_signal_2011'left downto 0) := signals.in_signal_2011;
+                value(signals.in_signal_2011'left downto 0) := unsigned(signals.in_signal_2011);
             when 2012 =>
-                temp_var(signals.in_signal_2012'left downto 0) := signals.in_signal_2012;
+                value(signals.in_signal_2012'left downto 0) := unsigned(signals.in_signal_2012);
             when 2013 =>
-                temp_var(signals.in_signal_2013'left downto 0) := signals.in_signal_2013;
+                value(signals.in_signal_2013'left downto 0) := unsigned(signals.in_signal_2013);
                           
                 
             when others =>
                 valid := 0;
         end case;
 
-        value := to_integer(signed(temp_var));
     end procedure;
 
     -- SimStm Mapping for output signals
     procedure signal_write(signal signals : out t_signals_out;
                            variable signal_number : in integer;
-                           variable value : in integer;
+                           variable value : in unsigned;
                            variable valid : out integer) is
-        variable temp_var : std_logic_vector(31 downto 0);
     begin
         valid := 1;
-        temp_var := std_logic_vector(to_signed(value, 32));
 
         case signal_number is
         
             -- TODO: add here your SimStm mapping
+            when 0 =>
+                signals.out_signal_0 <= value(0);
+            when 4 =>
+                signals.out_signal_4 <= std_logic_vector(value(signals.out_signal_4'left downto 0));
+            when 6 =>
+                signals.out_signal_6 <= std_logic_vector(value(signals.out_signal_6'left downto 0));
+
             when 3000 =>
-                signals.out_signal_3000 <= temp_var(0);
+                signals.out_signal_3000 <= value(0);
             when 3001 =>
-                signals.out_signal_3001 <= temp_var(0);
+                signals.out_signal_3001 <= value(0);
             when 3002 =>
-                signals.out_signal_3002 <= temp_var(0);
+                signals.out_signal_3001 <= value(0);
                 
             -- when x =>
             --    signals.out_signal_x <= temp_var(signals.out_signal_x'left downto 0);

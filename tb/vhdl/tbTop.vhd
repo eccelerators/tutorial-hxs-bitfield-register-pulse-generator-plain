@@ -44,7 +44,9 @@ entity tbTop is
         stimulus_main_entry_label : string := "$testMain";
         stimulus_test_suite_index : integer := 255;
         tutorial_flavour : integer := 255;
-        tutorial_bustype : integer := 255
+        tutorial_bustype : integer := 255;
+        machine_value_width : integer := 64;
+        machine_address_width : integer := 31
     );
 end;
 
@@ -58,7 +60,10 @@ architecture behavioural of tbTop is
     signal executing_line : integer := 0;
     signal executing_file : text_line;
     signal marker : std_logic_vector(15 downto 0) := (others => '0');
-    signal standard_test_error_count : std_logic_vector(31 downto 0);
+    signal verify_passes : std_logic_vector(31 downto 0);
+    signal verify_failures : std_logic_vector(31 downto 0);
+    signal bus_timeout_passes : std_logic_vector(31 downto 0);
+    signal bus_timeout_failures : std_logic_vector(31 downto 0);
      
     signal signals_in : t_signals_in;
     signal signals_out : t_signals_out;
@@ -80,6 +85,8 @@ architecture behavioural of tbTop is
     signal PulseFallingEdgeTimestamps : array_of_unsigned(3 downto 0)(31 downto 0) := (others => (others => '0'));
     signal PulseFallingEdgeRecordedNumberOfTimestamps: unsigned(31 downto 0) := (others => '0');
     
+    signal InitDut : std_logic;
+    
 begin
    
     Clk <= transport (not Clk) after 10 ns / 2; -- 100MHz
@@ -88,8 +95,17 @@ begin
     -- signals_in.in_signal_0 actual simulation time already supplied by package
     signals_in.in_signal_1 <= std_logic_vector(to_unsigned(stimulus_test_suite_index, 32));
     -- signals_in.in_signal_2 constant 0 already supplied by package
-    signals_in.in_signal_3 <= standard_test_error_count;
+    signals_in.in_signal_3 <= verify_passes;
+    signals_in.in_signal_4 <= verify_failures;
+    signals_in.in_signal_5 <= bus_timeout_passes;
+    signals_in.in_signal_6 <= bus_timeout_failures;
+    -- signals_in.in_signal_7 Machine value width 
     
+    -- standard outputs
+    InitDut <= signals_out.out_signal_0;
+    -- signals_out.out_signal_4 <= expected_standard_test_verify_failure_count already connected in tb_simstm
+    -- signals_out.out_signal_6 <= expected_bus_timeout_test_failure_count already connected in tb_simstm
+   
     -- interrupts
     signals_in.in_signal_1000 <= '0';
     signals_in.in_signal_1001 <= '0';
@@ -155,18 +171,24 @@ begin
     i_tb_simstm : entity work.tb_simstm
         generic map (
             stimulus_path => stimulus_path,
-            stimulus_file => stimulus_file          
+            stimulus_file => stimulus_file,
+            stimulus_main_entry_label => stimulus_main_entry_label,
+            machine_value_width => machine_value_width,
+            machine_address_width => machine_address_width     
         )
         port map (
             executing_line => executing_line,
             executing_file => executing_file,
-            standard_test_error_count => standard_test_error_count,
+            verify_passes => verify_passes,
+            verify_failures => verify_failures,
+            bus_timeout_passes => bus_timeout_passes,
+            bus_timeout_failures => bus_timeout_failures,
             marker => marker,
             signals_in => signals_in,
             signals_out => signals_out,
             bus_down => bus_down,
             bus_up => bus_up
-        ); 
+        );
  
     g_tb_DutWishbone : if tutorial_bustype = 0 generate 
         i_tbDutWishbone : entity work.tbDutWishbone
