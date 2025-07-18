@@ -26,17 +26,17 @@
 #define PulseGeneratorPlainBlkSize 0x000C
 
 #define ControlRegAddress (0x0000 + PulseGeneratorPlainBlkAddress)
-#define ControlRegWidth 2
+#define ControlRegWidth 32
 
-#define OperationMask 0x3
+#define OperationMask 0x00000003
 #define OperationPosition 0
 #define OperationWidth 2
-#define ClearedMVal 0x0
-#define StoppedMVal 0x1
-#define RunningMVal 0x3
-#define OperationBusResetMRstVal 0x0
+#define ClearedMVal 0x00000000
+#define StoppedMVal 0x00000001
+#define RunningMVal 0x00000003
+#define OperationBusResetMRstVal 0x00000000
 
-#define PulsePeriodRegAddress (0x0001 + PulseGeneratorPlainBlkAddress)
+#define PulsePeriodRegAddress (0x0004 + PulseGeneratorPlainBlkAddress)
 #define PulsePeriodRegWidth 32
 
 #define PulsePeriodNsMask 0xFFFFFFFF
@@ -44,7 +44,7 @@
 #define PulsePeriodNsWidth 32
 #define PulsePeriodNsBusResetMRstVal 0x00000000
 
-#define PulseWidthRegAddress (0x0005 + PulseGeneratorPlainBlkAddress)
+#define PulseWidthRegAddress (0x0008 + PulseGeneratorPlainBlkAddress)
 #define PulseWidthRegWidth 32
 
 #define PulseWidthNsMask 0xFFFFFFFF

@@ -46,7 +46,7 @@ proc
     signal write out_PulseRisingEdgeTimestampRecorderRestart 1
     signal write out_PulseFallingEdgeTimestampRecorderRestart 0
     signal write out_PulseFallingEdgeTimestampRecorderRestart 1      
-    array get RunningMValList 0 SetOperationMVal
+    equ SetOperationMVal $RunningMVal
     call $setOperation
     
     wait 16000

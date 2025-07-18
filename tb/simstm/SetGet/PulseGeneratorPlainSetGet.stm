@@ -15,7 +15,7 @@ proc
 	equ SetPulseWidthNsMVal $SetPulseWidthNsVal
 	shl SetPulseWidthNsMVal $PulseWidthNsPosition
     equ ReadModifyWriteData32 $SetPulseWidthNsMVal	
-    equ ReadModifyWriteAdr32 $ControlRegAddress
+    equ ReadModifyWriteAdr32 $PulseWidthRegAddress
     equ ReadModifyWriteMask32 $PulseWidthNsMask
 	call $readModifyWrite32
 end proc
@@ -26,7 +26,7 @@ end proc
     var GetPulseWidthMVal 0
 getPulseWidthNs:
 proc
-	bus read PulseGeneratorPlainIfcBus 32 $ControlRegAddress GetPulseWidthMVal
+	bus read PulseGeneratorPlainIfcBus 32 $PulseWidthRegAddress GetPulseWidthMVal
 	and GetPulseWidthMVal $PulseWidthNsMask
 	equ GetPulseWidthVal $GetPulseWidthMVal
 	shr GetPulseWidthVal $PulseWidthNsPosition
@@ -35,22 +35,26 @@ end proc
 
     -- parameter/result
     var SetOperationMVal 0
-
+  
 setOperation:
 proc
+
     equ ReadModifyWriteData32 $SetOperationMVal	
     equ ReadModifyWriteAdr32 $ControlRegAddress
     equ ReadModifyWriteMask32 $OperationMask
 	call $readModifyWrite32
 end proc
 
+
     -- parameter/result
     var GetOperationMVal 0
+--
 
 getOperation:
 proc
 	bus read PulseGeneratorPlainIfcBus 32 $ControlRegAddress GetOperationMVal
 	and GetOperationMVal $OperationMask
+
 end proc
 
 
@@ -63,7 +67,7 @@ proc
 	equ SetPulsePeriodNsMVal $SetPulsePeriodNsVal
 	shl SetPulsePeriodNsMVal $PulsePeriodNsPosition
     equ ReadModifyWriteData32 $SetPulsePeriodNsMVal	
-    equ ReadModifyWriteAdr32 $ParameterRegAddress
+    equ ReadModifyWriteAdr32 $PulsePeriodRegAddress
     equ ReadModifyWriteMask32 $PulsePeriodNsMask
 	call $readModifyWrite32
 end proc
@@ -74,7 +78,7 @@ end proc
     var GetPulsePeriodMVal 0
 getPulsePeriodNs:
 proc
-	bus read PulseGeneratorPlainIfcBus 32 $ParameterRegAddress GetPulsePeriodMVal
+	bus read PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress GetPulsePeriodMVal
 	and GetPulsePeriodMVal $PulsePeriodNsMask
 	equ GetPulsePeriodVal $GetPulsePeriodMVal
 	shr GetPulsePeriodVal $PulsePeriodNsPosition

@@ -23,15 +23,15 @@ var PulseGeneratorPlainBlkAddress 0x0000
 const PulseGeneratorPlainBlkSize 0x000C
 
 var ControlRegAddress 0x0000
-const ControlRegWidth 2
+const ControlRegWidth 32
 
-const OperationMask 0x3
+const OperationMask 0x00000003
 const OperationPosition 0
 const OperationWidth 2
-const ClearedMVal 0x0
-const StoppedMVal 0x1
-const RunningMVal 0x3
-const OperationBusResetMRstVal 0x0
+const ClearedMVal 0x00000000
+const StoppedMVal 0x00000001
+const RunningMVal 0x00000003
+const OperationBusResetMRstVal 0x00000000
 
 var PulsePeriodRegAddress 0x0000
 const PulsePeriodRegWidth 32
@@ -61,9 +61,9 @@ PulseGeneratorPlainBlkInit:
 proc
     equ ControlRegAddress 0x0000
     add ControlRegAddress $PulseGeneratorPlainBlkAddress
-    equ PulsePeriodRegAddress 0x0001
+    equ PulsePeriodRegAddress 0x0004
     add PulsePeriodRegAddress $PulseGeneratorPlainBlkAddress
-    equ PulseWidthRegAddress 0x0005
+    equ PulseWidthRegAddress 0x0008
     add PulseWidthRegAddress $PulseGeneratorPlainBlkAddress
 end proc
 
@@ -71,7 +71,7 @@ var RvalPulseGeneratorPlainBlk_BusReset 0
 
 ResetTestPulseGeneratorPlainBlkByBusReset:
 proc
-    bus verify PulseGeneratorPlainIfcBus 2 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $OperationMask
+    bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $OperationMask
     bus verify PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulsePeriodNsMask
     bus verify PulseGeneratorPlainIfcBus 32 $PulseWidthRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulseWidthNsMask
 end proc
@@ -81,14 +81,14 @@ var RbvlPulseGeneratorPlainBlk 0
 
 ReadBackTestPulseGeneratorPlainBlk:
 proc
-    bus write PulseGeneratorPlainIfcBus 2 $ControlRegAddress 0x1
-    bus verify PulseGeneratorPlainIfcBus 2 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x1 $OperationMask
-    bus write PulseGeneratorPlainIfcBus 2 $ControlRegAddress 0x2
-    bus verify PulseGeneratorPlainIfcBus 2 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x2 $OperationMask
-    bus write PulseGeneratorPlainIfcBus 2 $ControlRegAddress 0x2
-    bus verify PulseGeneratorPlainIfcBus 2 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x2 $OperationMask
-    bus write PulseGeneratorPlainIfcBus 2 $ControlRegAddress 0x1
-    bus verify PulseGeneratorPlainIfcBus 2 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x1 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 32 $ControlRegAddress 0x00000001
+    bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x00000001 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 32 $ControlRegAddress 0x00000002
+    bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x00000002 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 32 $ControlRegAddress 0x00000002
+    bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x00000002 $OperationMask
+    bus write PulseGeneratorPlainIfcBus 32 $ControlRegAddress 0x00000001
+    bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RbvlPulseGeneratorPlainBlk 0x00000001 $OperationMask
     bus write PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress 0x7FFFFFFF
     bus verify PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress RbvlPulseGeneratorPlainBlk 0x7FFFFFFF $PulsePeriodNsMask
     bus write PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress 0xBFFFFFFF

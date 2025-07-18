@@ -14,7 +14,6 @@ testCasePeriod4000nsWidth1500ns:
 proc
     file pointer copy TestCaseStartFile TestCasePeriod400msWidth200msStartFile
     file pointer copy TestCaseFile TestCasePeriod400msWidth200msFile
-    equ TestCaseNumberOfAssertions 9
     call $beginTestCase
     
     if $SKIP = $NOT_SKIPPED

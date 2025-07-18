@@ -1,6 +1,8 @@
 m255
 K4
 z2
+!s12c _opt
+Z0 !s99 nomlopt
 !s11e vcom 2023.3 2023.07, Jul 17 2023
 13
 !s112 1.1
@@ -8,788 +10,800 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 d/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/simulation/modelsim-axi4lite/work
-Pbasic
-Z1 DPx4 ieee 11 numeric_std 0 22 F8@]:i<mFK7<TjIzKcTGi0
-Z2 DPx3 std 6 textio 0 22 LS[?81n5ZHWBI9JkBZTV<2
-Z3 DPx4 ieee 14 std_logic_1164 0 22 6<US`=mgl_dFdCEFF7J=m1
-!i122 5
-Z4 w1729513273
+Z1 d/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/simulation/modelsim-axi4lite/work
+T_opt
+!s110 1752837757
+V<aQ:[`DPHKBfC@G9ZoXLI0
+04 5 11 work tbtop behavioural 1
+=1-000ae431a4f1-687a2e7d-930a9-378e
 R0
-Z5 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd
-Z6 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd
+!s12b OEM100
+!s124 OEM10U8 
+o-quiet -auto_acc_if_foreign -work work -L work -g tutorial_flavour=0 -g stimulus_path=/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/ -g tutorial_bustype=2
+tCvgOpt 0
+n@_opt
+OL;O;2023.3;77
+Pbasic
+Z2 DPx4 ieee 11 numeric_std 0 22 F8@]:i<mFK7<TjIzKcTGi0
+Z3 DPx3 std 6 textio 0 22 LS[?81n5ZHWBI9JkBZTV<2
+Z4 DPx4 ieee 14 std_logic_1164 0 22 6<US`=mgl_dFdCEFF7J=m1
+!i122 5
+Z5 w1729513273
+R1
+Z6 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd
+Z7 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd
 l0
 L34 24
 Vk<eK8`cb_YR?fRe8e^Th<2
 !s100 _=R7OEL[UmD>z^ED8FGn^3
-Z7 OL;C;2023.3;77
+Z8 OL;C;2023.3;77
 33
 b1
-Z8 !s110 1752608027
+Z9 !s110 1752837742
 !i10b 1
-Z9 !s108 1752608027.000000
-Z10 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd|
-Z11 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd|
+Z10 !s108 1752837742.000000
+Z11 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd|
+Z12 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/vhdl-eccelerators-basic-package/src/eccelerators_basic.vhd|
 !i113 0
-Z12 o-2008
-Z13 tExplicit 1 CvgOpt 0
+Z13 o-2008
+Z14 tExplicit 1 CvgOpt 0
 Bbody
-Z14 DPx4 work 5 basic 0 22 k<eK8`cb_YR?fRe8e^Th<2
-R1
+Z15 DPx4 work 5 basic 0 22 k<eK8`cb_YR?fRe8e^Th<2
 R2
 R3
+R4
 !i122 5
 l0
 L60 47
 VXDL3X4W1AFzFZgYAG^hD`3
 !s100 ooGV5FBi4<zYmXClM9EmB2
-R7
-33
 R8
-!i10b 1
+33
 R9
+!i10b 1
 R10
 R11
-!i113 0
 R12
+!i113 0
 R13
-Epulsegeneratorplainavalonhxs
-Z15 w1730372401
-Z16 DPx4 work 33 pulsegeneratorplainifcuserpackage 0 22 NjfHO7NW7Y2l]2XBfWcd_2
-Z17 DPx4 work 35 pulsegeneratorplainifcavalonpackage 0 22 52zdF56UDoY02_0KfzVUX2
 R14
-R1
+Epulsegeneratorplainavalonhxs
+Z16 w1730372401
+Z17 DPx4 work 33 pulsegeneratorplainifcuserpackage 0 22 ^DzQVPd86O;F4oU2K9;^z1
+Z18 DPx4 work 35 pulsegeneratorplainifcavalonpackage 0 22 52zdF56UDoY02_0KfzVUX2
+R15
 R2
 R3
+R4
 !i122 18
-R0
-Z18 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd
-Z19 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd
+R1
+Z19 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd
+Z20 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd
 l0
 L9 1
 V4z5c_ZGH?FSFTo@7bKX[N0
 !s100 n]Af[6ISRXBNP]nKY<Y5d1
-R7
+R8
 33
-Z20 !s110 1752608028
+Z21 !s110 1752837744
 !i10b 1
-Z21 !s108 1752608028.000000
-Z22 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd|
-Z23 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd|
+Z22 !s108 1752837744.000000
+Z23 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd|
+Z24 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAvalonHxs.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-Z24 DEx4 work 28 pulsegeneratorplainuserlogic 0 22 ?ZzkWJ]S2=_Taoa>QK31a2
-Z25 DEx4 work 28 pulsegeneratorplainifcavalon 0 22 G?@^J6l08DX[?3[K=bI?A2
-R16
-R17
 R14
-R1
+Abehavioural
+Z25 DEx4 work 28 pulsegeneratorplainuserlogic 0 22 ?ZzkWJ]S2=_Taoa>QK31a2
+Z26 DEx4 work 28 pulsegeneratorplainifcavalon 0 22 DFEZ[3Mk7bXNofGI@Q]<51
+R17
+R18
+R15
 R2
 R3
-Z26 DEx4 work 28 pulsegeneratorplainavalonhxs 0 22 4z5c_ZGH?FSFTo@7bKX[N0
+R4
+Z27 DEx4 work 28 pulsegeneratorplainavalonhxs 0 22 4z5c_ZGH?FSFTo@7bKX[N0
 !i122 18
 l28
-Z27 L24 32
+Z28 L24 32
 VLKj<5oI>46ZzZjA]>CZFT2
 !s100 dAK=Zl_oMAli9Y34Vl8ob3
-R7
+R8
 33
-R20
-!i10b 1
 R21
+!i10b 1
 R22
 R23
+R24
 !i113 0
-R12
 R13
-Epulsegeneratorplainaxi4litehxs
-Z28 w1730372394
-R16
-Z29 DPx4 work 37 pulsegeneratorplainifcaxi4litepackage 0 22 FADHRMCWG0UaTL32`MBc]1
 R14
-R1
+Epulsegeneratorplainaxi4litehxs
+Z29 w1730372394
+R17
+Z30 DPx4 work 37 pulsegeneratorplainifcaxi4litepackage 0 22 FADHRMCWG0UaTL32`MBc]1
+R15
 R2
 R3
+R4
 !i122 14
-R0
-Z30 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd
-Z31 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd
+R1
+Z31 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd
+Z32 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd
 l0
 L9 1
 VGb0M?GzLE<XacnNBS8QNH3
 !s100 ;fSIKd[d=C3f<LfoeRM4a0
-R7
+R8
 33
-R20
+Z33 !s110 1752837743
 !i10b 1
-R21
-Z32 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd|
-Z33 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd|
+Z34 !s108 1752837743.000000
+Z35 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd|
+Z36 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainAxi4LiteHxs.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R24
-Z34 DEx4 work 30 pulsegeneratorplainifcaxi4lite 0 22 C>lFCI5G=DG=lk?VLKTZS1
-R16
-R29
 R14
-R1
+Abehavioural
+R25
+Z37 DEx4 work 30 pulsegeneratorplainifcaxi4lite 0 22 2gh^597SfWSjZiEMAgEKi1
+R17
+R30
+R15
 R2
 R3
-Z35 DEx4 work 30 pulsegeneratorplainaxi4litehxs 0 22 Gb0M?GzLE<XacnNBS8QNH3
+R4
+Z38 DEx4 work 30 pulsegeneratorplainaxi4litehxs 0 22 Gb0M?GzLE<XacnNBS8QNH3
 !i122 14
 l28
 L24 30
 V3JzLz[bc6<[KNiT=F8[k@0
 !s100 mXH^f2g7@[JfEd8e769Sg1
-R7
+R8
 33
-R20
-!i10b 1
-R21
-R32
 R33
+!i10b 1
+R34
+R35
+R36
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainblk_pulsegeneratorplainifcavalon
-Z36 w1752601561
-R16
+Z39 w1752837651
 R17
-R1
+R18
 R2
 R3
+R4
 !i122 17
-R0
-Z37 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd
-Z38 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd
+R1
+Z40 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd
+Z41 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd
 l0
-Z39 L19 1
+Z42 L19 1
 V?=65e_8W`aI`DYGlNOAC71
 !s100 ?ZW4:b;F]fE2kHjRK24Gj1
-R7
+R8
 33
-R20
-!i10b 1
 R21
-Z40 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd|
-Z41 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd|
+!i10b 1
+R22
+Z43 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd|
+Z44 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalon.vhd|
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R16
 R17
-R1
+R18
 R2
 R3
-Z42 DEx4 work 51 pulsegeneratorplainblk_pulsegeneratorplainifcavalon 0 22 ?=65e_8W`aI`DYGlNOAC71
+R4
+Z45 DEx4 work 51 pulsegeneratorplainblk_pulsegeneratorplainifcavalon 0 22 ?=65e_8W`aI`DYGlNOAC71
 !i122 17
 l72
-L37 259
-VRh=PPHVAeeZ`F5cjLZoTE1
-!s100 M1H7[MMGWaaLS;I^zbG`50
-R7
+L37 265
+VZDc>SQa6T3o6?ZbNA44220
+!s100 3H_5QBHj>]SKi@c1f>TkX0
+R8
 33
-R20
-!i10b 1
 R21
-R40
-R41
+!i10b 1
+R22
+R43
+R44
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainblk_pulsegeneratorplainifcaxi4lite
-Z43 w1752601565
-R16
-R29
-R1
+Z46 w1752837654
+R17
+R30
 R2
 R3
+R4
 !i122 13
-R0
-Z44 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd
-Z45 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd
+R1
+Z47 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd
+Z48 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd
 l0
-R39
+R42
 VAJnf=;U0dnQjIoDR4_F]P3
 !s100 6azaeID>kojUVK5PdgCL83
-R7
+R8
 33
-R20
+R33
 !i10b 1
-R21
-Z46 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd|
-Z47 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd|
+R34
+Z49 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd|
+Z50 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4Lite.vhd|
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R16
-R29
-R1
+R17
+R30
 R2
 R3
-Z48 DEx4 work 53 pulsegeneratorplainblk_pulsegeneratorplainifcaxi4lite 0 22 AJnf=;U0dnQjIoDR4_F]P3
+R4
+Z51 DEx4 work 53 pulsegeneratorplainblk_pulsegeneratorplainifcaxi4lite 0 22 AJnf=;U0dnQjIoDR4_F]P3
 !i122 13
 l80
-L46 266
-VW][8Dk@e_mGBm>>zg`m0<3
-!s100 Dijg2W5]SI^j;RNU822?g1
-R7
+L46 272
+V5M9O6lBJ5c52Bzn;4<zYY0
+!s100 ^GD4nE94KOQJ:5oaMNTmb3
+R8
 33
-R20
+R33
 !i10b 1
-R21
-R46
-R47
+R34
+R49
+R50
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainblk_pulsegeneratorplainifcwishbone
-Z49 w1752601558
-R16
-Z50 DPx4 work 37 pulsegeneratorplainifcwishbonepackage 0 22 3F@k:W86zULfc=^jc`GNh0
-R1
+Z52 w1752837648
+R17
+Z53 DPx4 work 37 pulsegeneratorplainifcwishbonepackage 0 22 3F@k:W86zULfc=^jc`GNh0
 R2
 R3
+R4
 !i122 9
-R0
-Z51 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd
-Z52 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd
+R1
+Z54 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd
+Z55 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd
 l0
-R39
+R42
 Vb8:oDQ4eM[=mX`1JizHY11
 !s100 [O:A1<;VW3lCo2=>jz4zG1
-R7
-33
 R8
-!i10b 1
+33
 R9
-Z53 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd|
-Z54 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd|
+!i10b 1
+R10
+Z56 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd|
+Z57 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbone.vhd|
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R16
-R50
-R1
+R17
+R53
 R2
 R3
-Z55 DEx4 work 53 pulsegeneratorplainblk_pulsegeneratorplainifcwishbone 0 22 b8:oDQ4eM[=mX`1JizHY11
+R4
+Z58 DEx4 work 53 pulsegeneratorplainblk_pulsegeneratorplainifcwishbone 0 22 b8:oDQ4eM[=mX`1JizHY11
 !i122 9
 l73
-L38 262
-V46>4d8Rd8Az5;h9NI^Nzo0
-!s100 1e`^cnBo[U58F02X[TmUK2
-R7
-33
+L38 268
+V;_9EXOMMJCcGB^EYZ<[CW1
+!s100 WC5Pg^2]Y2:1UDOQFeRN;0
 R8
-!i10b 1
+33
 R9
-R53
-R54
-!i113 0
-R12
-R13
-Epulsegeneratorplainifcavalon
-R36
-R16
-R17
-R1
-R2
-R3
-!i122 17
-R0
-R37
-R38
-l0
-Z56 L397 1
-VG?@^J6l08DX[?3[K=bI?A2
-!s100 ^=M2iBhT:mn5Tl^X9_n@Q2
-R7
-33
-R20
 !i10b 1
-R21
-R40
-R41
-!i113 0
-R12
-R13
-Abehavioural
-R42
-Z57 DEx4 work 38 pulsegeneratorplainifcavalonbusmonitor 0 22 z3UG8oSFiz@G0bGm?>mJI2
-R16
-R17
-R1
-R2
-R3
-R25
-!i122 17
-l423
-Z58 L411 61
-Vmnlg@i?;6:Y;??<F3M^0z0
-!s100 hVYYn_Ai0XVLmic@H;egR1
-R7
-33
-R20
-!i10b 1
-R21
-R40
-R41
-!i113 0
-R12
-R13
-Epulsegeneratorplainifcavalonbusmonitor
-R36
-R1
-R2
-R3
-!i122 17
-R0
-R37
-R38
-l0
-L301 1
-Vz3UG8oSFiz@G0bGm?>mJI2
-!s100 :d=Y]aVhkC6k>M8h3UB]g0
-R7
-33
-R20
-!i10b 1
-R21
-R40
-R41
-!i113 0
-R12
-R13
-Abehavioural
-R1
-R2
-R3
+R10
+R56
 R57
-!i122 17
-l340
-L316 73
-VPzWM`]^UG_i]OP5`COQI:2
-!s100 DAaFU7:bcQlBWX9[c;VVA0
-R7
-33
-R20
-!i10b 1
-R21
-R40
-R41
 !i113 0
-R12
 R13
-Ppulsegeneratorplainifcavalonpackage
-R1
+R14
+Epulsegeneratorplainifcavalon
+R39
+R17
+R18
 R2
 R3
+R4
+!i122 17
+R1
+R40
+R41
+l0
+Z59 L403 1
+VDFEZ[3Mk7bXNofGI@Q]<51
+!s100 aD;k6@1h^?:kSK>KU9J1=1
+R8
+33
+R21
+!i10b 1
+R22
+R43
+R44
+!i113 0
+R13
+R14
+Abehavioural
+R45
+Z60 DEx4 work 38 pulsegeneratorplainifcavalonbusmonitor 0 22 HF9KnI6?L:V7P:l?MQIgb3
+R17
+R18
+R2
+R3
+R4
+R26
+!i122 17
+l429
+Z61 L417 61
+V?<c:EQekWATdVD`BMN<S13
+!s100 URXNLF[S[Q`mg6gRhT]Lm2
+R8
+33
+R21
+!i10b 1
+R22
+R43
+R44
+!i113 0
+R13
+R14
+Epulsegeneratorplainifcavalonbusmonitor
+R39
+R2
+R3
+R4
+!i122 17
+R1
+R40
+R41
+l0
+L307 1
+VHF9KnI6?L:V7P:l?MQIgb3
+!s100 Nj4P7fhgT6PX?^H6gc1@G2
+R8
+33
+R21
+!i10b 1
+R22
+R43
+R44
+!i113 0
+R13
+R14
+Abehavioural
+R2
+R3
+R4
+R60
+!i122 17
+l346
+L322 73
+VKalQ3?Km9>YU[zMcK400L0
+!s100 IK40>zZ?9F[IZOYbNO<4>3
+R8
+33
+R21
+!i10b 1
+R22
+R43
+R44
+!i113 0
+R13
+R14
+Ppulsegeneratorplainifcavalonpackage
+R2
+R3
+R4
 !i122 16
-R36
-R0
+R39
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd
 l0
 L17 26
 V52zdF56UDoY02_0KfzVUX2
 !s100 ONRX2[NcS_fSKlY1[Rz`02
-R7
+R8
 33
-R20
+R33
 !i10b 1
-R21
+R34
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAvalonPackage.vhd|
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainifcaxi4lite
-R43
-R16
-R29
-R1
+R46
+R17
+R30
 R2
 R3
+R4
 !i122 13
-R0
-R44
-R45
-l0
-L615 1
-VC>lFCI5G=DG=lk?VLKTZS1
-!s100 1UBe^:T=c`e1@[AjbGCAY2
-R7
-33
-R20
-!i10b 1
-R21
-R46
+R1
 R47
-!i113 0
-R12
-R13
-Abehavioural
 R48
-Z59 DEx4 work 43 pulsegeneratorplainifcaxi4litebuscontroller 0 22 [1UkEJYTcZB:2Z70>?oWE3
-R16
-R29
-R1
-R2
-R3
-R34
-!i122 13
-l664
-L630 133
-VdOP4kfiR18J1cN@m8Y2D;1
-!s100 aLVLNBcOY07hiQh6CZZl21
-R7
-33
-R20
-!i10b 1
-R21
-R46
-R47
-!i113 0
-R12
-R13
-Epulsegeneratorplainifcaxi4litebuscontroller
-R43
-R1
-R2
-R3
-!i122 13
-R0
-R44
-R45
 l0
-L317 1
-V[1UkEJYTcZB:2Z70>?oWE3
-!s100 ]dh7NV7C><azmCBzDEZ@T3
-R7
+L621 1
+V2gh^597SfWSjZiEMAgEKi1
+!s100 on;Fn?nH;U2AVGXB=1jk22
+R8
 33
-R20
+R33
 !i10b 1
-R21
-R46
-R47
+R34
+R49
+R50
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R1
+R51
+Z62 DEx4 work 43 pulsegeneratorplainifcaxi4litebuscontroller 0 22 c03diQUUJ=P98m:A7Q0UY1
+R17
+R30
 R2
 R3
-R59
+R4
+R37
 !i122 13
-l419
-L371 236
-VM6eFG`F5AV93=^K<>@dJ83
-!s100 d]l8V^Ul^mn@69cRh18lk3
-R7
+l670
+L636 133
+VJjzdhAa9Vz84g?A4XfiBB2
+!s100 b@5T?^>k=Q?E=0_KFCGDe2
+R8
 33
-R20
+R33
 !i10b 1
-R21
-R46
-R47
+R34
+R49
+R50
 !i113 0
-R12
 R13
-Ppulsegeneratorplainifcaxi4litepackage
-R1
+R14
+Epulsegeneratorplainifcaxi4litebuscontroller
+R46
 R2
 R3
+R4
+!i122 13
+R1
+R47
+R48
+l0
+L323 1
+Vc03diQUUJ=P98m:A7Q0UY1
+!s100 m8QUJ=1j27EXKZWaMNIV11
+R8
+33
+R33
+!i10b 1
+R34
+R49
+R50
+!i113 0
+R13
+R14
+Abehavioural
+R2
+R3
+R4
+R62
+!i122 13
+l425
+L377 236
+VHENS;?gma5???`GNn>z3<3
+!s100 WB0Mm[c8WR?agSd?iaU?W0
+R8
+33
+R33
+!i10b 1
+R34
+R49
+R50
+!i113 0
+R13
+R14
+Ppulsegeneratorplainifcaxi4litepackage
+R2
+R3
+R4
 !i122 12
-R43
-R0
+R46
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd
 l0
 L17 49
 VFADHRMCWG0UaTL32`MBc]1
 !s100 >e?j76N:LUg:T2=^A0Lh?3
-R7
+R8
 33
-R20
+R33
 !i10b 1
-R9
+R34
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcAxi4LitePackage.vhd|
 !i113 0
-R12
 R13
+R14
 Ppulsegeneratorplainifcuserpackage
-R1
 R2
 R3
+R4
 !i122 6
-R43
-R0
+R46
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd
 l0
 L16 37
-VNjfHO7NW7Y2l]2XBfWcd_2
-!s100 Jh@PX=Tm`RMJU3]9HVY[P1
-R7
-33
+V^DzQVPd86O;F4oU2K9;^z1
+!s100 ]@b5^lS3IGn35caNc<3Mj3
 R8
-!i10b 1
+33
 R9
+!i10b 1
+R10
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcUserPackage.vhd|
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainifcwishbone
-R49
-R16
-R50
-R1
+R52
+R17
+R53
 R2
 R3
+R4
 !i122 9
-R0
-R51
-R52
-l0
-R56
-VH`1db61OH^2BLLO8C0U8c0
-!s100 2nII[HWXAcM1j0dUP>9hb0
-R7
-33
-R8
-!i10b 1
-R9
-R53
+R1
 R54
-!i113 0
-R12
-R13
-Abehavioural
 R55
-Z60 DEx4 work 40 pulsegeneratorplainifcwishbonebusmonitor 0 22 EKUVOH9MVGG7NCIn>IPbD3
-R16
-R50
-R1
-R2
-R3
-Z61 DEx4 work 30 pulsegeneratorplainifcwishbone 0 22 H`1db61OH^2BLLO8C0U8c0
-!i122 9
-l423
-R58
-VG>6EbJaK?VZgFiZj_^aY71
-!s100 GhOGQd^9^b_TgdQjOFX`d3
-R7
-33
-R8
-!i10b 1
-R9
-R53
-R54
-!i113 0
-R12
-R13
-Epulsegeneratorplainifcwishbonebusmonitor
-R49
-R1
-R2
-R3
-!i122 9
-R0
-R51
-R52
 l0
-L305 1
-VEKUVOH9MVGG7NCIn>IPbD3
-!s100 591D@HkCc?fPR5g4mbZ=O2
-R7
-33
+R59
+VdjSU26i2bXT]:HMi8cO8o2
+!s100 =7H19LfMDIi;dYljGAX_`1
 R8
-!i10b 1
+33
 R9
-R53
-R54
+!i10b 1
+R10
+R56
+R57
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R1
-R2
-R3
-R60
-!i122 9
-l342
-L319 70
-V>:YzIKL_dF<<G3iMQlg`63
-!s100 ]k<JIn:a_i=1GnGOTG63W0
-R7
-33
-R8
-!i10b 1
-R9
+R58
+Z63 DEx4 work 40 pulsegeneratorplainifcwishbonebusmonitor 0 22 ;hciNY5^oQfB^2J@<:VH72
+R17
 R53
-R54
-!i113 0
-R12
-R13
-Ppulsegeneratorplainifcwishbonepackage
-R1
 R2
 R3
+R4
+Z64 DEx4 work 30 pulsegeneratorplainifcwishbone 0 22 djSU26i2bXT]:HMi8cO8o2
+!i122 9
+l429
+R61
+VEPHk`YO;LbELcYjC?lzYe1
+!s100 gQf_8jo3PbgH4^ZXb^5W40
+R8
+33
+R9
+!i10b 1
+R10
+R56
+R57
+!i113 0
+R13
+R14
+Epulsegeneratorplainifcwishbonebusmonitor
+R52
+R2
+R3
+R4
+!i122 9
+R1
+R54
+R55
+l0
+L311 1
+V;hciNY5^oQfB^2J@<:VH72
+!s100 >[j`E2C>h=PHBHzFzzb@93
+R8
+33
+R9
+!i10b 1
+R10
+R56
+R57
+!i113 0
+R13
+R14
+Abehavioural
+R2
+R3
+R4
+R63
+!i122 9
+l348
+L325 70
+VD9OEaTK;H;[Ki>:X[N^7`3
+!s100 Ol>_>VIB@@EK:f4ocJB1:3
+R8
+33
+R9
+!i10b 1
+R10
+R56
+R57
+!i113 0
+R13
+R14
+Ppulsegeneratorplainifcwishbonepackage
+R2
+R3
+R4
 !i122 8
-R49
-R0
+R52
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd
 l0
 L17 27
 V3F@k:W86zULfc=^jc`GNh0
 !s100 KP?`V_M@j?GGNfTjhnj^I3
-R7
-33
 R8
-!i10b 1
+33
 R9
+!i10b 1
+R10
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src-gen/vhdl/PulseGeneratorPlainIfcWishbonePackage.vhd|
 !i113 0
-R12
 R13
+R14
 Epulsegeneratorplainuserlogic
-Z62 w1752601569
-R16
-R1
+Z65 w1752601569
+R17
 R2
 R3
+R4
 !i122 7
-R0
-Z63 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd
-Z64 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd
+R1
+Z66 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd
+Z67 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd
 l0
 L36 1
 V?ZzkWJ]S2=_Taoa>QK31a2
 !s100 `8Qm:9l]REO5IV<4mU:^o2
-R7
-33
 R8
-!i10b 1
+33
 R9
-Z65 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd|
-Z66 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd|
+!i10b 1
+R10
+Z68 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd|
+Z69 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainUserLogic.vhd|
 !i113 0
-R12
 R13
+R14
 Artl
-R16
-R1
+R17
 R2
 R3
-R24
+R4
+R25
 !i122 7
 l55
 L49 69
 VA8AHL?gQP3WGgz89?RB^e2
 !s100 nZm_;?MgV7?6i80Ef=4U42
-R7
-33
 R8
-!i10b 1
+33
 R9
-R65
-R66
+!i10b 1
+R10
+R68
+R69
 !i113 0
-R12
 R13
-Epulsegeneratorplainwishbonehxs
-Z67 w1730372386
-R16
-R50
 R14
-R1
+Epulsegeneratorplainwishbonehxs
+Z70 w1730372386
+R17
+R53
+R15
 R2
 R3
+R4
 !i122 10
-R0
-Z68 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd
-Z69 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd
+R1
+Z71 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd
+Z72 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd
 l0
 L9 1
 VhImAd7P[Oee`UV0NE280g3
 !s100 bNd]<LS:I75RF9mfOk^gH0
-R7
-33
 R8
+33
+R33
 !i10b 1
-R9
-Z70 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd|
-Z71 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd|
+R34
+Z73 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd|
+Z74 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/src/vhdl/PulseGeneratorPlainWishboneHxs.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R24
-R61
-R16
-R50
 R14
-R1
+Abehavioural
+R25
+R64
+R17
+R53
+R15
 R2
 R3
-Z72 DEx4 work 30 pulsegeneratorplainwishbonehxs 0 22 hImAd7P[Oee`UV0NE280g3
+R4
+Z75 DEx4 work 30 pulsegeneratorplainwishbonehxs 0 22 hImAd7P[Oee`UV0NE280g3
 !i122 10
 l28
-R27
+R28
 V^PMX=cAKLk`M<i3Db<AD00
 !s100 ^@G3kb1e`i8kRz`Ig^Y0o2
-R7
-33
 R8
+33
+R33
 !i10b 1
-R9
-R70
-R71
+R34
+R73
+R74
 !i113 0
-R12
 R13
+R14
 Ptb_base_pkg
-R1
-R3
 R2
+R4
+R3
 !i122 0
 w1736664893
-R0
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg.vhd
 l0
 L50 400
 V<1niZXFCD56R6:ROVgW250
 !s100 gQ`]k3ELY1V9E8H29Og:P1
-R7
+R8
 33
 b1
-Z73 !s110 1752608026
+Z76 !s110 1752837741
 !i10b 1
-Z74 !s108 1752608026.000000
+Z77 !s108 1752837741.000000
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z75 DPx4 work 11 tb_base_pkg 0 22 <1niZXFCD56R6:ROVgW250
+Z78 DPx4 work 11 tb_base_pkg 0 22 <1niZXFCD56R6:ROVgW250
 DPx4 ieee 9 math_real 0 22 :8NNHF3SFI6^on5?4X[S`1
-R1
-R3
 R2
+R4
+R3
 !i122 1
 w1736664943
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg_body.vhd
@@ -798,285 +812,285 @@ l0
 L51 1446
 VD0z4gD8@?@m[jLkL[>2730
 !s100 Z?oF<IIYhUC?BMmL3QKL12
-R7
+R8
 33
-R73
+R76
 !i10b 1
-R74
+R77
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg_body.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_base_pkg_body.vhd|
 !i113 0
-R12
 R13
+R14
 Ptb_bus_avalon_32_pkg
-R75
-R1
+R78
 R2
 R3
+R4
 !i122 3
-Z76 w1736918072
-R0
-Z77 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd
-Z78 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd
+Z79 w1736918072
+R1
+Z80 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd
+Z81 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd
 l0
 L6 41
 VKO978Jg?Xc=9EKFAY?O6S0
 !s100 aEVl1KZh:l]2Zen5FdTSD1
-R7
+R8
 33
 b1
-R8
-!i10b 1
 R9
-Z79 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd|
-Z80 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd|
+!i10b 1
+R10
+Z82 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd|
+Z83 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_avalon_32_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z81 DPx4 work 20 tb_bus_avalon_32_pkg 0 22 KO978Jg?Xc=9EKFAY?O6S0
-R75
-R1
+Z84 DPx4 work 20 tb_bus_avalon_32_pkg 0 22 KO978Jg?Xc=9EKFAY?O6S0
+R78
 R2
 R3
+R4
 !i122 3
 l0
 L48 180
 Va2k?EIKCA[k847eNcXf^E3
 !s100 XCBf`Y]TXhmA>H]B>:>mG3
-R7
-33
 R8
-!i10b 1
+33
 R9
-R79
-R80
+!i10b 1
+R10
+R82
+R83
 !i113 0
-R12
 R13
+R14
 Ptb_bus_axi4lite_32_pkg
-R75
-R1
+R78
 R2
 R3
+R4
 !i122 2
-Z82 w1736756662
-R0
-Z83 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd
-Z84 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd
+Z85 w1736756662
+R1
+Z86 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd
+Z87 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd
 l0
 L6 64
 VBF]Vh?4K@j;XB5kQY0<9K3
 !s100 OAI7nMhiLd:TdeI9B=`nK0
-R7
+R8
 33
 b1
-R8
+R9
 !i10b 1
-R74
-Z85 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd|
-Z86 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd|
+R10
+Z88 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd|
+Z89 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_axi4lite_32_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z87 DPx4 work 22 tb_bus_axi4lite_32_pkg 0 22 BF]Vh?4K@j;XB5kQY0<9K3
-R75
-R1
+Z90 DPx4 work 22 tb_bus_axi4lite_32_pkg 0 22 BF]Vh?4K@j;XB5kQY0<9K3
+R78
 R2
 R3
+R4
 !i122 2
 l0
 L71 195
 Vnke?R23mE`mHdD@nKX6H41
 !s100 [[83?]kYK2^a<a2D@0?a<2
-R7
-33
 R8
+33
+R9
 !i10b 1
-R74
-R85
-R86
+R10
+R88
+R89
 !i113 0
-R12
 R13
+R14
 Ptb_bus_pkg
-Z88 DPx4 work 22 tb_bus_wishbone_32_pkg 0 22 IImb]E2EULhTz1`HfSHCX2
-R87
-R75
-R81
-R1
+Z91 DPx4 work 22 tb_bus_wishbone_32_pkg 0 22 IImb]E2EULhTz1`HfSHCX2
+R90
+R78
+R84
 R2
 R3
+R4
 !i122 4
-Z89 w1752602259
-R0
-Z90 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd
-Z91 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd
+Z92 w1752602259
+R1
+Z93 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd
+Z94 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd
 l0
 L9 44
 Vi`TD=<<cFlELGm@B8k@<71
 !s100 ]@:<Z;]=N@V31z1TbNnce3
-R7
+R8
 33
 b1
-R8
-!i10b 1
 R9
-Z92 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd|
-Z93 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd|
+!i10b 1
+R10
+Z95 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd|
+Z96 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_bus_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z94 DPx4 work 10 tb_bus_pkg 0 22 i`TD=<<cFlELGm@B8k@<71
-R88
-R87
-R75
-R81
-R1
+Z97 DPx4 work 10 tb_bus_pkg 0 22 i`TD=<<cFlELGm@B8k@<71
+R91
+R90
+R78
+R84
 R2
 R3
+R4
 !i122 4
 l0
 L54 114
 V:o`C_FNdc3z@ca3=UGNAb3
 !s100 QD^N5Z]1DhG0LPhH2zOMY2
-R7
-33
 R8
-!i10b 1
+33
 R9
-R92
-R93
+!i10b 1
+R10
+R95
+R96
 !i113 0
-R12
 R13
+R14
 Ptb_bus_wishbone_32_pkg
-R75
-R1
+R78
 R2
 R3
+R4
 !i122 1
-Z95 w1736756196
-R0
-Z96 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd
-Z97 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd
+Z98 w1736756196
+R1
+Z99 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd
+Z100 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd
 l0
 L6 43
 VIImb]E2EULhTz1`HfSHCX2
 !s100 HO?^[KLYSdbSZUGIhDE9_2
-R7
+R8
 33
 b1
-R73
+R9
 !i10b 1
-R74
-Z98 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd|
-Z99 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd|
+R77
+Z101 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd|
+Z102 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_bus_wishbone_32_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-R88
-R75
-R1
+R91
+R78
 R2
 R3
+R4
 !i122 1
 l0
 L50 177
 V6^f@=h^`;[iYWk^??7OM_1
 !s100 bHi3NB[L>5EO]39?8WneA1
-R7
+R8
 33
-R73
+R9
 !i10b 1
-R74
-R98
-R99
+R77
+R101
+R102
 !i113 0
-R12
 R13
+R14
 Ptb_instructions_pkg
-R75
-R1
-R3
+R78
 R2
+R4
+R3
 !i122 21
-Z100 w1736923495
-R0
-Z101 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd
-Z102 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd
+Z103 w1736923495
+R1
+Z104 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd
+Z105 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd
 l0
 L52 140
 V]G[;LUN8RgOHimA2E8jDn0
 !s100 _UM`VKjDh7XUiaQlgd;jb3
-R7
+R8
 33
 b1
-R20
-!i10b 1
 R21
-Z103 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd|
-Z104 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd|
+!i10b 1
+R22
+Z106 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd|
+Z107 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_instructions_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z105 DPx4 work 19 tb_instructions_pkg 0 22 ]G[;LUN8RgOHimA2E8jDn0
-R75
-R1
-R3
+Z108 DPx4 work 19 tb_instructions_pkg 0 22 ]G[;LUN8RgOHimA2E8jDn0
+R78
 R2
+R4
+R3
 !i122 21
 l0
 L193 487
 V?jFahoa^d^UQF^<iOU1?Z2
 !s100 ;KALbVP;HHl:S<7D1gTE=2
-R7
+R8
 33
-R20
-!i10b 1
 R21
-R103
-R104
+!i10b 1
+R22
+R106
+R107
 !i113 0
-R12
 R13
+R14
 Ptb_interpreter_pkg
-R105
-R75
-R1
+R108
+R78
 R2
 R3
+R4
 !i122 22
 w1736753353
-R0
+R1
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd
 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd
 l0
 L51 337
 VQB3[gC8c1k>NhXEIMTTX`1
 !s100 [77ET]`DOYB?gzICVFB7o0
-R7
+R8
 33
 b1
-Z106 !s110 1752608029
-!i10b 1
 R21
+!i10b 1
+R22
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z107 DPx4 work 18 tb_interpreter_pkg 0 22 QB3[gC8c1k>NhXEIMTTX`1
-R105
-R75
-R1
+Z109 DPx4 work 18 tb_interpreter_pkg 0 22 QB3[gC8c1k>NhXEIMTTX`1
+R108
+R78
 R2
 R3
+R4
 !i122 23
 w1736767271
 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd
@@ -1085,361 +1099,361 @@ l0
 L52 1790
 Vj3]?iUNM:D30YE>KX[G]O1
 !s100 fS1ZBHl=BWCaGHDkod]<60
-R7
+R8
 33
-R106
+R21
 !i10b 1
-Z108 !s108 1752608029.000000
+R22
 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd|
 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd|
 !i113 0
-R12
 R13
+R14
 Ptb_signals_pkg
-R1
-R3
 R2
+R4
+R3
 !i122 20
-Z109 w1752607968
-R0
-Z110 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd
-Z111 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd
+Z110 w1752607968
+R1
+Z111 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd
+Z112 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd
 l0
 L8 78
 Voj@lR0FLzhH7n_LmM2;de3
 !s100 Ee?]69:e]mN;4U7]<7gB?2
-R7
+R8
 33
 b1
-R20
-!i10b 1
 R21
-Z112 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd|
-Z113 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd|
+!i10b 1
+R22
+Z113 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd|
+Z114 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/simstm_src_to_customize/tb_signals_pkg.vhd|
 !i113 0
-R12
 R13
+R14
 Bbody
-Z114 DPx4 work 14 tb_signals_pkg 0 22 oj@lR0FLzhH7n_LmM2;de3
-R1
-R3
+Z115 DPx4 work 14 tb_signals_pkg 0 22 oj@lR0FLzhH7n_LmM2;de3
 R2
+R4
+R3
 !i122 20
 l0
 L87 222
 VX>PQKSGTCEh3Z>4]M3j3J3
 !s100 f[bz6Ho@XgAI:`zgG9DU=2
-R7
+R8
 33
-R20
-!i10b 1
 R21
-R112
+!i10b 1
+R22
 R113
-!i113 0
-R12
-R13
-Etb_simstm
-Z115 w1736928741
 R114
-R88
-R87
-R81
-R94
-R107
-R105
-R75
-R1
-R3
-Z116 DPx3 std 3 env 0 22 QPZJVBPkV?55nUWhDzFik0
+!i113 0
+R13
+R14
+Etb_simstm
+Z116 w1736928741
+R115
+R91
+R90
+R84
+R97
+R109
+R108
+R78
 R2
+R4
+Z117 DPx3 std 3 env 0 22 QPZJVBPkV?55nUWhDzFik0
+R3
 !i122 23
-R0
-Z117 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd
-Z118 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd
+R1
+Z118 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd
+Z119 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd
 l0
 L65 1
 Vk?[Q17:jPI9mP46CYUl<20
 !s100 k?g<;TVfZ2[J8dXoV?Z>R3
-R7
+R8
 33
-R106
+R21
 !i10b 1
-R108
-Z119 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd|
-Z120 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd|
+R22
+Z120 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd|
+Z121 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd|
 !i113 0
-R12
 R13
+R14
 Abehavioural
-R114
-R88
-R87
-R81
-R94
-R107
-R105
-R75
-R1
-R3
-R116
+R115
+R91
+R90
+R84
+R97
+R109
+R108
+R78
 R2
-Z121 DEx4 work 9 tb_simstm 0 22 k?[Q17:jPI9mP46CYUl<20
+R4
+R117
+R3
+Z122 DEx4 work 9 tb_simstm 0 22 k?[Q17:jPI9mP46CYUl<20
 !i122 23
 l126
 L88 1723
 V:f=e2i8TAYjUa5kJogWjW2
 !s100 MG3PzFG[9iSmJT>1AkV=c1
-R7
+R8
 33
-R106
+R21
 !i10b 1
-R108
-R119
+R22
 R120
+R121
 !i113 0
-R12
 R13
+R14
 Etbdutavalon
-Z122 w1752605811
-R88
-R87
-R75
-R81
-R94
-R17
-R1
+Z123 w1752605811
+R91
+R90
+R78
+R84
+R97
+R18
 R2
 R3
+R4
 !i122 19
-R0
-Z123 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd
-Z124 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd
+R1
+Z124 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd
+Z125 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd
 l0
-Z125 L37 1
+Z126 L37 1
 VFJGOT=anGIV=QogADTW:C0
 !s100 4U8RZPWhgFZAgh_5Wj<EP2
-R7
+R8
 33
-R20
-!i10b 1
 R21
-Z126 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd|
-Z127 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd|
+!i10b 1
+R22
+Z127 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd|
+Z128 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAvalon.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R16
 R14
-R26
-R88
-R87
-R75
-R81
-R94
+Abehavioural
 R17
-R1
+R15
+R27
+R91
+R90
+R78
+R84
+R97
+R18
 R2
 R3
-Z128 DEx4 work 11 tbdutavalon 0 22 FJGOT=anGIV=QogADTW:C0
+R4
+Z129 DEx4 work 11 tbdutavalon 0 22 FJGOT=anGIV=QogADTW:C0
 !i122 19
 l58
 L52 94
 V8bi_in_Ne[anPj]]gH1>g3
 !s100 bR^i^jU@H<AHCGCb4>QN>3
-R7
+R8
 33
-R20
-!i10b 1
 R21
-R126
+!i10b 1
+R22
 R127
+R128
 !i113 0
-R12
 R13
+R14
 Etbdutaxi4lite
-Z129 w1752605413
-R88
-R87
-R75
-R81
-R94
-R29
-R1
+Z130 w1752605413
+R91
+R90
+R78
+R84
+R97
+R30
 R2
 R3
+R4
 !i122 15
-R0
-Z130 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd
-Z131 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd
+R1
+Z131 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd
+Z132 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd
 l0
-R125
+R126
 V>2YAk[60G@>naf9ITQ^i^0
 !s100 XR7468kGNEnL2CM34_>jC2
-R7
+R8
 33
-R20
+R33
 !i10b 1
-R21
-Z132 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd|
-Z133 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd|
+R34
+Z133 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd|
+Z134 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutAxi4Lite.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R16
 R14
-R35
-R88
-R87
-R75
-R81
-R94
-R29
-R1
+Abehavioural
+R17
+R15
+R38
+R91
+R90
+R78
+R84
+R97
+R30
 R2
 R3
-Z134 DEx4 work 13 tbdutaxi4lite 0 22 >2YAk[60G@>naf9ITQ^i^0
+R4
+Z135 DEx4 work 13 tbdutaxi4lite 0 22 >2YAk[60G@>naf9ITQ^i^0
 !i122 15
 l58
 L52 101
 VPaNeEVz>4aY>^jPO6SL8O3
 !s100 2:MIc9lDFKUaJG4NLooZ[2
-R7
+R8
 33
-R20
+R33
 !i10b 1
-R21
-R132
+R34
 R133
+R134
 !i113 0
-R12
 R13
+R14
 Etbdutwishbone
-Z135 w1752604941
-R88
-R87
-R75
-R81
-R94
-R50
-R1
+Z136 w1752604941
+R91
+R90
+R78
+R84
+R97
+R53
 R2
 R3
+R4
 !i122 11
-R0
-Z136 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd
-Z137 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd
+R1
+Z137 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd
+Z138 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd
 l0
-R125
+R126
 V]Al3K6`4XESB5l^I]>e7O1
 !s100 JYhdgS0LD6kkGh6@[I^z^1
-R7
-33
 R8
+33
+R33
 !i10b 1
-R9
-Z138 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd|
-Z139 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd|
+R34
+Z139 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd|
+Z140 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbDutWishbone.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R16
 R14
-R72
-R88
-R87
+Abehavioural
+R17
+R15
 R75
-R81
-R94
-R50
-R1
+R91
+R90
+R78
+R84
+R97
+R53
 R2
 R3
-Z140 DEx4 work 13 tbdutwishbone 0 22 ]Al3K6`4XESB5l^I]>e7O1
+R4
+Z141 DEx4 work 13 tbdutwishbone 0 22 ]Al3K6`4XESB5l^I]>e7O1
 !i122 11
 l58
 L52 97
 V@GLV=Ul0SF`4Z`X`I`G7F1
 !s100 AUY]Y<KYBAPQ];Y?Hc_711
-R7
-33
 R8
+33
+R33
 !i10b 1
-R9
-R138
+R34
 R139
+R140
 !i113 0
-R12
 R13
-Etbtop
-Z141 w1752608156
-R16
-R114
-R88
-R87
-R81
-R94
-R75
 R14
-R1
+Etbtop
+Z142 w1752608156
+R17
+R115
+R91
+R90
+R84
+R97
+R78
+R15
 R2
 R3
-!i122 25
-R0
-Z142 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd
-Z143 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd
+R4
+!i122 24
+R1
+Z143 8/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd
+Z144 F/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd
 l0
 L40 1
 VB6NBz6oDFSnaNnWPLJ0Lg2
 !s100 h8iLjcF;lCk1]No?COUY^1
-R7
+R8
 33
-Z144 !s110 1752608161
+Z145 !s110 1752837745
 !i10b 1
-Z145 !s108 1752608161.000000
-Z146 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd|
-!s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd|
+Z146 !s108 1752837745.000000
+Z147 !s90 -2008|/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd|
+Z148 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd|
 !i113 0
-R12
 R13
-Abehavioural
-R29
-R134
-R17
-R128
-R50
-R140
-R107
-R105
-R116
-R121
-R16
-R114
-R88
-R87
-R81
-R94
-R75
 R14
-R1
+Abehavioural
+R30
+R135
+R18
+R129
+R53
+R141
+R109
+R108
+R117
+R122
+R17
+R115
+R91
+R90
+R84
+R97
+R78
+R15
 R2
 R3
+R4
 DEx4 work 5 tbtop 0 22 B6NBz6oDFSnaNnWPLJ0Lg2
-!i122 25
+!i122 24
 l90
 L53 189
 V?7[?9Ba9K8Sl1N1^;8kEJ0
 !s100 KJ90Pb1d>aI4EkbdoAV1W2
-R7
+R8
 33
-R144
-!i10b 1
 R145
+!i10b 1
 R146
-Z147 !s107 /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/vhdl/tbTop.vhd|
+R147
+R148
 !i113 0
-R12
 R13
+R14

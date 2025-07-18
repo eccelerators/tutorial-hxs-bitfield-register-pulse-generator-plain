@@ -16,7 +16,7 @@ proc
     equ SetPulseWidthNsVal 2000    
     call $setPulseWidthNs    
     
-    array get RunningMValList 0 SetOperationMVal
+    equ  SetOperationMVal $RunningMVal
     call $setOperation
     
     wait 3000    

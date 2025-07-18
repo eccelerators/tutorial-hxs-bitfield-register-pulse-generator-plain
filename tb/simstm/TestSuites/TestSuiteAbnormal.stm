@@ -14,7 +14,6 @@ testCasePeriodChangeToTooSmall:
 proc
     file pointer copy TestCaseStartFile TestCasePeriodChangeToTooSmallStartFile
     file pointer copy TestCaseFile TestCasePeriodChangeToTooSmallFile
-    equ TestCaseNumberOfAssertions 1
     call $beginTestCase
     
     if $SKIP = $NOT_SKIPPED

@@ -13,7 +13,8 @@ namespace eccelerators.tutorial
 			Bits = [
 				Operation
 			];
-							
+			Width = 32;		
+					
 			enum Operation
 			{
 				Width = 2;

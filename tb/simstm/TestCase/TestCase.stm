@@ -25,8 +25,7 @@ proc
     file write TestCaseStartFile TestCaseStartLines
   
     lines append message TestCaseLines '<testcase'    
-    lines append message TestCaseLines ' name="{@c3}_{:d}_{@c2}_{:d}"' $TestSuiteIndex $TestCaseIndex
-    lines append message TestCaseLines ' assertions="{:d}"' $TestCaseNumberOfAssertions     
+    lines append message TestCaseLines ' name="{@c3}_{:d}_{@c2}_{:d}"' $TestSuiteIndex $TestCaseIndex   
     lines append message TestCaseLines ' classname="{@c3}_{:d}' $TestSuiteIndex    
     lines append message TestCaseLines ' file="{@f1}"'
     lines append message TestCaseLines ' line="{@l1}"' 
@@ -47,8 +46,7 @@ proc
     file write TestCaseStartFile TestCaseStartLines
       
     lines append message TestCaseLines '<testcase'     
-    lines append message TestCaseLines ' name="{@c3}_{:d}_{@c2}"' $TestSuiteIndex
-    lines append message TestCaseLines ' assertions="{:d}"' $TestCaseNumberOfAssertions     
+    lines append message TestCaseLines ' name="{@c3}_{:d}_{@c2}"' $TestSuiteIndex  
     lines append message TestCaseLines ' classname="{@c3}_{:d}"' $TestSuiteIndex 
     lines append message TestCaseLines ' file="{@f1}"'
     lines append message TestCaseLines ' line="{@l1}"' 
@@ -69,8 +67,7 @@ proc
     file write TestCaseStartFile TestCaseStartLines
       
     lines append message TestCaseLines '<testcase'     
-    lines append message TestCaseLines ' name="{@c3}_{@c2}_{:d}"' $TestCaseIndex
-    lines append message TestCaseLines ' assertions="{:d}"' $TestCaseNumberOfAssertions     
+    lines append message TestCaseLines ' name="{@c3}_{@c2}_{:d}"' $TestCaseIndex   
     lines append message TestCaseLines ' classname="{@c3}"'   
     lines append message TestCaseLines ' file="{@f1}"'
     lines append message TestCaseLines ' line="{@l1}"' 
@@ -93,7 +90,6 @@ proc
     
     lines append message TestCaseLines '<testcase'     
     lines append message TestCaseLines ' name="{@c3}_{@c2}"'    
-    lines append message TestCaseLines ' assertions="{:d}"' $TestCaseNumberOfAssertions 
     lines append message TestCaseLines ' classname="{@c3}"'    
     lines append message TestCaseLines ' file="{@f1}"'
     lines append message TestCaseLines ' line="{@l1}"'

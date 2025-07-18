@@ -25,20 +25,20 @@ class PulseGeneratorPlainBlk:
     def ControlRegAddress(self):
         return (0x0000 + self.PulseGeneratorPlainBlkAddress)
 
-    ControlRegWidth = 2
+    ControlRegWidth = 32
 
-    OperationMask = 0x3
+    OperationMask = 0x00000003
     OperationPosition = 0
     OperationWidth = 2
-    ClearedMVal = 0x0
-    StoppedMVal = 0x1
-    RunningMVal = 0x3
-    OperationBusResetMRstVal = 0x0
+    ClearedMVal = 0x00000000
+    StoppedMVal = 0x00000001
+    RunningMVal = 0x00000003
+    OperationBusResetMRstVal = 0x00000000
 
 
     @property
     def PulsePeriodRegAddress(self):
-        return (0x0001 + self.PulseGeneratorPlainBlkAddress)
+        return (0x0004 + self.PulseGeneratorPlainBlkAddress)
 
     PulsePeriodRegWidth = 32
 
@@ -50,7 +50,7 @@ class PulseGeneratorPlainBlk:
 
     @property
     def PulseWidthRegAddress(self):
-        return (0x0005 + self.PulseGeneratorPlainBlkAddress)
+        return (0x0008 + self.PulseGeneratorPlainBlkAddress)
 
     PulseWidthRegWidth = 32
 

@@ -47,7 +47,7 @@ architecture Behavioural of PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lit
 
 	signal PreReadData : std_logic_vector(31 downto 0);
 	
-	signal PreReadDataControlReg : std_logic_vector(1 downto 0);
+	signal PreReadDataControlReg : std_logic_vector(31 downto 0);
 	signal PreOrReadDataControlReg : std_logic_vector(31 downto 0);
 	signal PreReadAckControlReg : std_logic;
 	signal ReadDiffControlReg : std_logic;
@@ -100,15 +100,15 @@ begin
 	ReadResp <= (others => '0');
 	WriteResp <= (others => '0');
 	
-	PreOrReadDataControlReg <= "000000000000000000000000000000" & PreReadDataControlReg
+	PreOrReadDataControlReg <= PreReadDataControlReg
 		when (PreMatchReadControlReg = '1' and PreReadAckControlReg = '1')
 		else (others => '0');
 	
-	PreOrReadDataPulsePeriodReg <= PreReadDataPulsePeriodReg & x"00"
+	PreOrReadDataPulsePeriodReg <= PreReadDataPulsePeriodReg
 		when (PreMatchReadPulsePeriodReg = '1' and PreReadAckPulsePeriodReg = '1')
 		else (others => '0');
 	
-	PreOrReadDataPulseWidthReg <= PreReadDataPulseWidthReg & x"00"
+	PreOrReadDataPulseWidthReg <= PreReadDataPulseWidthReg
 		when (PreMatchReadPulseWidthReg = '1' and PreReadAckPulseWidthReg = '1')
 		else (others => '0');
 	
@@ -118,7 +118,8 @@ begin
 	
 	PreMatchReadControlRegProcess : process (ReadAddress, ReadAddressMatch)
 	begin
-		if (unsigned(ReadAddress) = unsigned(CONTROLREG_ADDRESS)) then
+		if (unsigned(ReadAddress) >= unsigned(CONTROLREG_ADDRESS) and
+			unsigned(ReadAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
 			PreMatchReadControlReg <= ReadAddressMatch;
 		else
 			PreMatchReadControlReg <= '0';
@@ -127,7 +128,8 @@ begin
 	
 	PreMatchWriteControlRegProcess : process (WriteAddress, WriteAddrMatch)
 	begin
-		if (unsigned(WriteAddress) = unsigned(CONTROLREG_ADDRESS)) then
+		if (unsigned(WriteAddress) >= unsigned(CONTROLREG_ADDRESS) and
+			unsigned(WriteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
 			PreMatchWriteControlReg <= WriteAddrMatch;
 		else
 			PreMatchWriteControlReg <= '0';
@@ -136,7 +138,8 @@ begin
 	
 	WriteDiffControlRegProcess : process (WriteAddress, Write, PreWriteAckControlReg)
 	begin
-		if (unsigned(WriteAddress) = unsigned(CONTROLREG_ADDRESS)) then
+		if (unsigned(WriteAddress) >= unsigned(CONTROLREG_ADDRESS) and
+			unsigned(WriteAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
 			WriteDiffControlReg <= Write and not PreWriteAckControlReg;
 		else
 			WriteDiffControlReg <= '0';
@@ -145,7 +148,8 @@ begin
 	
 	ReadDiffControlRegProcess : process (ReadAddress, Read, PreReadAckControlReg)
 	begin
-		if (unsigned(ReadAddress) = unsigned(CONTROLREG_ADDRESS)) then
+		if (unsigned(ReadAddress) >= unsigned(CONTROLREG_ADDRESS) and
+			unsigned(ReadAddress) <= unsigned(CONTROLREG_ADDRESS) + 3) then
 			ReadDiffControlReg <= Read and not PreReadAckControlReg;
 		else
 			ReadDiffControlReg <= '0';
@@ -226,9 +230,10 @@ begin
 			PreWriteAckPulsePeriodReg <= WriteDiffPulsePeriodReg;
 			PreReadAckPulsePeriodReg <= ReadDiffPulsePeriodReg;
 			if (WriteDiffPulsePeriodReg = '1') then
-				if (WriteByteEnable(3) = '1') then WRegPulsePeriodNs(23 downto 16) <= WriteData(31 downto 24); end if;
-				if (WriteByteEnable(2) = '1') then WRegPulsePeriodNs(15 downto 8) <= WriteData(23 downto 16); end if;
-				if (WriteByteEnable(1) = '1') then WRegPulsePeriodNs(7 downto 0) <= WriteData(15 downto 8); end if;
+				if (WriteByteEnable(3) = '1') then WRegPulsePeriodNs(31 downto 24) <= WriteData(31 downto 24); end if;
+				if (WriteByteEnable(2) = '1') then WRegPulsePeriodNs(23 downto 16) <= WriteData(23 downto 16); end if;
+				if (WriteByteEnable(1) = '1') then WRegPulsePeriodNs(15 downto 8) <= WriteData(15 downto 8); end if;
+				if (WriteByteEnable(0) = '1') then WRegPulsePeriodNs(7 downto 0) <= WriteData(7 downto 0); end if;
 			end if;
 		end if;
 	end process;
@@ -292,9 +297,10 @@ begin
 			PreWriteAckPulseWidthReg <= WriteDiffPulseWidthReg;
 			PreReadAckPulseWidthReg <= ReadDiffPulseWidthReg;
 			if (WriteDiffPulseWidthReg = '1') then
-				if (WriteByteEnable(3) = '1') then WRegPulseWidthNs(23 downto 16) <= WriteData(31 downto 24); end if;
-				if (WriteByteEnable(2) = '1') then WRegPulseWidthNs(15 downto 8) <= WriteData(23 downto 16); end if;
-				if (WriteByteEnable(1) = '1') then WRegPulseWidthNs(7 downto 0) <= WriteData(15 downto 8); end if;
+				if (WriteByteEnable(3) = '1') then WRegPulseWidthNs(31 downto 24) <= WriteData(31 downto 24); end if;
+				if (WriteByteEnable(2) = '1') then WRegPulseWidthNs(23 downto 16) <= WriteData(23 downto 16); end if;
+				if (WriteByteEnable(1) = '1') then WRegPulseWidthNs(15 downto 8) <= WriteData(15 downto 8); end if;
+				if (WriteByteEnable(0) = '1') then WRegPulseWidthNs(7 downto 0) <= WriteData(7 downto 0); end if;
 			end if;
 		end if;
 	end process;
