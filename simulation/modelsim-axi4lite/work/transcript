@@ -13,8 +13,8 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -t ps -L work work.tbTop -i -gtutorial_flavour=0 -gstimulus_path=/home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/ -gtutorial_bustype=2 
-# Start time: 13:22:37 on Jul 18,2025
-# ** Note: (vsim-3812) Design is being optimized...
+# Start time: 14:47:09 on Jul 21,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -85,30 +85,63 @@ run -all
 # nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites/TestSuiteAbnormal.stm
 # nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
 # nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites/TestSuiteRegular.stm
-# Main test started
-# testPeriod4000nsWidth1500ns started
-# testPeriod4000nsWidth1500ns ended with 2 failures
-# testPeriodChangeToTooSmall started
-# testPeriodChangeToTooSmall ended with 2 failures
-# Main test finished
-# ** Note: Verify passes 4
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# ** Note: Timeout monitored bus access passes 14
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# ** Note: SUCCESS
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# ** Note: Test finished
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# 1
-# Break in Process read_file at /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd line 1400
-add wave -position insertpoint sim:/tbtop/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainUserLogic/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite/*
-add wave -position insertpoint sim:/tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainIfcAxi4LiteBusController/*
-write format wave -window .main_pane.wave.interior.cs.body.pw.wf /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/wave.do
+# ** Failure: 
+# error: variable is not defined incStandardTestErrorCount
+#    Time: 0 ps  Iteration: 1  Process: /tbtop/i_tb_simstm/read_file File: /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd
+# Break in Subprogram access_variable at /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd line 366
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+run -all
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainBlk_PulseGeneratorPlainIfcAxi4Lite
+# include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/../../src-gen/simstm/PulseGeneratorPlainIfc.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Base/Base.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Base/Array.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Base/ReadModifyWrite.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/SetGet/PulseGeneratorPlainSetGet.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Abnormal/DynamicConfigMistakes.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Regular/StaticConfig.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestCase/TestCase.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites/TestSuiteAbnormal.stm
+# nested include found in : /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/Common/Common.stm
+# nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites/TestSuiteRegular.stm
+# ** Failure: 
+# error: variable is not defined StandardTestErrorCount
+#    Time: 0 ps  Iteration: 1  Process: /tbtop/i_tb_simstm/read_file File: /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd
+# Break in Subprogram access_variable at /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_interpreter_pkg_body.vhd line 366
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Note: (vsim-8009) Loading existing optimized design _opt
@@ -160,19 +193,21 @@ run -all
 # nested include found: loading file /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/tb/simstm/TestSuites/TestSuiteRegular.stm
 # Main test started
 # testPeriod4000nsWidth1500ns started
-# testPeriod4000nsWidth1500ns ended with 2 failures
-# testPeriodChangeToTooSmall started
-# testPeriodChangeToTooSmall ended with 2 failures
+# loops rising 0x4 
+# loops falling 0x4 
+# was here
+# Passed 4 verify instructions
+# Passed 6 timeout monitored bus access instructions
+# Success
+# testPeriod4000nsWidth1500ns ended
 # Main test finished
 # ** Note: Verify passes 4
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
-# ** Note: Timeout monitored bus access passes 14
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
+#    Time: 18634700 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
+# ** Note: Timeout monitored bus access passes 6
+#    Time: 18634700 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
 # ** Note: SUCCESS
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
+#    Time: 18634700 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
 # ** Note: Test finished
-#    Time: 22386800 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
+#    Time: 18634700 ps  Iteration: 0  Instance: /tbtop/i_tb_simstm
 # 1
 # Break in Process read_file at /home/vagrant/git/tutorial/tutorial-hxs-bitfield-register-pulse-generator-plain/submodules/simstm/src/vhdl/tb_simstm.vhd line 1400
-# End time: 13:29:44 on Jul 18,2025, Elapsed time: 0:07:07
-# Errors: 0, Warnings: 12

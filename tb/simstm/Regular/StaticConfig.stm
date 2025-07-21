@@ -30,7 +30,7 @@
 testPeriod4000nsWidth1500ns:
 proc   
     call $startStandardTestShell
-
+    -- trace 1
     signal write out_InitPulseGeneratorPlain 1
     wait 100
     signal write out_InitPulseGeneratorPlain 0
@@ -52,7 +52,12 @@ proc
     wait 16000
     marker 0 0
     signal verify in_PulseRisingEdgeRecordedNumberOfTimestamps GetNumberOfRisingEdgeRecordsVal 4 0xFFFFFFFF
+    var verify GetNumberOfRisingEdgeRecordsVal 4 0xFFFFFFFF
+    log message $FAILURE "loops rising {} " $GetNumberOfRisingEdgeRecordsVal
     signal verify in_PulseFallingEdgeRecordedNumberOfTimestamps GetNumberOfFallingEdgeRecordsVal 4 0xFFFFFFFF
+    var verify GetNumberOfFallingEdgeRecordsVal 4 0xFFFFFFFF
+    log message $FAILURE "loops falling {} " $GetNumberOfFallingEdgeRecordsVal
+    -- weiter denken, danach 2ter test
        
     signal read in_PulseRisingEdgeTimestamp0 GetRisingEdgeTimestamp0Val
     signal read in_PulseRisingEdgeTimestamp1 GetRisingEdgeTimestamp1Val
@@ -84,68 +89,69 @@ proc
     equ PulseWidthHigh3Val $GetFallingEdgeTimestamp3Val
     sub PulseWidthHigh3Val $GetRisingEdgeTimestamp3Val
     
+    log message $FAILURE "was here"
     
     if $PulseWidthHigh0Val < $PulseWidthHighMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 0 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh0Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
    	if $PulseWidthHigh0Val > $PulseWidthHighMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 0 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh0Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if    
     
     if $PulseWidthLow0Val < $PulseWidthLowMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 0 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow0Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
     if $PulseWidthLow0Val > $PulseWidthLowMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 0 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow0Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if  
         
     if $PulseWidthHigh1Val < $PulseWidthHighMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 1 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh1Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
    	if $PulseWidthHigh1Val > $PulseWidthHighMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 1 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh1Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if    
     
     if $PulseWidthLow1Val < $PulseWidthLowMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 1 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow1Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
     if $PulseWidthLow1Val > $PulseWidthLowMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 1 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow1Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if  
     
     if $PulseWidthHigh2Val < $PulseWidthHighMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 2 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh2Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
    	if $PulseWidthHigh2Val > $PulseWidthHighMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 2 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh2Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if    
     
     if $PulseWidthLow2Val < $PulseWidthLowMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 2 to small, expected min {:d}, got {:d}" $PulseWidthLowMin $PulseWidthLow2Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
     if $PulseWidthLow2Val > $PulseWidthLowMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width Low 2 to large, expected max {:d}, got {:d}" $PulseWidthLowMax $PulseWidthLow2Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if  
         
     if $PulseWidthHigh3Val < $PulseWidthHighMin 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 3 to small, expected min {:d}, got {:d}" $PulseWidthHighMin $PulseWidthHigh3Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if
    	if $PulseWidthHigh3Val > $PulseWidthHighMax 
       log message $FAILURE "testPeriod4000nsWidth1500ns: Pulse Width High 3 to large, expected max {:d}, got {:d}" $PulseWidthHighMax $PulseWidthHigh3Val
-      call $incStandardTestErrorCount
+      call $incStandardTestVerifyFailureCount
     end if    
 
     call $endStandardTestShell 

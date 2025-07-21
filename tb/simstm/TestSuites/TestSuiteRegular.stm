@@ -24,12 +24,11 @@ proc
     end if
     
     call $testPeriod4000nsWidth1500ns
-
-    signal read StandardTestErrorCount StandardTestErrorCountResult
-    if $StandardTestErrorCountResult != 0
-        lines append message TestCaseLines "Period400ms Width200ms test failed"
+    
+    if $StandardTestFailure != 0
+        lines append message TestCaseLines "Period4000ns Width1500ns test failed"
         call $failureTestCase
-    end if
+    end if    
     
     call $endTestCase
     

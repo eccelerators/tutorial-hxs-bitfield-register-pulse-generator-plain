@@ -24,9 +24,7 @@ proc
     end if
     
     call $testPeriodChangeToTooSmall
-
-    signal read StandardTestErrorCount StandardTestErrorCountResult
-    if $StandardTestErrorCountResult != 0
+    if $StandardTestFailure != 0
         lines append message TestCaseLines "Dynamic Period Change To less than current running count test failed"
         call $failureTestCase
     end if

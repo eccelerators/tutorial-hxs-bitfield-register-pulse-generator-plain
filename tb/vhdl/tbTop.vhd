@@ -28,11 +28,11 @@
 --  SOFTWARE.
 -- ******************************************************************************
 library ieee;
-    use ieee.std_logic_1164.all;
-    use ieee.numeric_std.all;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 use work.basic.all;
-use work.tb_base_pkg.all;    
+use work.tb_base_pkg.all;
 use work.tb_bus_pkg.all;
 use work.tb_signals_pkg.all;
 use work.PulseGeneratorPlainIfcUserPackage.all;
@@ -56,7 +56,7 @@ architecture behavioural of tbTop is
 
     signal Clk : std_logic := '0';
     signal Rst : std_logic := '1';
-    
+
     signal executing_line : integer := 0;
     signal executing_file : text_line;
     signal marker : std_logic_vector(15 downto 0) := (others => '0');
@@ -64,31 +64,31 @@ architecture behavioural of tbTop is
     signal verify_failures : std_logic_vector(31 downto 0);
     signal bus_timeout_passes : std_logic_vector(31 downto 0);
     signal bus_timeout_failures : std_logic_vector(31 downto 0);
-     
+
     signal signals_in : t_signals_in;
     signal signals_out : t_signals_out;
     signal bus_down : t_bus_down;
     signal bus_up : t_bus_up;
     signal bus_trace : t_bus_trace;
-                  
+
     signal InitPulseGeneratorPlain : std_logic;
-    
-    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;    
+
+    signal PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown : T_PulseGeneratorPlainIfcPulseGeneratorPlainBlkDown;
     signal Pulse : std_logic;
     signal Failure : std_logic;
-    
+
     signal PulseRisingEdgeTimestampRecorderRestart : std_logic := '0';
     signal PulseRisingEdgeTimestamps : array_of_unsigned(3 downto 0)(31 downto 0) := (others => (others => '0'));
-    signal PulseRisingEdgeRecordedNumberOfTimestamps: unsigned(31 downto 0) := (others => '0');
-    
+    signal PulseRisingEdgeRecordedNumberOfTimestamps : unsigned(31 downto 0) := (others => '0');
+
     signal PulseFallingEdgeTimestampRecorderRestart : std_logic := '0';
     signal PulseFallingEdgeTimestamps : array_of_unsigned(3 downto 0)(31 downto 0) := (others => (others => '0'));
-    signal PulseFallingEdgeRecordedNumberOfTimestamps: unsigned(31 downto 0) := (others => '0');
-    
+    signal PulseFallingEdgeRecordedNumberOfTimestamps : unsigned(31 downto 0) := (others => '0');
+
     signal InitDut : std_logic;
-    
+
 begin
-   
+
     Clk <= transport (not Clk) after 10 ns / 2; -- 100MHz
 
     -- standard inputs
@@ -100,73 +100,69 @@ begin
     signals_in.in_signal_5 <= bus_timeout_passes;
     signals_in.in_signal_6 <= bus_timeout_failures;
     -- signals_in.in_signal_7 Machine value width 
-    
+
     -- standard outputs
     InitDut <= signals_out.out_signal_0;
     -- signals_out.out_signal_4 <= expected_standard_test_verify_failure_count already connected in tb_simstm
     -- signals_out.out_signal_6 <= expected_bus_timeout_test_failure_count already connected in tb_simstm
-   
+
     -- interrupts
     signals_in.in_signal_1000 <= '0';
     signals_in.in_signal_1001 <= '0';
-  
+
     signals_in.in_signal_2000 <= std_logic_vector(to_unsigned(tutorial_flavour, 32));
     signals_in.in_signal_2001 <= std_logic_vector(to_unsigned(tutorial_bustype, 32));
     signals_in.in_signal_2002 <= Pulse;
     signals_in.in_signal_2003 <= Failure;
-    
+
     signals_in.in_signal_2004 <= std_logic_vector(PulseRisingEdgeTimestamps(0));
     signals_in.in_signal_2005 <= std_logic_vector(PulseRisingEdgeTimestamps(1));
     signals_in.in_signal_2006 <= std_logic_vector(PulseRisingEdgeTimestamps(2));
     signals_in.in_signal_2007 <= std_logic_vector(PulseRisingEdgeTimestamps(3));
     signals_in.in_signal_2008 <= std_logic_vector(PulseRisingEdgeRecordedNumberOfTimestamps);
-    
+
     signals_in.in_signal_2009 <= std_logic_vector(PulseFallingEdgeTimestamps(0));
     signals_in.in_signal_2010 <= std_logic_vector(PulseFallingEdgeTimestamps(1));
     signals_in.in_signal_2011 <= std_logic_vector(PulseFallingEdgeTimestamps(2));
     signals_in.in_signal_2012 <= std_logic_vector(PulseFallingEdgeTimestamps(3));
     signals_in.in_signal_2013 <= std_logic_vector(PulseFallingEdgeRecordedNumberOfTimestamps);
-        
+
     InitPulseGeneratorPlain <= signals_out.out_signal_3000;
     PulseRisingEdgeTimestampRecorderRestart <= signals_out.out_signal_3001;
     PulseFallingEdgeTimestampRecorderRestart <= signals_out.out_signal_3002;
-    
+
     Rst <= InitPulseGeneratorPlain;
-    
-    
-    p_record_pulse_rising_edge_timestamps: process (Pulse, PulseRisingEdgeTimestampRecorderRestart) is
+
+
+    p_record_pulse_rising_edge_timestamps : process (Pulse, PulseRisingEdgeTimestampRecorderRestart) is
     begin
         if rising_edge(PulseRisingEdgeTimestampRecorderRestart) then
             PulseRisingEdgeRecordedNumberOfTimestamps <= (others => '0');
         elsif rising_edge(Pulse) then
             for i in 0 to 3 loop
                 if PulseRisingEdgeRecordedNumberOfTimestamps = i then
-                    if rising_edge(Pulse) then
-                        PulseRisingEdgeTimestamps(i) <= to_unsigned((now / 1 ns), 32);
-                        PulseRisingEdgeRecordedNumberOfTimestamps <= PulseRisingEdgeRecordedNumberOfTimestamps + 1;
-                    end if;
+                    PulseRisingEdgeTimestamps(i) <= to_unsigned((now / 1 ns), 32);
+                    PulseRisingEdgeRecordedNumberOfTimestamps <= PulseRisingEdgeRecordedNumberOfTimestamps + 1;
                 end if;
             end loop;
         end if;
     end process;
-    
-    p_record_pulse_falling_edge_timestamps: process (Pulse, PulseFallingEdgeTimestampRecorderRestart) is
+
+    p_record_pulse_falling_edge_timestamps : process (Pulse, PulseFallingEdgeTimestampRecorderRestart) is
     begin
         if Falling_edge(PulseFallingEdgeTimestampRecorderRestart) then
             PulseFallingEdgeRecordedNumberOfTimestamps <= (others => '0');
         elsif Falling_edge(Pulse) then
             for i in 0 to 3 loop
                 if PulseFallingEdgeRecordedNumberOfTimestamps = i then
-                    if Falling_edge(Pulse) then
-                        PulseFallingEdgeTimestamps(i) <= to_unsigned((now / 1 ns), 32);
-                        PulseFallingEdgeRecordedNumberOfTimestamps <= PulseFallingEdgeRecordedNumberOfTimestamps + 1;
-                    end if;
+                    PulseFallingEdgeTimestamps(i) <= to_unsigned((now / 1 ns), 32);
+                    PulseFallingEdgeRecordedNumberOfTimestamps <= PulseFallingEdgeRecordedNumberOfTimestamps + 1;
                 end if;
             end loop;
         end if;
     end process;
-    
-    
+
+
 
     i_tb_simstm : entity work.tb_simstm
         generic map (
@@ -174,7 +170,7 @@ begin
             stimulus_file => stimulus_file,
             stimulus_main_entry_label => stimulus_main_entry_label,
             machine_value_width => machine_value_width,
-            machine_address_width => machine_address_width     
+            machine_address_width => machine_address_width
         )
         port map (
             executing_line => executing_line,
@@ -189,53 +185,53 @@ begin
             bus_down => bus_down,
             bus_up => bus_up
         );
- 
-    g_tb_DutWishbone : if tutorial_bustype = 0 generate 
+
+    g_tb_DutWishbone : if tutorial_bustype = 0 generate
         i_tbDutWishbone : entity work.tbDutWishbone
-        generic map (
-            NsPerClk => NsPerClk
-        )
-        port map(
-            Clk => Clk,
-            Rst => Rst,
-            bus_down => bus_down,
-            bus_up => bus_up,
-            bus_trace => bus_trace,
-            Pulse => Pulse,
-            Failure => Failure
-        );    
-    end generate; 
-    
-    g_tb_DutAvalon : if tutorial_bustype = 1 generate 
-        i_tbDutAvalon : entity work.tbDutAvalon
-        generic map (
-            NsPerClk => NsPerClk
-        )
-        port map(
-            Clk => Clk,
-            Rst => Rst,
-            bus_down => bus_down,
-            bus_up => bus_up,
-            bus_trace => bus_trace,
-            Pulse => Pulse,
-            Failure => Failure
-        );    
+            generic map (
+                NsPerClk => NsPerClk
+            )
+            port map(
+                Clk => Clk,
+                Rst => Rst,
+                bus_down => bus_down,
+                bus_up => bus_up,
+                bus_trace => bus_trace,
+                Pulse => Pulse,
+                Failure => Failure
+            );
     end generate;
-    
-    g_tb_DutAxi4Lite : if tutorial_bustype = 2 generate 
+
+    g_tb_DutAvalon : if tutorial_bustype = 1 generate
+        i_tbDutAvalon : entity work.tbDutAvalon
+            generic map (
+                NsPerClk => NsPerClk
+            )
+            port map(
+                Clk => Clk,
+                Rst => Rst,
+                bus_down => bus_down,
+                bus_up => bus_up,
+                bus_trace => bus_trace,
+                Pulse => Pulse,
+                Failure => Failure
+            );
+    end generate;
+
+    g_tb_DutAxi4Lite : if tutorial_bustype = 2 generate
         i_tbDutAxi4Lite : entity work.tbDutAxi4Lite
-        generic map (
-            NsPerClk => NsPerClk
-        )
-        port map(
-            Clk => Clk,
-            Rst => Rst,
-            bus_down => bus_down,
-            bus_up => bus_up,
-            bus_trace => bus_trace,
-            Pulse => Pulse,
-            Failure => Failure
-        );    
-    end generate;         
-                                                                  
+            generic map (
+                NsPerClk => NsPerClk
+            )
+            port map(
+                Clk => Clk,
+                Rst => Rst,
+                bus_down => bus_down,
+                bus_up => bus_up,
+                bus_trace => bus_trace,
+                Pulse => Pulse,
+                Failure => Failure
+            );
+    end generate;
+
 end architecture;
