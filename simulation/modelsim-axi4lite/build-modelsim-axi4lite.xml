@@ -107,6 +107,24 @@
       </exec>
    </target>
 
+   <target name="modelsim-axi4lite-simulate-gui-wave" description="simulate start gui with waveform viewer">
+      <delete dir="simulation/modelsim-axi4lite/../SimulationResults"/>
+      <mkdir dir="simulation/modelsim-axi4lite/../SimulationResults"/>
+      <exec executable="${vsim-executable}" dir="simulation/modelsim-axi4lite/work">
+         <arg value="-t"/>
+         <arg value="ps"/>
+         <arg value="-L"/>
+         <arg value="work"/>
+         <arg value="work.tbTop"/>
+         <arg value="-gstimulus_path=${basedir}/tb/simstm/"/>
+         <arg value="-gtutorial_flavour=0"/>
+         <arg value="-gtutorial_bustype=2"/>
+         <arg value="-i"/>
+         <arg value="-do"/>
+         <arg value="../../../wave.do"/>
+      </exec>
+   </target>
+
    <target name="modelsim-axi4lite-simulate-suites" description="simulate all suites parallel">
       <delete dir="simulation/modelsim-axi4lite/../SimulationResults"/>
       <mkdir dir="simulation/modelsim-axi4lite/../SimulationResults"/>

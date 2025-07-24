@@ -2,34 +2,44 @@ namespace eccelerators.tutorial
 {
 	block PulseGeneratorPlainBlk
 	{
-		Registers = [ControlReg];
+		Registers = [
+			ControlReg,
+			PulsePeriodReg,
+			PulseWidthReg
+		];
 		register ControlReg
 		{
-			Bits = [
-				PulsePeriodNs,
-				PulseWidthNs,
-				Operation
-			];
-			
-			data PulsePeriodNs
-			{
-				Width = 24;
-			}
-			
-			data PulseWidthNs
-			{
-				Width = 24;
-			}	
-						
+			Width = 32;
+			Bits = [Operation];
 			enum Operation
 			{
-				Width = 1;
+				Width = 2;
 				Values = {
-					0b0 : value Stopped {},
-					0b1 : value Running {}
+					0b00 : value Cleared {},
+					0b01 : value Stopped {},
+					0b11 : value Running {}
 				};
 			}	
 							
 		}
-	}
+		register PulsePeriodReg
+		{
+			Bits = [PulsePeriodNs];
+			data PulsePeriodNs
+			{
+				Width = 32;
+			}	
+							
+		}
+		
+		register PulseWidthReg
+		{
+			Bits = [PulseWidthNs];
+			data PulseWidthNs
+			{
+				Width = 32;
+			}	
+							
+		}
+}
 }
