@@ -3,8 +3,8 @@ quietly WaveActivateNextPane {} 0
 add wave -noupdate /tbtop/Clk
 add wave -noupdate /tbtop/Rst
 add wave -noupdate -radix unsigned /tbtop/executing_line
-add wave -noupdate -expand /tbtop/executing_file
-add wave -noupdate /tbtop/marker
+add wave -noupdate /tbtop/executing_file
+add wave -noupdate -expand -subitemconfig {/tbtop/marker(0) {-color Blue -height 18 -itemcolor Blue}} /tbtop/marker
 add wave -noupdate /tbtop/verify_passes
 add wave -noupdate /tbtop/verify_failures
 add wave -noupdate /tbtop/bus_timeout_passes
@@ -14,13 +14,13 @@ add wave -noupdate /tbtop/signals_out
 add wave -noupdate /tbtop/bus_down
 add wave -noupdate /tbtop/bus_up
 add wave -noupdate /tbtop/InitPulseGeneratorPlain
-add wave -noupdate /tbtop/Pulse
-add wave -noupdate /tbtop/Failure
+add wave -noupdate -color Salmon -itemcolor Salmon /tbtop/Pulse
+add wave -noupdate -color {Orange Red} -itemcolor {Orange Red} /tbtop/Failure
 add wave -noupdate /tbtop/PulseRisingEdgeTimestampRecorderRestart
-add wave -noupdate /tbtop/PulseRisingEdgeTimestamps
-add wave -noupdate /tbtop/PulseRisingEdgeRecordedNumberOfTimestamps
+add wave -noupdate -radix decimal -childformat {{/tbtop/PulseRisingEdgeTimestamps(3) -radix decimal} {/tbtop/PulseRisingEdgeTimestamps(2) -radix decimal} {/tbtop/PulseRisingEdgeTimestamps(1) -radix decimal} {/tbtop/PulseRisingEdgeTimestamps(0) -radix decimal}} -radixshowbase 0 -expand -subitemconfig {/tbtop/PulseRisingEdgeTimestamps(3) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseRisingEdgeTimestamps(2) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseRisingEdgeTimestamps(1) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseRisingEdgeTimestamps(0) {-height 18 -radix decimal -radixshowbase 0}} /tbtop/PulseRisingEdgeTimestamps
+add wave -noupdate -radix decimal -radixshowbase 0 /tbtop/PulseRisingEdgeRecordedNumberOfTimestamps
 add wave -noupdate /tbtop/PulseFallingEdgeTimestampRecorderRestart
-add wave -noupdate /tbtop/PulseFallingEdgeTimestamps
+add wave -noupdate -radix decimal -childformat {{/tbtop/PulseFallingEdgeTimestamps(3) -radix decimal} {/tbtop/PulseFallingEdgeTimestamps(2) -radix decimal} {/tbtop/PulseFallingEdgeTimestamps(1) -radix decimal} {/tbtop/PulseFallingEdgeTimestamps(0) -radix decimal}} -radixshowbase 0 -subitemconfig {/tbtop/PulseFallingEdgeTimestamps(3) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseFallingEdgeTimestamps(2) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseFallingEdgeTimestamps(1) {-height 18 -radix decimal -radixshowbase 0} /tbtop/PulseFallingEdgeTimestamps(0) {-height 18 -radix decimal -radixshowbase 0}} /tbtop/PulseFallingEdgeTimestamps
 add wave -noupdate /tbtop/PulseFallingEdgeRecordedNumberOfTimestamps
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/PulseGeneratorPlainAxi4LiteDown
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/PulseGeneratorPlainAxi4LiteUp
@@ -35,8 +35,8 @@ add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlain
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/Axi4LiteUp
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/Axi4LiteAccess
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/Trace
-add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/PulseGeneratorPlainBlkDown
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/PreAxi4LiteUp
+add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/PulseGeneratorPlainBlkDown
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/PreAxi4LiteAccess
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/UnoccupiedAck
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/TimeoutAck
@@ -99,10 +99,10 @@ add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlain
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainIfcAxi4LiteBusController/ReadProtect
 add wave -noupdate /tbtop/g_tb_DutAxi4Lite/i_tbDutAxi4Lite/i_PulseGeneratorPlainAxi4LiteHxs/i_PulseGeneratorPlainIfcAxi4Lite/i_PulseGeneratorPlainIfcAxi4LiteBusController/WriteProtect
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {1485200 ps} 0}
+WaveRestoreCursors {{Cursor 1} {15299428 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 594
-configure wave -valuecolwidth 100
+configure wave -valuecolwidth 425
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
 configure wave -snapdistance 10
@@ -115,4 +115,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {1483055 ps} {1487345 ps}
+WaveRestoreZoom {0 ps} {20616435 ps}

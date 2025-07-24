@@ -57,7 +57,7 @@ proc
     signal verify in_PulseFallingEdgeRecordedNumberOfTimestamps GetNumberOfFallingEdgeRecordsVal 4 0xFFFFFFFF
     var verify GetNumberOfFallingEdgeRecordsVal 4 0xFFFFFFFF
     log message $FAILURE "loops falling {} " $GetNumberOfFallingEdgeRecordsVal
-    -- weiter denken, danach 2ter test
+    
        
     signal read in_PulseRisingEdgeTimestamp0 GetRisingEdgeTimestamp0Val
     signal read in_PulseRisingEdgeTimestamp1 GetRisingEdgeTimestamp1Val

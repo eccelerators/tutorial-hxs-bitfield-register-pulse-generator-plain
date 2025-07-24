@@ -20,7 +20,7 @@ proc
     call $setOperation
     
     wait 3000    
-    signal verify in_Pulse GetPulseVal 1 0
+    signal verify in_Pulse GetPulseVal 0 1
         
     equ SetPulsePeriodNsVal 1000  
     call $setPulsePeriodNs
