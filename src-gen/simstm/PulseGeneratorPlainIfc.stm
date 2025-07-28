@@ -28,9 +28,9 @@ const ControlRegWidth 32
 const OperationMask 0x00000003
 const OperationPosition 0
 const OperationWidth 2
+const RunningMVal 0x00000003
 const ClearedMVal 0x00000000
 const StoppedMVal 0x00000001
-const RunningMVal 0x00000003
 const OperationBusResetMRstVal 0x00000000
 
 var PulsePeriodRegAddress 0x0000
@@ -39,7 +39,7 @@ const PulsePeriodRegWidth 32
 const PulsePeriodNsMask 0xFFFFFFFF
 const PulsePeriodNsPosition 0
 const PulsePeriodNsWidth 32
-const PulsePeriodNsBusResetMRstVal 0x00000000
+const PulsePeriodNs_RstMRstVal 0x00000FA0
 
 var PulseWidthRegAddress 0x0000
 const PulseWidthRegWidth 32
@@ -47,7 +47,7 @@ const PulseWidthRegWidth 32
 const PulseWidthNsMask 0xFFFFFFFF
 const PulseWidthNsPosition 0
 const PulseWidthNsWidth 32
-const PulseWidthNsBusResetMRstVal 0x00000000
+const PulseWidthNs_RstMRstVal 0x000005DC
 
 
 PulseGeneratorPlainIfcInit:
@@ -67,13 +67,20 @@ proc
     add PulseWidthRegAddress $PulseGeneratorPlainBlkAddress
 end proc
 
+var RvalPulseGeneratorPlainBlk_Rst 0
+
+ResetTestPulseGeneratorPlainBlkByRst:
+proc
+    bus verify PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress RvalPulseGeneratorPlainBlk_Rst $PulsePeriodNs_RstMRstVal $PulsePeriodNsMask
+    bus verify PulseGeneratorPlainIfcBus 32 $PulseWidthRegAddress RvalPulseGeneratorPlainBlk_Rst $PulseWidthNs_RstMRstVal $PulseWidthNsMask
+end proc
+
+
 var RvalPulseGeneratorPlainBlk_BusReset 0
 
 ResetTestPulseGeneratorPlainBlkByBusReset:
 proc
     bus verify PulseGeneratorPlainIfcBus 32 $ControlRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $OperationMask
-    bus verify PulseGeneratorPlainIfcBus 32 $PulsePeriodRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulsePeriodNsMask
-    bus verify PulseGeneratorPlainIfcBus 32 $PulseWidthRegAddress RvalPulseGeneratorPlainBlk_BusReset 0 $PulseWidthNsMask
 end proc
 
 

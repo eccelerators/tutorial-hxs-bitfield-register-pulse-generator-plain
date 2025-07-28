@@ -151,6 +151,7 @@ begin
 	Trace_Axi4LiteAccess_ReadInstruction <= Trace.Axi4LiteAccess.ReadInstruction;
 	Trace_UnoccupiedAck <= Trace.UnoccupiedAck;
 	Trace_TimeoutAck <= Trace.TimeoutAck;
+	
 	PulseGeneratorPlainBlkDown_Operation <= PulseGeneratorPlainBlkDown.Operation;
 	PulseGeneratorPlainBlkDown_PulsePeriodNs <= PulseGeneratorPlainBlkDown.PulsePeriodNs;
 	PulseGeneratorPlainBlkDown_PulseWidthNs <= PulseGeneratorPlainBlkDown.PulseWidthNs;

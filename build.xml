@@ -46,10 +46,10 @@
 	<loadfile if:set="flavour.number.file.present" property="flavour.number" srcFile="flavour.number"/>
 		
 	<property name="flavour.name.0" value="PulseGeneratorPlainBlk.hxs"/>
-	<property name="flavour.name.1" value="PulseGeneratorPlainBlk.Minimal.ResetOffImplicit.ValuesList.hxs"/>
-	<property name="flavour.name.2" value="PulseGeneratorPlainBlk.Minimal.ResetOffImplicit.ValuesDictionary.hxs"/>
-	<property name="flavour.name.3" value="PulseGeneratorPlainBlk.Minimal.ResetOnImplicit.ValuesList.hxs"/>
-	<property name="flavour.name.4" value="PulseGeneratorPlainBlk.Minimal.ResetOnImplicit.ValuesDictionary.hxs"/>
+	<property name="flavour.name.1" value="PulseGeneratorPlainBlk.Minimal.ResetClearedImplicit.ValuesList.hxs"/>
+	<property name="flavour.name.2" value="PulseGeneratorPlainBlk.Minimal.ResetClearedImplicit.ValuesDictionary.hxs"/>
+	<property name="flavour.name.3" value="PulseGeneratorPlainBlk.Minimal.ResetRunningImplicit.ValuesList.hxs"/>
+	<property name="flavour.name.4" value="PulseGeneratorPlainBlk.Minimal.ResetRunningImplicit.ValuesDictionary.hxs"/>
 	
 	<input unless:set="flavour.number" message="Choose flavour: ${line.separator}
 		0 No flavour, use ${flavour.name.0} ${line.separator}

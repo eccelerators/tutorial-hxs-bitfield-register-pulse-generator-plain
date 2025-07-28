@@ -36,18 +36,18 @@ proc
     signal write out_InitPulseGeneratorPlain 0
     wait 100
     
-    equ SetPulsePeriodNsVal 4000   
-    call $setPulsePeriodNs
-    equ SetPulseWidthNsVal 1500   
-    call $setPulseWidthNs    
+--    equ SetPulsePeriodNsVal 4000   
+--    call $setPulsePeriodNs
+--    equ SetPulseWidthNsVal 1500   
+--    call $setPulseWidthNs    
  
     marker 0 1
     signal write out_PulseRisingEdgeTimestampRecorderRestart 0
     signal write out_PulseRisingEdgeTimestampRecorderRestart 1
     signal write out_PulseFallingEdgeTimestampRecorderRestart 0
     signal write out_PulseFallingEdgeTimestampRecorderRestart 1      
-    equ SetOperationMVal $RunningMVal
-    call $setOperation
+--    equ SetOperationMVal $RunningMVal
+--    call $setOperation
     
     wait 16000
     marker 0 0

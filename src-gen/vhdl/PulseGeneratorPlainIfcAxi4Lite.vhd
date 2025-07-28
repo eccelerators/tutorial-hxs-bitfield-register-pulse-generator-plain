@@ -161,7 +161,7 @@ begin
 		if (Rst = '1') then
 			PreReadAckControlReg <= '0';
 			PreWriteAckControlReg <= '0';
-			WRegOperation <= CLEARED;
+			WRegOperation <= RUNNING;
 		elsif rising_edge(Clk) then
 			PreWriteAckControlReg <= WriteDiffControlReg;
 			PreReadAckControlReg <= ReadDiffControlReg;
@@ -225,7 +225,7 @@ begin
 		if (Rst = '1') then
 			PreReadAckPulsePeriodReg <= '0';
 			PreWriteAckPulsePeriodReg <= '0';
-			WRegPulsePeriodNs <= (others => '0');
+			WRegPulsePeriodNs <= RST0_INIT;
 		elsif rising_edge(Clk) then
 			PreWriteAckPulsePeriodReg <= WriteDiffPulsePeriodReg;
 			PreReadAckPulsePeriodReg <= ReadDiffPulsePeriodReg;
@@ -292,7 +292,7 @@ begin
 		if (Rst = '1') then
 			PreReadAckPulseWidthReg <= '0';
 			PreWriteAckPulseWidthReg <= '0';
-			WRegPulseWidthNs <= (others => '0');
+			WRegPulseWidthNs <= RST1_INIT;
 		elsif rising_edge(Clk) then
 			PreWriteAckPulseWidthReg <= WriteDiffPulseWidthReg;
 			PreReadAckPulseWidthReg <= ReadDiffPulseWidthReg;

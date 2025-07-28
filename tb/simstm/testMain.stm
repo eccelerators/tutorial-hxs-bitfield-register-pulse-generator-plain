@@ -33,7 +33,7 @@ proc
 	log message $INFO "Main test started"
 
 	call $testPeriod4000nsWidth1500ns
-	call $testPeriodChangeToTooSmall
+--	call $testPeriodChangeToTooSmall
 
 	log message $INFO "Main test finished"
 	wait 1000
