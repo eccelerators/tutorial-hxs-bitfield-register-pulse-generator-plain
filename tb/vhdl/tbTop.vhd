@@ -138,6 +138,7 @@ begin
     begin
         if rising_edge(PulseRisingEdgeTimestampRecorderRestart) then
             PulseRisingEdgeRecordedNumberOfTimestamps <= (others => '0');
+            PulseRisingEdgeTimestamps <= (others => (others => '0'));
         elsif rising_edge(Pulse) then
             for i in 0 to 3 loop
                 if PulseRisingEdgeRecordedNumberOfTimestamps = i then
@@ -150,9 +151,10 @@ begin
 
     p_record_pulse_falling_edge_timestamps : process (Pulse, PulseFallingEdgeTimestampRecorderRestart) is
     begin
-        if Falling_edge(PulseFallingEdgeTimestampRecorderRestart) then
+        if rising_edge(PulseFallingEdgeTimestampRecorderRestart) then
             PulseFallingEdgeRecordedNumberOfTimestamps <= (others => '0');
-        elsif Falling_edge(Pulse) then
+            PulseFallingEdgeTimestamps <= (others => (others => '0'));
+        elsif falling_edge(Pulse) then
             for i in 0 to 3 loop
                 if PulseFallingEdgeRecordedNumberOfTimestamps = i then
                     PulseFallingEdgeTimestamps(i) <= to_unsigned((now / 1 ns), 32);

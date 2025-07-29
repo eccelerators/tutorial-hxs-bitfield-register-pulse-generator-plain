@@ -30,9 +30,9 @@ class PulseGeneratorPlainBlk:
     OperationMask = 0x00000003
     OperationPosition = 0
     OperationWidth = 2
-    RunningMVal = 0x00000003
     ClearedMVal = 0x00000000
     StoppedMVal = 0x00000001
+    RunningMVal = 0x00000003
     OperationBusResetMRstVal = 0x00000000
 
 
@@ -45,7 +45,7 @@ class PulseGeneratorPlainBlk:
     PulsePeriodNsMask = 0xFFFFFFFF
     PulsePeriodNsPosition = 0
     PulsePeriodNsWidth = 32
-    PulsePeriodNs_RstMRstVal = 0x00000FA0
+    PulsePeriodNsBusResetMRstVal = 0x00000000
 
 
     @property
@@ -57,4 +57,4 @@ class PulseGeneratorPlainBlk:
     PulseWidthNsMask = 0xFFFFFFFF
     PulseWidthNsPosition = 0
     PulseWidthNsWidth = 32
-    PulseWidthNs_RstMRstVal = 0x000005DC
+    PulseWidthNsBusResetMRstVal = 0x00000000

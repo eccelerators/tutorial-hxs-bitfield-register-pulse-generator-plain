@@ -26,28 +26,39 @@
     var PulseWidthHighMax 1520
     var PulseWidthLowMin 2480
     var PulseWidthLowMax 2520
+    
 
 testPeriod4000nsWidth1500ns:
 proc   
     call $startStandardTestShell
+    
+    call $getFlavour
+   
     -- trace 1
     signal write out_InitPulseGeneratorPlain 1
     wait 100
     signal write out_InitPulseGeneratorPlain 0
     wait 100
-    
---    equ SetPulsePeriodNsVal 4000   
---    call $setPulsePeriodNs
---    equ SetPulseWidthNsVal 1500   
---    call $setPulseWidthNs    
- 
+
+	if $GetFlavourVal < 2
+		equ SetPulsePeriodNsVal 4000   
+	    call $setPulsePeriodNs
+	    equ SetPulseWidthNsVal 1500   
+	    call $setPulseWidthNs  
+	end if  
+
+	call $waitForPulseLow
+ 	
     marker 0 1
-    signal write out_PulseRisingEdgeTimestampRecorderRestart 0
-    signal write out_PulseRisingEdgeTimestampRecorderRestart 1
-    signal write out_PulseFallingEdgeTimestampRecorderRestart 0
-    signal write out_PulseFallingEdgeTimestampRecorderRestart 1      
---    equ SetOperationMVal $RunningMVal
---    call $setOperation
+	    signal write out_PulseRisingEdgeTimestampRecorderRestart 0
+	    signal write out_PulseRisingEdgeTimestampRecorderRestart 1
+	    signal write out_PulseFallingEdgeTimestampRecorderRestart 0
+	    signal write out_PulseFallingEdgeTimestampRecorderRestart 1
+	    
+	if $GetFlavourVal < 2
+	    equ SetOperationMVal $RunningMVal
+	    call $setOperation
+	end if  
     
     wait 16000
     marker 0 0

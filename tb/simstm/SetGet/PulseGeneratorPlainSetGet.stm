@@ -85,3 +85,11 @@ proc
 end proc
 
 
+    -- parameter/result
+    var GetFlavourVal 0
+
+getFlavour:
+proc
+	signal read in_Flavour GetFlavourVal
+end proc
+

@@ -230,7 +230,7 @@ package body tb_signals_pkg is
             when 3001 =>
                 signals.out_signal_3001 <= value(0);
             when 3002 =>
-                signals.out_signal_3001 <= value(0);
+                signals.out_signal_3002 <= value(0);
                 
             -- when x =>
             --    signals.out_signal_x <= temp_var(signals.out_signal_x'left downto 0);

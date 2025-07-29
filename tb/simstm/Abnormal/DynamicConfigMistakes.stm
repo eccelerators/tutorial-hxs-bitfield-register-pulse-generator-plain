@@ -6,6 +6,8 @@ testPeriodChangeToTooSmall:
 proc   
     call $startStandardTestShell
     
+    call $getFlavour
+    
     signal write out_InitPulseGeneratorPlain 1
     wait 100
     signal write out_InitPulseGeneratorPlain 0
@@ -16,8 +18,10 @@ proc
     equ SetPulseWidthNsVal 2000    
     call $setPulseWidthNs    
     
-    equ  SetOperationMVal $RunningMVal
-    call $setOperation
+    if $GetFlavourVal < 2
+	    equ  SetOperationMVal $RunningMVal
+	    call $setOperation
+    end if
     
     wait 3000    
     signal verify in_Pulse GetPulseVal 0 1

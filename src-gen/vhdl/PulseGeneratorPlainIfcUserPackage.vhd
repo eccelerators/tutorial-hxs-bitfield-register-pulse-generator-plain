@@ -31,9 +31,9 @@ package PulseGeneratorPlainIfcUserPackage is
 	constant OPERATION_POSITION : integer := 0;
 	constant OPERATION_WIDTH : integer := 2;
 	constant OPERATION_MASK : std_logic_vector(31 downto 0) := x"00000003";
-	constant RUNNING : std_logic_vector(1 downto 0) := "11";
 	constant CLEARED : std_logic_vector(1 downto 0) := "00";
 	constant STOPPED : std_logic_vector(1 downto 0) := "01";
+	constant RUNNING : std_logic_vector(1 downto 0) := "11";
 	
 	constant PULSEPERIODREG_WIDTH : integer := 32;
 	constant PULSEPERIODREG_ADDRESS : std_logic_vector(15 downto 0) := std_logic_vector(x"0004" + unsigned(PULSEGENERATORPLAINBLK_BASE_ADDRESS));
@@ -48,9 +48,5 @@ package PulseGeneratorPlainIfcUserPackage is
 	constant PULSEWIDTHNS_POSITION : integer := 0;
 	constant PULSEWIDTHNS_WIDTH : integer := 32;
 	constant PULSEWIDTHNS_MASK : std_logic_vector(31 downto 0) := x"FFFFFFFF";
-	
-	constant RST0_INIT : std_logic_vector(31 downto 0) := x"00000FA0";
-	
-	constant RST1_INIT : std_logic_vector(31 downto 0) := x"000005DC";
 	
 end;
