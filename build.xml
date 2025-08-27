@@ -82,11 +82,12 @@
 	<import file="./submodules/tutorial-hxs-common/build-hxs.xml" optional="true"/>   
 	<import file="./submodules/tutorial-hxs-common/build-ip-vivado.xml" optional="true"/>
 	<import file="./simulation/modelsim-axi4lite/build-modelsim-axi4lite.xml" optional="true"/>
-	<import file="./simulation/ghdl-axi4lite/build-ghdl-axi4lite.xml" optional="true"/>
-	<import file="./simulation/modelsim-wishbone/build-modelsim-wishbone.xml" optional="true"/>
-	<import file="./simulation/ghdl-axi4lite/build-ghdl-wishbone.xml" optional="true"/>
+	<import file="./simulation/modelsim-wishbone/build-modelsim-wishbone.xml" optional="true"/>	
 	<import file="./simulation/modelsim-avalon/build-modelsim-avalon.xml" optional="true"/>
-	<import file="./simulation/ghdl-axi4lite/build-ghdl-avalon.xml" optional="true"/>
+	
+<!--	<import file="./simulation/ghdl-axi4lite/build-ghdl-axi4lite.xml" optional="true"/>
+	<import file="./simulation/ghdl-axi4lite/build-ghdl-wishbone.xml" optional="true"/>
+	<import file="./simulation/ghdl-axi4lite/build-ghdl-avalon.xml" optional="true"/>-->
 
     <target name="flavour-clean" description="Delete all previously generated result files">
         <delete file="flavour.number" failonerror="false"/>
